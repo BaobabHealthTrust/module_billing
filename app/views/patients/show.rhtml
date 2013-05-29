@@ -215,8 +215,7 @@ next_task = @task.encounter_type.gsub('_',' ') rescue nil
           <option link="<%= @task.url  %>" ttSize = "160px">Continue</option>
         <% end %>
         <%id = params[:id] || params[:patient_id]%>
-         <option link="/patients/baby_chart?patient_id=<%= id %>&user_id=<%=params[:user_id]%>&baby_id=<%= id %>" ttSize = "160px">Weight Chart</option>
-
+         
       </select>
 
       <input type='submit' value='Finish' />
