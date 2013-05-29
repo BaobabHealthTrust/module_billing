@@ -1,9 +1,11 @@
 tmp/*
-nbproject/*
+nbproject/*	
 *.swap
 *.yml
+public/analyze_protocol
+public/clean	
 script/analyze_protocol
-script/clean
+script/clean	
 Gemfile.lock
 *~
 log/*
