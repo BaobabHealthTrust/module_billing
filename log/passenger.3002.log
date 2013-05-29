@@ -1,0 +1,16 @@
+[ 2013-05-27 15:01:42.7388 6141/7f8888147740 agents/HelperAgent/Main.cpp:554 ]: PassengerHelperAgent online, listening at unix:/tmp/passenger.1.0.6137/generation-0/request.socket
+[ 2013-05-27 15:01:42.7513 6147/7f26b5cf8740 agents/LoggingAgent/Main.cpp:272 ]: PassengerLoggingAgent online, listening at unix:/tmp/passenger.1.0.6137/generation-0/logging.socket
+[ 2013-05-27 15:01:44.7642 6141/7f8888061700 Pool2/Spawner.h:739 ]: [App 6167 stdout] 
+[ 2013-05-27 15:01:45.5780 6141/7f8888061700 Pool2/SmartSpawner.h:300 ]: Preloader for /var/www/module_under_5 started on PID 6167, listening on unix:/tmp/passenger.1.0.6137/generation-0/backends/preloader.6167
+[ 2013-05-27 15:15:25.5380 6141/7f888800f700 Pool2/Implementation.cpp:1156 ]: [App 6167 stderr] /var/www/module_under_5/app/views/clinic/index.rhtml:28: warning: Object#id will be deprecated; use Object#object_id
+[ 2013-05-27 15:21:51.1085 6141/7f88880a2700 Pool2/Spawner.h:739 ]: [App 8423 stdout] 
+[ 2013-05-27 15:21:51.9043 6141/7f88880a2700 Pool2/SmartSpawner.h:300 ]: Preloader for /var/www/module_under_5 started on PID 8423, listening on unix:/tmp/passenger.1.0.6137/generation-0/backends/preloader.8423
+[ 2013-05-27 15:48:01.4019 6141/7f8888061700 Pool2/Spawner.h:739 ]: [App 11241 stdout] 
+[ 2013-05-27 15:48:02.1967 6141/7f8888061700 Pool2/SmartSpawner.h:300 ]: Preloader for /var/www/module_under_5 started on PID 11241, listening on unix:/tmp/passenger.1.0.6137/generation-0/backends/preloader.11241
+[ 2013-05-27 16:12:44.6687 6141/7f888800f700 Pool2/Spawner.h:739 ]: [App 13688 stdout] 
+[ 2013-05-27 16:12:45.4648 6141/7f888800f700 Pool2/SmartSpawner.h:300 ]: Preloader for /var/www/module_under_5 started on PID 13688, listening on unix:/tmp/passenger.1.0.6137/generation-0/backends/preloader.13688
+[ 2013-05-28 10:17:26.6294 2977/7f10eba12740 agents/HelperAgent/Main.cpp:554 ]: PassengerHelperAgent online, listening at unix:/tmp/passenger.1.0.2973/generation-0/request.socket
+[ 2013-05-28 10:17:26.6780 2983/7f6946ae1740 agents/LoggingAgent/Main.cpp:272 ]: PassengerLoggingAgent online, listening at unix:/tmp/passenger.1.0.2973/generation-0/logging.socket
+[ 2013-05-28 10:17:28.7527 2977/7f10eb92c700 Pool2/Spawner.h:739 ]: [App 3013 stdout] 
+[ 2013-05-28 10:17:30.2760 2977/7f10eb92c700 Pool2/SmartSpawner.h:300 ]: Preloader for /var/www/module_under_5 started on PID 3013, listening on unix:/tmp/passenger.1.0.2973/generation-0/backends/preloader.3013
+[ 2013-05-28 10:17:50.1879 2977/7f10eb8da700 Pool2/Implementation.cpp:1156 ]: [App 3013 stderr] /var/www/module_under_5/app/views/clinic/index.rhtml:28: warning: Object#id will be deprecated; use Object#object_id

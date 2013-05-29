@@ -1,0 +1,17 @@
+Instructions for Running Application 
+
+1. With external User Management and Patient Registration Modules.
+
+ Run the application as is normally done
+ 
+ 2. With Internal User Management and Patient Registration Modules
+ 
+ 		a. Merge parent application routes with routes in user management and patient registration modules
+ 		b. Merge parent application library files in /lib with library files in user management and patient registration modules
+ 		c. Make sure that the line 
+ 			 	config.reload_plugins = true
+ 			 Is available in file config/environment.rb
+ 		The application link can as well be used as link for user management and patient registration by other applications
+
+ Ideally, all applications to use one database
+ 		

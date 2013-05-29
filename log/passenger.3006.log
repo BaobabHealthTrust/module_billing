@@ -1,0 +1,13 @@
+[ 2013-05-24 11:38:04.2535 10822/7f13a000e740 agents/HelperAgent/Main.cpp:554 ]: PassengerHelperAgent online, listening at unix:/tmp/passenger.1.0.10818/generation-0/request.socket
+[ 2013-05-24 11:38:04.2666 10828/7fe82758f740 agents/LoggingAgent/Main.cpp:272 ]: PassengerLoggingAgent online, listening at unix:/tmp/passenger.1.0.10818/generation-0/logging.socket
+[ 2013-05-24 11:38:06.2854 10822/7f139ff28700 Pool2/Spawner.h:739 ]: [App 10847 stdout] 
+[ 2013-05-24 11:38:07.0833 10822/7f139ff28700 Pool2/SmartSpawner.h:300 ]: Preloader for /var/www/module_under_5 started on PID 10847, listening on unix:/tmp/passenger.1.0.10818/generation-0/backends/preloader.10847
+[ 2013-05-24 11:52:12.2102 12032/7f37c04d7740 agents/HelperAgent/Main.cpp:554 ]: PassengerHelperAgent online, listening at unix:/tmp/passenger.1.0.12028/generation-0/request.socket
+[ 2013-05-24 11:52:12.2233 12038/7fad67944740 agents/LoggingAgent/Main.cpp:272 ]: PassengerLoggingAgent online, listening at unix:/tmp/passenger.1.0.12028/generation-0/logging.socket
+[ 2013-05-24 11:52:14.2320 12032/7f37c03f1700 Pool2/Spawner.h:739 ]: [App 12060 stdout] 
+[ 2013-05-24 11:52:15.0831 12032/7f37c03f1700 Pool2/SmartSpawner.h:300 ]: Preloader for /var/www/module_under_5 started on PID 12060, listening on unix:/tmp/passenger.1.0.12028/generation-0/backends/preloader.12060
+[ 2013-05-24 11:54:18.8443 12032/7f37c039f700 Pool2/Implementation.cpp:1156 ]: [App 12060 stderr] /var/www/module_under_5/app/views/clinic/index.rhtml:28: warning: Object#id will be deprecated; use Object#object_id
+[ 2013-05-24 12:08:54.5604 12032/7f37c039f700 Pool2/Implementation.cpp:1156 ]: [App 12060 stderr] /var/www/module_under_5/app/views/clinic/index.rhtml:28: warning: Object#id will be deprecated; use Object#object_id
+[ 2013-05-24 12:09:36.8317 12032/7f37c039f700 Pool2/Implementation.cpp:1156 ]: [App 12060 stderr] /var/www/module_under_5/app/views/clinic/index.rhtml:28: warning: Object#id will be deprecated; use Object#object_id
+[ 2013-05-24 12:14:37.1274 12032/7f37c039f700 Pool2/Implementation.cpp:1156 ]: [App 12060 stderr] /var/www/module_under_5/app/views/clinic/index.rhtml:28: warning: Object#id will be deprecated; use Object#object_id
+[ 2013-05-24 12:22:23.4734 12032/7f37c039f700 Pool2/Implementation.cpp:1156 ]: [App 12060 stderr] /var/www/module_under_5/app/views/clinic/index.rhtml:28: warning: Object#id will be deprecated; use Object#object_id
