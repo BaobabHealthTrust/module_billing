@@ -1,0 +1,43 @@
+<script type='text/javascript' language='javascript'>
+<!--
+	tt_cancel_show = '/patients/show/<%= @patient.id %>?user_id=<%= @user.id %>';
+	tt_cancel_destination = '/patients/show/<%= @patient.id %>?user_id=<%= @user.id %>';
+	</script>
+
+<form method='post' action='/encounters/create'>
+	<input type='hidden' name='program' value='BILLING PROGRAM' />
+	<input type='hidden' name='encounter_type' value='Admissions ' />
+	<input type='hidden' name='patient_id' value='<%= @patient.id %>' />
+	<input type='hidden' name='user_id' value='<%= @user.id %>' />
+	<table>
+		<tr>
+			<td>
+				Please Select the Ward Type? 
+			</td>
+			<td>
+<select id='1.1' name='concept[Please Select the Ward Type? ]' helpText='Please Select the Ward Type? ' pos='0'  tt_onLoad='__$("nextButton").style.display = "none"'  tt_requirenextclick='false' >
+<option></option>
+<option value='Adults'>Adults</option>
+ <option value='VIP'>VIP</option>
+ <option value='Pediatrics'>Pediatrics</option>
+ </select>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Admission Date 
+			</td>
+			<td>
+<input type='text' id='1.2'  name='concept[Admission Date ]' helpText='Admission Date '  pos='2'  field_type='date'  tt_requirenextclick='true' />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Discharge Date 
+			</td>
+			<td>
+<input type='text' id='1.3'  name='concept[Discharge Date ]' helpText='Discharge Date '  pos='3'  field_type='date'  tt_requirenextclick='true' />
+			</td>
+		</tr>
+	</table>
+</form>

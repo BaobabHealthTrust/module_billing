@@ -1,0 +1,30 @@
+<script type='text/javascript' language='javascript'>
+<!--
+	tt_cancel_show = '/patients/show/<%= @patient.id %>?user_id=<%= @user.id %>';
+	tt_cancel_destination = '/patients/show/<%= @patient.id %>?user_id=<%= @user.id %>';
+	</script>
+
+<form method='post' action='/encounters/create'>
+	<input type='hidden' name='program' value='BILLING PROGRAM' />
+	<input type='hidden' name='encounter_type' value='PAYMENT METHOD ' />
+	<input type='hidden' name='patient_id' value='<%= @patient.id %>' />
+	<input type='hidden' name='user_id' value='<%= @user.id %>' />
+	<table>
+		<tr>
+			<td>
+				Payment method 
+			</td>
+			<td>
+<select id='1.1' name='concept[Payment method ]' helpText='Payment method ' pos='0'  tt_onLoad='__$("nextButton").style.display = "none"'  tt_requirenextclick='false' >
+<option></option>
+<option value='Credit'>Credit</option>
+ <option value='Refferal'>Refferal</option>
+ <option value='Social Welfare'>Social Welfare</option>
+ <option value='Company'>Company</option>
+ <option value='Cash'>Cash</option>
+ <option value='Medical Scheme'>Medical Scheme</option>
+ </select>
+			</td>
+		</tr>
+	</table>
+</form>
