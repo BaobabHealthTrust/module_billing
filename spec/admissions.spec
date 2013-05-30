@@ -5,9 +5,9 @@ O.1.1.1. Pediatrics
 O.1.1.2. VIP
 O.1.1.3. Adults
 
-Q.1.2. Admission Date [field_type: date, tt_requirenextclick: true, pos: 2]
+Q.1.2. Admission Date [field_type: date, tt_onLoad: __$("nextButton").style.display = "block",  pos: 2]
 
-Q.1.3. Discharge Date [field_type: date, tt_requirenextclick: true, pos: 3]
+Q.1.3. Discharge Date [field_type: date, pos: 3]
 
 
 
