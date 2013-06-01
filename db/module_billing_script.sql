@@ -2,14 +2,12 @@ SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL';
 
-SHOW WARNINGS;
 
 -- -----------------------------------------------------
 -- Table `billing_department`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `billing_department` ;
 
-SHOW WARNINGS;
 CREATE  TABLE IF NOT EXISTS `billing_department` (
   `department_id` INT(11) NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(50) NOT NULL ,
@@ -20,14 +18,12 @@ CREATE  TABLE IF NOT EXISTS `billing_department` (
   PRIMARY KEY (`department_id`) )
 ENGINE = InnoDB;
 
-SHOW WARNINGS;
 
 -- -----------------------------------------------------
 -- Table `billing_category`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `billing_category` ;
 
-SHOW WARNINGS;
 CREATE  TABLE IF NOT EXISTS `billing_category` (
   `category_id` INT NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(50) NOT NULL ,
@@ -44,14 +40,12 @@ CREATE  TABLE IF NOT EXISTS `billing_category` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-SHOW WARNINGS;
 
 -- -----------------------------------------------------
 -- Table `billing_service`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `billing_service` ;
 
-SHOW WARNINGS;
 CREATE  TABLE IF NOT EXISTS `billing_service` (
   `service_id` INT(11) NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(50) NOT NULL ,
@@ -70,37 +64,39 @@ CREATE  TABLE IF NOT EXISTS `billing_service` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-SHOW WARNINGS;
 
 -- -----------------------------------------------------
--- Table `billing_product_type`
+-- Table `billing_product`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `billing_product_type` ;
+DROP TABLE IF EXISTS `billing_product` ;
 
-SHOW WARNINGS;
-CREATE  TABLE IF NOT EXISTS `billing_product_type` (
-  `product_type_id` INT(11) NOT NULL AUTO_INCREMENT ,
-  `name` VARCHAR(50) NOT NULL ,
+CREATE  TABLE IF NOT EXISTS `billing_product` (
+  `product_id` INT(11) NOT NULL AUTO_INCREMENT ,
+  `service_id` INT(11) NULL ,
+  `drug_id` INT(11) NULL ,
   `creator` INT(11) NOT NULL ,
   `voided` TINYINT(1) NOT NULL DEFAULT 0 ,
   `voided_by` INT(11) NULL ,
   `voided_date` DATETIME NULL ,
   `voided_reason` VARCHAR(50) NULL ,
-  PRIMARY KEY (`product_type_id`) )
+  PRIMARY KEY (`product_id`) ,
+  INDEX `fk_billing_product_1` (`service_id` ASC) ,
+  CONSTRAINT `fk_billing_product_1`
+    FOREIGN KEY (`service_id` )
+    REFERENCES `billing_service` (`service_id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-SHOW WARNINGS;
 
 -- -----------------------------------------------------
 -- Table `billing_price`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `billing_price` ;
 
-SHOW WARNINGS;
 CREATE  TABLE IF NOT EXISTS `billing_price` (
   `price_id` INT(11) NOT NULL AUTO_INCREMENT ,
   `product_id` INT(11) NOT NULL ,
-  `product_type_id` INT(11) NOT NULL ,
   `price_type` VARCHAR(50) NOT NULL ,
   `price` DECIMAL NOT NULL ,
   `creator` INT(11) NOT NULL ,
@@ -111,27 +107,19 @@ CREATE  TABLE IF NOT EXISTS `billing_price` (
   `voided_reason` VARCHAR(50) NULL ,
   PRIMARY KEY (`price_id`) ,
   INDEX `fk_billing_price_1` (`product_id` ASC) ,
-  INDEX `fk_billing_price_4` (`product_type_id` ASC) ,
   CONSTRAINT `fk_billing_price_1`
     FOREIGN KEY (`product_id` )
-    REFERENCES `billing_service` (`service_id` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_billing_price_4`
-    FOREIGN KEY (`product_type_id` )
-    REFERENCES `billing_product_type` (`product_type_id` )
+    REFERENCES `billing_product` (`product_id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-SHOW WARNINGS;
 
 -- -----------------------------------------------------
 -- Table `billing_medical_scheme_provider`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `billing_medical_scheme_provider` ;
 
-SHOW WARNINGS;
 CREATE  TABLE IF NOT EXISTS `billing_medical_scheme_provider` (
   `medical_scheme_provider_id` INT(11) NOT NULL AUTO_INCREMENT ,
   `company_name` VARCHAR(50) NOT NULL ,
@@ -146,14 +134,12 @@ CREATE  TABLE IF NOT EXISTS `billing_medical_scheme_provider` (
   PRIMARY KEY (`medical_scheme_provider_id`) )
 ENGINE = InnoDB;
 
-SHOW WARNINGS;
 
 -- -----------------------------------------------------
 -- Table `billing_medical_scheme`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `billing_medical_scheme` ;
 
-SHOW WARNINGS;
 CREATE  TABLE IF NOT EXISTS `billing_medical_scheme` (
   `medical_scheme_id` INT NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(50) NOT NULL ,
@@ -171,14 +157,12 @@ CREATE  TABLE IF NOT EXISTS `billing_medical_scheme` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-SHOW WARNINGS;
 
 -- -----------------------------------------------------
 -- Table `billing_account`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `billing_account` ;
 
-SHOW WARNINGS;
 CREATE  TABLE IF NOT EXISTS `billing_account` (
   `account_id` INT(11) NOT NULL AUTO_INCREMENT ,
   `patient_id` INT(11) NOT NULL ,
@@ -189,14 +173,12 @@ CREATE  TABLE IF NOT EXISTS `billing_account` (
   PRIMARY KEY (`account_id`) )
 ENGINE = InnoDB;
 
-SHOW WARNINGS;
 
 -- -----------------------------------------------------
 -- Table `billing_accounts_medical_schemes`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `billing_accounts_medical_schemes` ;
 
-SHOW WARNINGS;
 CREATE  TABLE IF NOT EXISTS `billing_accounts_medical_schemes` (
   `medical_scheme_id` INT(11) NOT NULL ,
   `account_id` INT(11) NOT NULL ,
@@ -215,14 +197,12 @@ CREATE  TABLE IF NOT EXISTS `billing_accounts_medical_schemes` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-SHOW WARNINGS;
 
 -- -----------------------------------------------------
 -- Table `billing_rules`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `billing_rules` ;
 
-SHOW WARNINGS;
 CREATE  TABLE IF NOT EXISTS `billing_rules` (
   `rule_id` INT(11) NOT NULL ,
   `name` VARCHAR(50) NOT NULL ,
@@ -241,14 +221,12 @@ CREATE  TABLE IF NOT EXISTS `billing_rules` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-SHOW WARNINGS;
 
 -- -----------------------------------------------------
 -- Table `billing_invoice`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `billing_invoice` ;
 
-SHOW WARNINGS;
 CREATE  TABLE IF NOT EXISTS `billing_invoice` (
   `invoice_id` INT(11) NOT NULL AUTO_INCREMENT ,
   `account_id` INT(11) NOT NULL ,
@@ -266,19 +244,16 @@ CREATE  TABLE IF NOT EXISTS `billing_invoice` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-SHOW WARNINGS;
 
 -- -----------------------------------------------------
 -- Table `billing_invoice_line`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `billing_invoice_line` ;
 
-SHOW WARNINGS;
 CREATE  TABLE IF NOT EXISTS `billing_invoice_line` (
   `invoice_line_id` INT NOT NULL AUTO_INCREMENT ,
   `invoice_id` INT(11) NOT NULL ,
-  `product_type_id` INT(11) NOT NULL ,
-  `price_id` INT(11) NOT NULL ,
+  `product_id` INT(11) NOT NULL ,
   `quantity` DECIMAL NOT NULL ,
   `price_per_unit` DECIMAL NOT NULL ,
   `paid` TINYINT(1) NOT NULL DEFAULT 0 ,
@@ -288,14 +263,9 @@ CREATE  TABLE IF NOT EXISTS `billing_invoice_line` (
   `date_created` DATETIME NOT NULL ,
   `date_paid` DATETIME NOT NULL ,
   PRIMARY KEY (`invoice_line_id`) ,
-  INDEX `fk_billing_invoice_line_1` (`price_id` ASC) ,
   INDEX `fk_billing_invoice_line_2` (`invoice_id` ASC) ,
   INDEX `fk_billing_invoice_line_3` (`rule_id` ASC) ,
-  CONSTRAINT `fk_billing_invoice_line_1`
-    FOREIGN KEY (`price_id` )
-    REFERENCES `billing_price` (`price_id` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+  INDEX `fk_billing_invoice_line_1` (`product_id` ASC) ,
   CONSTRAINT `fk_billing_invoice_line_2`
     FOREIGN KEY (`invoice_id` )
     REFERENCES `billing_invoice` (`invoice_id` )
@@ -305,17 +275,20 @@ CREATE  TABLE IF NOT EXISTS `billing_invoice_line` (
     FOREIGN KEY (`rule_id` )
     REFERENCES `billing_rules` (`rule_id` )
     ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_billing_invoice_line_1`
+    FOREIGN KEY (`product_id` )
+    REFERENCES `billing_product` (`product_id` )
+    ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-SHOW WARNINGS;
 
 -- -----------------------------------------------------
 -- Table `billing_admissions`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `billing_admissions` ;
 
-SHOW WARNINGS;
 CREATE  TABLE IF NOT EXISTS `billing_admissions` (
   `admissions_id` INT(11) NOT NULL AUTO_INCREMENT ,
   `invoice_line_id` INT(11) NOT NULL ,
@@ -331,7 +304,6 @@ CREATE  TABLE IF NOT EXISTS `billing_admissions` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-SHOW WARNINGS;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
