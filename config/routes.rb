@@ -1,8 +1,5 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :billing_services
-  map.resources :billing_departments
-  map.resources :billing_categories
-  
+ 
   map.root :controller => 'clinic', :action => 'index'
   map.create '/create', :controller => 'encounters', :action => 'create'
 
@@ -70,7 +67,27 @@ ActionController::Routing::Routes.draw do |map|
 
   map.new_medical_scheme_provider '/new_medical_scheme_provider', :controller => 'billing_medical_scheme_providers', :action => 'new'
 
-  map.new_medical_scheme_provider '/create_medical_scheme_provider', :controller => 'billing_medical_scheme_providers', :action => 'create'
+  map.create_medical_scheme_provider '/create_medical_scheme_provider', :controller => 'billing_medical_scheme_providers', :action => 'create'
+
+  map.show_departments '/show_departments', :controller => 'billing_departments', :action => 'index'
+
+  map.new_department '/new_department', :controller => 'billing_departments', :action => 'new'
+
+  map.create_department '/create_department', :controller => 'billing_departments', :action => 'create'
+
+  map.show_categories '/show_categories', :controller => 'billing_categories', :action => 'index'
+
+  map.new_category '/new_category', :controller => 'billing_categories', :action => 'new'
+
+  map.create_category '/create_category', :controller => 'billing_categories', :action => 'create'
+
+  map.show_categories '/show_services', :controller => 'billing_services', :action => 'index'
+
+  map.new_category '/new_service', :controller => 'billing_services', :action => 'new'
+
+  map.create_category '/create_service', :controller => 'billing_services', :action => 'create'
+
+
 
 
 
