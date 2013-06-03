@@ -38,6 +38,10 @@
         Administration
       </option>
 
+      <option value="/settings?user_id=<%= params[:user_id] %>&location_id=<%= session[:location_id] || params[:location_id] %>">
+        System Properties
+      </option>
+
     <% end %>
 
   </select>
