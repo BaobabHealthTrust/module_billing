@@ -584,7 +584,11 @@ class ClinicController < ApplicationController
     }
 
     render :text => @fields.to_json
-  end 
+  end
+
+  def settings
+      render :layout => false
+  end
  
 
 end
