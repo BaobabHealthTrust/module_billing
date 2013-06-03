@@ -63,6 +63,14 @@ ActionController::Routing::Routes.draw do |map|
 
   map.add_field '/add_field', :controller => 'clinic', :action => 'add_field'
 
+  map.show_medical_scheme_providers '/show_medical_scheme_providers', :controller => 'billing_medical_scheme_providers', :action => 'index'
+
+  map.new_medical_scheme_provider '/new_medical_scheme_provider', :controller => 'billing_medical_scheme_providers', :action => 'new'
+
+  map.new_medical_scheme_provider '/create_medical_scheme_provider', :controller => 'billing_medical_scheme_providers', :action => 'create'
+
+
+
   # The priority is based upon order of creation: first created -> highest priority.
 
   # Sample of regular route:
