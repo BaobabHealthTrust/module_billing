@@ -1,0 +1,27 @@
+New Service
+-
+<% form_for(@billing_service) do |f| %>
+  <%= f.error_messages %>
+  <%= f.hidden_field :creator, :value => @user.id %>
+
+  <p>	
+  	<%= f.label :category_id %><br/>
+	<% departments_array = BillingCategory.all.map { |department| [department.name, department.department_id] } %>
+	<%= options_for_select(departments_array) %>
+	<%= f.select(:category_id, options_for_select(departments_array), type => 'text') %>
+  </p>
+  
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+  
+  <p>
+    <%= f.label :service_type %><br />
+    <%= f.text_field :service_type %> 
+  </p>
+  
+  <p>
+    <%= f.submit 'Create' %>
+  </p>
+<% end %>

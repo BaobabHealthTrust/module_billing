@@ -1,0 +1,13 @@
+New Department
+-
+<% form_for(@billing_department) do |f| %>
+  <%= f.error_messages %>
+  <%= f.hidden_field :creator, :value => @user.id %>
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.submit 'Create' %>
+  </p>
+<% end %>
