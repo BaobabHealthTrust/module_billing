@@ -1,4 +1,7 @@
 ActionController::Routing::Routes.draw do |map|
+ 
+  map.resources :billing_departments
+  map.resources :billing_categories
   
   map.root :controller => 'clinic', :action => 'index'
   map.create '/create', :controller => 'encounters', :action => 'create'
