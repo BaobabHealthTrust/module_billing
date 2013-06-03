@@ -21,6 +21,8 @@ ActionController::Routing::Routes.draw do |map|
 
   map.administration '/administration', :controller => 'clinic', :action => 'administration'
 
+  map.properties '/settings', :controller => 'clinic' , :action => 'settings'
+
   map.project_users '/project_users', :controller => 'clinic', :action => 'project_users'
 
   map.project_users_list '/project_users_list', :controller => 'clinic', :action => 'project_users_list'
