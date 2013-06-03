@@ -1,4 +1,5 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :billing_products
   map.resources :billing_services
   map.resources :billing_departments
   map.resources :billing_categories

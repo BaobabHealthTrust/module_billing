@@ -1,0 +1,21 @@
+New Product
+-
+<% form_for(@billing_service) do |f| %>
+  <%= f.error_messages %>
+  <%= f.hidden_field :creator, :value => @user.id %>
+
+  <p>	
+  	<%= f.label :service_id %><br/>
+	<% services_array = BillingCategory.all.map { |service| [service.name, service.service_id] } %>
+	<%= options_for_select(services_array) %>
+	<%= f.select(:service_id, options_for_select(services_array), type => 'text') %>
+  </p>
+  <p>
+    <%= f.label :drug_id %><br />
+    <%= f.text_field :drug_id %>
+  </p>
+   
+  <p>
+    <%= f.submit 'Create' %>
+  </p>
+<% end %>

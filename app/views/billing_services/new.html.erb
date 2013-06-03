@@ -6,7 +6,7 @@ New Service
 
   <p>	
   	<%= f.label :category_id %><br/>
-	<% departments_array = BillingCategory.all.map { |department| [department.name, department.department_id] } %>
+	<% departments_array = BillingCategory.all.map { |category| [category.name, category.category_id] } %>
 	<%= options_for_select(departments_array) %>
 	<%= f.select(:category_id, options_for_select(departments_array), type => 'text') %>
   </p>
@@ -15,12 +15,7 @@ New Service
     <%= f.label :name %><br />
     <%= f.text_field :name %>
   </p>
-  
-  <p>
-    <%= f.label :service_type %><br />
-    <%= f.text_field :service_type %> 
-  </p>
-  
+   
   <p>
     <%= f.submit 'Create' %>
   </p>
