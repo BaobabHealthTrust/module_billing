@@ -1,0 +1,39 @@
+<style type="text/css">
+  .long .options {
+    height: 22em !important;
+  }
+</style>
+
+<script language="javascript">
+  tt_cancel_destination = '/show_medical_scheme_providers?user_id=<%= params[:user_id] %>&location_id=<%=
+params[:location_id] + (!params[:src].nil? ? "&src=#{params[:src]}" : "") %>';
+  tt_cancel_show = '/show_medical_scheme_providers?user_id=<%= params[:user_id] %>&location_id=<%=
+params[:location_id] + (!params[:src].nil? ? "&src=#{params[:src]}" : "") %>';
+</script> padding-top: 10px;
+
+<form action="/create_medical_scheme_provider" method='post'>
+  <label for="company_name">Company Name</label>
+  <%= text_field_tag(:company_name, params[:company_name], :helpText => "Company Name") %>
+
+  <label for="company_address">Company Address</label>
+  <%= text_field_tag(:company_address, params[:company_address], :helpText => "Company Address") %>
+
+  <label for="phone_number_1">Phone Number 1</label>
+  <%= text_field_tag(:phone_number_1, params[:phone_number_1], :helpText => "Phone Number 1") %>
+
+  <label for="phone_number_2">Phone Number 2</label>
+  <%= text_field_tag(:phone_number_2, params[:phone_number_2], :helpText => "Phone Number 2") %>
+
+  <label for="email_address">Email Address</label>
+  <%= text_field_tag(:email_address, params[:email_address], :helpText => "Email Address") %>
+
+  <%= hidden_field_tag "user_id", "#{params[:id] || params[:user_id]}" %>
+
+  <%= hidden_field_tag "location_id", "#{params[:location_id]}" %>
+
+  <% if !params[:src].nil? %>
+    <%= hidden_field_tag "src", "#{params[:src]}" %>
+  <% end %>
+
+  <%= submit_tag value="Submit"%>
+
