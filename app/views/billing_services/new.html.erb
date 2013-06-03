@@ -1,27 +1,36 @@
-New Service
--
-<% form_for(@billing_service) do |f| %>
-  <%= f.error_messages %>
-  <%= f.hidden_field :creator, :value => @user.id %>
+<style type="text/css">
+  .long .options {
+    height: 22em !important;
+  }
+</style>
 
-  <p>	
-  	<%= f.label :category_id %><br/>
-	<% departments_array = BillingCategory.all.map { |department| [department.name, department.department_id] } %>
-	<%= options_for_select(departments_array) %>
-	<%= f.select(:category_id, options_for_select(departments_array), type => 'text') %>
-  </p>
-  
-  <p>
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </p>
-  
-  <p>
-    <%= f.label :service_type %><br />
-    <%= f.text_field :service_type %> 
-  </p>
-  
-  <p>
-    <%= f.submit 'Create' %>
-  </p>
-<% end %>
+<script language="javascript">
+  tt_cancel_destination = '/show_categories?user_id=<%= params[:user_id] %>&location_id=<%=
+params[:location_id] + (!params[:src].nil? ? "&src=#{params[:src]}" : "") %>';
+  tt_cancel_show = '/show_categories?user_id=<%= params[:user_id] %>&location_id=<%=
+params[:location_id] + (!params[:src].nil? ? "&src=#{params[:src]}" : "") %>';
+</script>
+
+<form action="/create_service" method='post'>
+
+  <label for="category">Service Category</label>
+  <%= select_tag(:category_id, options_for_select(@categories_map, params[:category_id]),
+    :helpText => "Select Category") %>
+
+  <label for="name">Enter Service Type</label>
+  <%= text_field_tag(:service_type, params[:service_type], :helpText => "Service Type") %>
+
+  <label for="name">Enter Service Name</label>
+  <%= text_field_tag(:name, params[:name], :helpText => "Service Name") %>
+
+  <%= hidden_field_tag "user_id", "#{params[:id] || params[:user_id]}" %>
+
+  <%= hidden_field_tag "location_id", "#{params[:location_id]}" %>
+
+  <% if !params[:src].nil? %>
+    <%= hidden_field_tag "src", "#{params[:src]}" %>
+  <% end %>
+
+  <%= submit_tag value ="Submit"%>
+
+</form>

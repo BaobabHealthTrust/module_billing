@@ -1,20 +1,33 @@
-New Category
--
-<% form_for(@billing_category) do |f| %>
-  <%= f.error_messages %>
-  <%= f.hidden_field :creator, :value => @user.id %>
-  <p>	
-  	<%= f.label :department_id %><br/>
-	<% departments_array = BillingDepartment.all.map { |department| [department.name, department.department_id] } %>
-	<%= options_for_select(departments_array) %>
-	<%= f.select(:department_id, options_for_select(departments_array), type => 'text') %>
+<style type="text/css">
+  .long .options {
+    height: 22em !important;
+  }
+</style>
 
-  </p>
-  <p>
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </p>
-  <p>
-    <%= f.submit 'Create' %>
-  </p>
-<% end %>
+<script language="javascript">
+  tt_cancel_destination = '/show_categories?user_id=<%= params[:user_id] %>&location_id=<%=
+params[:location_id] + (!params[:src].nil? ? "&src=#{params[:src]}" : "") %>';
+  tt_cancel_show = '/show_categories?user_id=<%= params[:user_id] %>&location_id=<%=
+params[:location_id] + (!params[:src].nil? ? "&src=#{params[:src]}" : "") %>';
+</script> 
+
+<form action="/create_category" method='post'>
+
+  <label for="department">Department</label>
+  <%= select_tag(:department_id, options_for_select(@departments_map, params[:department_id]),
+    :helpText => "Select Department") %>
+
+  <label for="name">Enter Category</label>
+  <%= text_field_tag(:name, params[:name], :helpText => "Category Name") %>
+
+  <%= hidden_field_tag "user_id", "#{params[:id] || params[:user_id]}" %>
+
+  <%= hidden_field_tag "location_id", "#{params[:location_id]}" %>
+
+  <% if !params[:src].nil? %>
+    <%= hidden_field_tag "src", "#{params[:src]}" %>
+  <% end %>
+
+  <%= submit_tag value ="Submit"%>
+
+</form>

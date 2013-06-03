@@ -1,13 +1,28 @@
-New Department
--
-<% form_for(@billing_department) do |f| %>
-  <%= f.error_messages %>
-  <%= f.hidden_field :creator, :value => @user.id %>
-  <p>
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </p>
-  <p>
-    <%= f.submit 'Create' %>
-  </p>
-<% end %>
+<style type="text/css">
+  .long .options {
+    height: 22em !important;
+  }
+</style>
+
+<script language="javascript">
+  tt_cancel_destination = '/show_departments?user_id=<%= params[:user_id] %>&location_id=<%=
+params[:location_id] + (!params[:src].nil? ? "&src=#{params[:src]}" : "") %>';
+  tt_cancel_show = '/show_departments?user_id=<%= params[:user_id] %>&location_id=<%=
+params[:location_id] + (!params[:src].nil? ? "&src=#{params[:src]}" : "") %>';
+</script> padding-top: 10px;
+
+<form action="/create_department" method='post'>
+  <label for="name">Company Name</label>
+  <%= text_field_tag(:name, params[:name], :helpText => "Department Name") %>
+
+  <%= hidden_field_tag "user_id", "#{params[:id] || params[:user_id]}" %>
+
+  <%= hidden_field_tag "location_id", "#{params[:location_id]}" %>
+
+  <% if !params[:src].nil? %>
+    <%= hidden_field_tag "src", "#{params[:src]}" %>
+  <% end %>
+
+  <%= submit_tag value ="Submit"%>
+
+</form>
