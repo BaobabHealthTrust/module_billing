@@ -1,5 +1,5 @@
 ActionController::Routing::Routes.draw do |map|
- 
+
   map.root :controller => 'clinic', :action => 'index'
   map.create '/create', :controller => 'encounters', :action => 'create'
 

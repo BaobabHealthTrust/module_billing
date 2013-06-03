@@ -42,10 +42,10 @@ class BillingServicesController < ApplicationController
       		if @service.save
         		format.html { redirect_to "/show_services?user_id=#{params[:user_id]}" if !params[:user_id].blank? }
         		format.xml  { render :xml => @service, :status => :created, :location => @service }
-      		else
+		    	else
         		format.html { render :action => "new" }
         		format.xml  { render :xml => @service.errors, :status => :unprocessable_entity }
       		end
-      	end
+     end
 	end
 end
