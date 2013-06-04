@@ -87,8 +87,17 @@ ActionController::Routing::Routes.draw do |map|
 
   map.create_category '/create_service', :controller => 'billing_services', :action => 'create'
 
+  map.show_rules '/show_rules', :controller => 'billing_rules', :action => 'index'
 
+  map.new_rule '/new_rule', :controller => 'billing_rules', :action => 'new'
+  
+  map.create_rule '/create_rule', :controller => 'billing_rules', :action => 'create'
 
+  map.show_medical_schemes '/show_medical_schemes', :controller => 'billing_medical_schemes', :action => 'index'
+  
+  map.new_medical_scheme '/new_medical_scheme', :controller => 'billing_medical_schemes', :action => 'new'
+  
+  map.create_medical_scheme '/create_medical_scheme', :controller => 'billing_medical_schemes', :action => 'create'
 
 
   # The priority is based upon order of creation: first created -> highest priority.

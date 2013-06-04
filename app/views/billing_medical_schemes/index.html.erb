@@ -29,7 +29,7 @@
 <table width="100%" style="margin: 0px;" border="0" cellspacing="0">
   <tr>
     <td style="font-size: 2.3em; background-color: #6281A7; color: #eee; padding: 15px; text-align: center;">
-      Rules - Medical Scheme
+      Medical Schemes
     </td>
   </tr>
   <tr>
@@ -44,15 +44,15 @@
             </div>
             <div style="display: table-cell; border: 1px solid #ccc; padding: 5px;
                  text-align: center; font-weight: bold;">
-              Rule Name
+              Scheme Name
             </div>
             <div style="display: table-cell; border: 1px solid #ccc; padding: 5px;
                  text-align: center; font-weight: bold;">
-              Discount Rate
+              Provider
             </div>
             <div style="display: table-cell; border: 1px solid #ccc; padding: 5px;
                  text-align: center; font-weight: bold;">
-              Medical Scheme
+              Rules
             </div>
 
             <div style="display: table-cell; border: 1px solid #ccc; padding: 5px;
@@ -64,33 +64,35 @@
           </div>
 
           <% i = 0 %>
-          <% @rules.each do |rule| %>
+          <% @medical_schemes.each do |medical_scheme| %>
 
             <% i = i + 1 %>
 
             <div style="display: table-row;">
               <div style="display: table-cell; border-left: 1px dotted #ccc; border-bottom: 1px dotted #ccc;
                    border-right: 1px dotted #ccc; padding: 5px; text-align: center; vertical-align: top; padding-top: 20px;">
-                   <%= rule.rule_id %>
+                   <%= medical_scheme.medical_scheme_id %>
               </div>
               <div style="display: table-cell; border-bottom: 1px dotted #ccc;
                    border-right: 1px dotted #ccc;  padding: 5px; vertical-align: top; padding-top: 20px;">
-                   <%= rule.name %>
-              </div>
-
-              <div style="display: table-cell; border-bottom: 1px dotted #ccc;
-                   border-right: 1px dotted #ccc;  padding: 5px; vertical-align: top; padding-top: 20px;">
-                   <%= rule.rate %>
+                   <%= medical_scheme.name %>
               </div>
 
               <div style="display: table-cell; border-bottom: 1px dotted #ccc;
                    border-right: 1px dotted #ccc;  padding: 5px; vertical-align: top; padding-top: 20px;">
-                   <%= rule.billing_medical_scheme.name %>
+                   <%= BillingMedicalSchemeProvider.find(medical_scheme.medical_scheme_provider_id).company_name %>
               </div>
 
               <div style="display: table-cell; border-bottom: 1px dotted #ccc;
                    border-right: 1px dotted #ccc;  padding: 5px; vertical-align: top; padding-top: 20px;">
-                   <%= rule.voided == false ? 'Yes' : 'No'  %>
+                   <% BillingRules.find_all_by_medical_scheme_id(medical_scheme.medical_scheme_id).each do |rule| %>
+                     <%= rule.name %><br/> 
+                   <% end %>
+              </div>
+
+              <div style="display: table-cell; border-bottom: 1px dotted #ccc;
+                   border-right: 1px dotted #ccc;  padding: 5px; vertical-align: top; padding-top: 20px;">
+                   <%= medical_scheme.retired == false ? 'Yes' : 'No'  %>
               </div>
              
             </div>
@@ -112,11 +114,11 @@
             Finish
           </span>
         </button>
-        <button class="blue" style="float: right; margin: 8px; width: 200px; margin-right: 20px;"
-                onclick="window.location='/new_rule?user_id=<%= params[:user_id]
+        <button class="blue" style="float: right; margin: 8px; width: 250px; margin-right: 20px;"
+                onclick="window.location='/new_medical_scheme?user_id=<%= params[:user_id]
               %>&location_id=<%= params[:location_id] %><%= (!params[:src].nil? ? "&src=#{params[:src]}" : "") %>'">
           <span>
-            Add Rule
+            Add Medical Scheme
           </span>
         </button>
       </div>

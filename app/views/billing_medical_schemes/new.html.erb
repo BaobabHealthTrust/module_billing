@@ -1,0 +1,35 @@
+<style type="text/css">
+  .long .options {
+    height: 22em !important;
+  }
+</style>
+
+<script language="javascript">
+  tt_cancel_destination = '/show_medical_schemes?user_id=<%= params[:user_id] %>&location_id=<%=
+params[:location_id] + (!params[:src].nil? ? "&src=#{params[:src]}" : "") %>';
+  tt_cancel_show = '/show_medical_schemes?user_id=<%= params[:user_id] %>&location_id=<%=
+params[:location_id] + (!params[:src].nil? ? "&src=#{params[:src]}" : "") %>';
+</script>
+
+<form action="/create_medical_scheme" method='post'>
+
+
+  <label for="name">Enter Medical Scheme Name</label>
+  <%= text_field_tag(:name, params[:name], :helpText => "Enter Medical Scheme Name") %>
+
+  <label for="medical_scheme_provider_id">Select Provider</label>
+  <%= select_tag(:medical_scheme_provider_id, options_for_select(@providers_map, params[:medical_scheme_provider_id]),
+    :helpText => "Select Provider")%>
+
+
+
+  <%= hidden_field_tag "user_id", "#{params[:id] || params[:user_id]}" %>
+
+  <% if !params[:src].nil? %>
+    <%= hidden_field_tag "src", "#{params[:src]}" %>
+  <% end %>
+
+  <%= submit_tag value ="Submit"%>
+
+</form>
+

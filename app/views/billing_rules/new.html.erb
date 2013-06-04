@@ -1,2 +1,46 @@
-<h1>BillingRules#new</h1>
-<p>Find me in app/views/billing_rules/new.html.erb</p>
+<style type="text/css">
+  .long .options {
+    height: 22em !important;
+  }
+</style>
+
+<script language="javascript">
+  tt_cancel_destination = '/show_rules?user_id=<%= params[:user_id] %>&location_id=<%=
+params[:location_id] + (!params[:src].nil? ? "&src=#{params[:src]}" : "") %>';
+  tt_cancel_show = '/show_rules?user_id=<%= params[:user_id] %>&location_id=<%=
+params[:location_id] + (!params[:src].nil? ? "&src=#{params[:src]}" : "") %>';
+</script>
+
+<form action="/create_rule" method='post'>
+
+  <label for="medicalscheme">Medical Scheme</label>
+  <%= select_tag(:medical_scheme_id, options_for_select(@medical_schemes_map, params[:medical_scheme_id]),
+    :helpText => "Select Medical Scheme") %>
+
+
+  <label for="name">Enter Rule Name</label>
+  <%= text_field_tag(:name, params[:name], :helpText => "Enter Rule Name") %>
+
+  <label for="product_id">Enter Product to Applied Rule</label>
+  <%= select_tag(:product_id, options_for_select(@products_map, params[:product_id]),
+    :helpText => "Enter Product for Rule") %>
+
+
+  <label for="name">Enter Rate</label>
+  <%= text_field_tag(:rate, params[:rate], :helpText => "Rate") %>
+
+
+
+
+  <%= hidden_field_tag "user_id", "#{params[:id] || params[:user_id]}" %>
+
+  <%= hidden_field_tag "location_id", "#{params[:location_id]}" %>
+
+  <% if !params[:src].nil? %>
+    <%= hidden_field_tag "src", "#{params[:src]}" %>
+  <% end %>
+
+  <%= submit_tag value ="Submit"%>
+
+</form>
+
