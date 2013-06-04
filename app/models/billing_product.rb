@@ -5,5 +5,6 @@ class BillingProduct < ActiveRecord::Base
 
   belongs_to :billing_service, :foreign_key => :service_id
 	belongs_to :drug, :foreign_key => :drug_id
+  belongs_to :billing_product_type, :foreign_key => :product_type_id
   has_many :billing_prices
 end

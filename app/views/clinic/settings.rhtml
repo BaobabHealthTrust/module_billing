@@ -100,7 +100,7 @@
         </button>
       </td>
       <td style="height: 70px;">
-        <button class="btn" onclick="window.parent.location='/#?user_id=<%= params[:user_id]
+        <button class="btn" onclick="window.parent.location='/show_products?user_id=<%= params[:user_id]
               %>&location_id=<%= session[:location_id] || params[:location_id] %>'">
           <span>
             Manage Products
@@ -111,10 +111,10 @@
 
     <tr>
       <td style="height: 70px;">
-        <button class="btn" onclick="window.parent.location='/#?user_id=<%= params[:user_id]
+        <button class="btn" onclick="window.parent.location='/show_product_types?user_id=<%= params[:user_id]
               %>&location_id=<%= session[:location_id] || params[:location_id] %>'">
           <span>
-            Manage Medical Prices
+            Manage Product Types
           </span>
         </button>
       </td>

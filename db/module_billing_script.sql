@@ -66,12 +66,31 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
+-- Table `billing_product_type`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `billing_product_type` ;
+
+CREATE  TABLE IF NOT EXISTS `billing_product_type` (
+  `product_type_id` INT(11) NOT NULL AUTO_INCREMENT ,
+  `name` VARCHAR(50) NOT NULL ,
+  `creator` INT(11) NOT NULL ,
+  `voided` TINYINT(1) NOT NULL DEFAULT 0 ,
+  `voided_by` INT(11) NULL ,
+  `voided_reason` VARCHAR(50) NULL ,
+  `created_at` DATETIME NULL ,
+  `updated_at` DATETIME NULL ,
+  PRIMARY KEY (`product_type_id`) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
 -- Table `billing_product`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `billing_product` ;
 
 CREATE  TABLE IF NOT EXISTS `billing_product` (
   `product_id` INT(11) NOT NULL AUTO_INCREMENT ,
+  `product_type_id` INT(11) NOT NULL ,
   `service_id` INT(11) NULL ,
   `drug_id` INT(11) NULL ,
   `creator` INT(11) NOT NULL ,
@@ -81,9 +100,15 @@ CREATE  TABLE IF NOT EXISTS `billing_product` (
   `voided_reason` VARCHAR(50) NULL ,
   PRIMARY KEY (`product_id`) ,
   INDEX `fk_billing_product_1` (`service_id` ASC) ,
+  INDEX `fk_billing_product_2` (`product_type_id` ASC) ,
   CONSTRAINT `fk_billing_product_1`
     FOREIGN KEY (`service_id` )
     REFERENCES `billing_service` (`service_id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_billing_product_2`
+    FOREIGN KEY (`product_type_id` )
+    REFERENCES `billing_product_type` (`product_type_id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
