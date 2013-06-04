@@ -1,2 +1,2 @@
 development:
-    current.path: http://localhost:4000/settings?user_id=1&location_id=721
+    current.path: /
