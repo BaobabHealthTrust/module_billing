@@ -111,6 +111,12 @@ ActionController::Routing::Routes.draw do |map|
   
   map.create_rule '/create_rule', :controller => 'billing_rules', :action => 'create'
 
+  map.show_prices '/show_prices', :controller => 'billing_price', :action => 'index'
+
+  map.new_price '/new_price', :controller => 'billing_price', :action => 'new'
+
+  map.create_price '/create_price', :controller => 'billing_price', :action => 'create'
+
   # The priority is based upon order of creation: first created -> highest priority.
 
   # Sample of regular route:

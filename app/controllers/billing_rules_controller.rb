@@ -48,7 +48,6 @@ class BillingRulesController < ApplicationController
 		@rule.name = params[:name]
   		respond_to do |format|
       		if @rule.save
-        		flash[:notice] = 'Rule was successfully created.'
         		format.html { redirect_to "/show_rules?user_id=#{params[:user_id]}" if !params[:user_id].blank? }
         		format.xml  { render :xml => @rule, :status => :created, :location => @rule }
       		else
