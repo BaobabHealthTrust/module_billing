@@ -87,11 +87,17 @@ ActionController::Routing::Routes.draw do |map|
 
   map.create_category '/create_service', :controller => 'billing_services', :action => 'create'
 
-  map.show_rules '/show_rules', :controller => 'billing_rules', :action => 'index'
+  map.show_products '/show_products', :controller => 'billing_product', :action => 'index'
 
-  map.new_rule '/new_rule', :controller => 'billing_rules', :action => 'new'
-  
-  map.create_rule '/create_rule', :controller => 'billing_rules', :action => 'create'
+  map.new_product '/new_product', :controller => 'billing_product', :action => 'new'
+
+  map.create_product '/create_product', :controller => 'billing_product', :action => 'create'
+
+  map.show_product_types '/show_product_types', :controller => 'billing_product_types', :action => 'index'
+
+  map.new_product_type '/new_product_type', :controller => 'billing_product_types', :action => 'new'
+
+  map.create_product_type '/create_product_type', :controller => 'billing_product_types', :action => 'create'
 
   map.show_medical_schemes '/show_medical_schemes', :controller => 'billing_medical_schemes', :action => 'index'
   
@@ -99,6 +105,11 @@ ActionController::Routing::Routes.draw do |map|
   
   map.create_medical_scheme '/create_medical_scheme', :controller => 'billing_medical_schemes', :action => 'create'
 
+  map.show_rules '/show_rules', :controller => 'billing_rules', :action => 'index'
+
+  map.new_rule '/new_rule', :controller => 'billing_rules', :action => 'new'
+  
+  map.create_rule '/create_rule', :controller => 'billing_rules', :action => 'create'
 
   # The priority is based upon order of creation: first created -> highest priority.
 

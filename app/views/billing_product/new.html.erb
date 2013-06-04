@@ -1,21 +1,41 @@
-New Product
--
-<% form_for(@billing_service) do |f| %>
-  <%= f.error_messages %>
-  <%= f.hidden_field :creator, :value => @user.id %>
+<style type="text/css">
+  .long .options {
+    height: 22em !important;
+  }
+</style>
 
-  <p>	
-  	<%= f.label :service_id %><br/>
-	<% services_array = BillingCategory.all.map { |service| [service.name, service.service_id] } %>
-	<%= options_for_select(services_array) %>
-	<%= f.select(:service_id, options_for_select(services_array), type => 'text') %>
-  </p>
-  <p>
-    <%= f.label :drug_id %><br />
-    <%= f.text_field :drug_id %>
-  </p>
-   
-  <p>
-    <%= f.submit 'Create' %>
-  </p>
-<% end %>
+<script language="javascript">
+  tt_cancel_destination = '/show_products?user_id=<%= params[:user_id] %>&location_id=<%=
+params[:location_id] + (!params[:src].nil? ? "&src=#{params[:src]}" : "") %>';
+  tt_cancel_show = '/show_products?user_id=<%= params[:user_id] %>&location_id=<%=
+params[:location_id] + (!params[:src].nil? ? "&src=#{params[:src]}" : "") %>';
+</script>
+
+<form action="/create_product" method='post'>
+
+  <label for="product_type">Product Type</label>
+  <%= select_tag(:product_type, options_for_select(@product_type_map),
+    :helpText => "Select Product Type") %>
+  
+  <label for="drug_id">Product Type</label>
+  <%= select_tag(:drug_id, options_for_select(@drug_map),
+    {:helpText => "Select Drug",
+    :optional => true,
+    :condition => '$("product_type").value.trim().toLowerCase() == "drug"' })%>
+
+  <%= select_tag(:service_id, options_for_select(@service_map),
+    {:helpText => "Select Service",
+    :optional => true,
+    :condition => '$("product_type").value.trim().toLowerCase() != "drug"'}) %>
+
+  <%= hidden_field_tag "user_id", "#{params[:id] || params[:user_id]}" %>
+
+  <%= hidden_field_tag "location_id", "#{params[:location_id]}" %>
+
+  <% if !params[:src].nil? %>
+    <%= hidden_field_tag "src", "#{params[:src]}" %>
+  <% end %>
+
+  <%= submit_tag value ="Submit"%>
+
+</form>
