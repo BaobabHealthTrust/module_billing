@@ -15,11 +15,11 @@
 				Patient has Health Passport? 
 			</td>
 			<td>
-<select id='1.1' name='concept[Patient has Health Passport? ]' helpText='Patient has Health Passport? ' tt_onLoad='__$("nextButton").style.display = "none"'  tt_requirenextclick='false'  pos='0' >
-<option></option>
-<option value='No'>No</option>
- <option value='Yes'>Yes</option>
- </select>
+				<select id='1.1' name='concept[Patient has Health Passport? ]' helpText='Patient has Health Passport? ' tt_onLoad='__$("nextButton").style.display = "none"'  tt_requirenextclick='false'  pos='0' >
+				<option></option>
+				<option value='No'>No</option>
+				 <option value='Yes'>Yes</option>
+				 </select>
 			</td>
 		</tr>
 		<tr>
@@ -27,19 +27,39 @@
 				Department 
 			</td>
 			<td>
-<select id='1.2' name='concept[Department ]' helpText='Department ' tt_onLoad='__$("nextButton").style.display = "none"'  tt_requirenextclick='false'  pos='1' >
-<option></option>
-<option value='Dialysis'>Dialysis</option>
- <option value='Laboratory'>Laboratory</option>
- <option value='Optomology'>Optomology</option>
- <option value='Emergency'>Emergency</option>
- <option value='Maternity'>Maternity</option>
- <option value='Radiology'>Radiology</option>
- <option value='Reception'>Reception</option>
- <option value='Surgery'>Surgery</option>
- <option value='Dental'>Dental</option>
- </select>
+				<select id='1.2' name='department_id' helpText='Department ' tt_onLoad='__$("nextButton").style.display = "none"'  tt_requirenextclick='false'  pos='1' >
+				<option></option>
+				<% departments_array = BillingDepartment.all.map { |department| [department.name, department.department_id] } %>
+				<%= options_for_select(departments_array) %>
+				 </select>
 			</td>
 		</tr>
+		<tr>
+			<td>
+				Category 
+			</td>
+			<td>
+				<select id='1.3' name='concept[Department ]' helpText='Category ' tt_onLoad='__$("nextButton").style.display = "none"'  tt_requirenextclick='false'  pos='2' >
+				<option></option>
+				<% departments_array = BillingDepartment.all.map { |department| [department.name, department.department_id] } %>
+				<%= options_for_select(departments_array) %>
+				 </select>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Service 
+			</td>
+			<td>
+				<select id='1.4' name='concept[Department ]' helpText='Service ' tt_onLoad='__$("nextButton").style.display = "none"'  tt_requirenextclick='false'  pos='3' >
+				<option></option>
+				<% departments_array = BillingDepartment.all.map { |department| [department.name, department.department_id] } %>
+				<%= options_for_select(departments_array) %>
+				 </select>
+			</td>
+		</tr>
+
+
+
 	</table>
 </form>
