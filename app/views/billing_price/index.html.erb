@@ -72,9 +72,15 @@
                    border-right: 1px dotted #ccc; padding: 5px; text-align: center; vertical-align: top; padding-top: 20px;">
                    <%= price.billing_product.billing_service.name rescue price.billing_product.drug.name %>
               </div>
+
               <div style="display: table-cell; border-bottom: 1px dotted #ccc;
                    border-right: 1px dotted #ccc;  padding: 5px; vertical-align: top; padding-top: 20px;">
                    <%= price.price %>
+              </div>
+
+               <div style="display: table-cell; border-bottom: 1px dotted #ccc;
+                   border-right: 1px dotted #ccc;  padding: 5px; vertical-align: top; padding-top: 20px;">
+                   <%= price.price_type %>
               </div>
 
             </div>
@@ -100,7 +106,7 @@
                 onclick="window.location='/new_price?user_id=<%= params[:user_id]
               %>&location_id=<%= params[:location_id] %><%= (!params[:src].nil? ? "&src=#{params[:src]}" : "") %>'">
           <span>
-            Add Product
+            Add Product Price
           </span>
         </button>
       </div>

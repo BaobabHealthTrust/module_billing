@@ -14,7 +14,7 @@ params[:location_id] + (!params[:src].nil? ? "&src=#{params[:src]}" : "") %>';
 <form action="/create_price" method='post'>
 
   <label for="product_name">Product Name</label>
-  <%= select_tag(:product_name, options_for_select(@product_map),
+  <%= select_tag(:product_id, options_for_select(@product_map),
     :helpText => "Select Product") %>
   
   <label for="price_type">Price Type</label>
