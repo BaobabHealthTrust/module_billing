@@ -15,7 +15,7 @@
 				Patient has Health Passport? 
 			</td>
 			<td>
-<select id='1.1' name='concept[Patient has Health Passport? ]' helpText='Patient has Health Passport? ' tt_onLoad='__$("nextButton").style.display = "none"'  tt_requirenextclick='false'  pos='0' >
+<select id='1.1' name='concept[Patient has Health Passport? ]' helpText='Patient has Health Passport? ' tt_requirenextclick='false'  tt_onLoad='__$("nextButton").style.display = "none"'  pos='0' >
 <option></option>
 <option value='No'>No</option>
  <option value='Yes'>Yes</option>
@@ -27,18 +27,23 @@
 				Department 
 			</td>
 			<td>
-<select id='1.2' name='concept[Department ]' helpText='Department ' tt_onLoad='__$("nextButton").style.display = "none"'  tt_requirenextclick='false'  pos='1' >
-<option></option>
-<option value='Dialysis'>Dialysis</option>
- <option value='Laboratory'>Laboratory</option>
- <option value='Optomology'>Optomology</option>
- <option value='Emergency'>Emergency</option>
- <option value='Maternity'>Maternity</option>
- <option value='Radiology'>Radiology</option>
- <option value='Reception'>Reception</option>
- <option value='Surgery'>Surgery</option>
- <option value='Dental'>Dental</option>
- </select>
+<input type='text' id='1.2'  name='concept[Department ]' helpText='Department '  tt_onUnload='setCategoryAjaxURL()'  tt_requirenextclick='false'  tt_onLoad='__$("nextButton").style.display = "none"'  pos='1'  ajaxURL='/billing_departments/get_departments?search_string=' />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Category 
+			</td>
+			<td>
+<input type='text' id='1.3'  name='concept[Category ]' helpText='Category '  tt_onUnload='setServiceAjaxURL()'  pos='2' />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Service 
+			</td>
+			<td>
+<input type='text' id='1.4'  name='concept[Service ]' helpText='Service '  pos='3' />
 			</td>
 		</tr>
 	</table>
