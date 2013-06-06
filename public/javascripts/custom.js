@@ -67,3 +67,11 @@ function populateMonth(id){
     }
 
 }
+
+function setCategoryAjaxURL(){
+	__$("1.3").setAttribute("ajaxURL", "/billing_categories/get_categories?department=" + __$("touchscreenInput" + tstCurrentPage).value)
+}
+
+function setServiceAjaxURL(){
+	__$("1.4").setAttribute("ajaxURL", "/billing_services/get_services?category=" + __$("touchscreenInput" + tstCurrentPage).value)
+}
