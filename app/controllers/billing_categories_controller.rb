@@ -47,4 +47,13 @@ class BillingCategoriesController < ApplicationController
       		end
       	end
 	end
+
+  def get_categories
+    params[:department]
+    search_string = (params[:department] || '')
+    department_id = BillingDepartment.find_by_name(search_string).department_id
+    @billing_categories = BillingCategory.all(:conditions => ["department_id = ? ", department_id]).collect{|category| category.name}
+    render :text => "<li>" + @billing_categories.join("</li><li>") + "</li>"
+  end
+
 end
