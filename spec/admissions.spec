@@ -9,6 +9,8 @@ Q.1.2. Admission Date [field_type: date, tt_onLoad: __$("nextButton").style.disp
 
 Q.1.3. Discharge Date [field_type: date, pos: 3]
 
+Q.1.3. Discharge Date [field_type: date, pos: 3]
+
 
 
 

@@ -49,4 +49,13 @@ class BillingServicesController < ApplicationController
 			end
 		end
 	end
+
+  def get_services
+    params[:service]
+    search_string = (params[:service] || '')
+    category_id = BillingCategory.find_by_name(search_string).category_id
+    @billing_services = BillingService.all(:conditions => ["category_id = ? ", category_id]).collect{|service| service.name}
+    render :text => "<li>" + @billing_services.join("</li><li>") + "</li>"
+  end
+
 end
