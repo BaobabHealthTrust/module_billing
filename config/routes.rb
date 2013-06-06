@@ -123,9 +123,12 @@ ActionController::Routing::Routes.draw do |map|
   
   map.create_account '/create_account', :controller => 'billing_accounts', :action => 'create'
 
-  map.show_account_medical_scheme '/show_account_medical_scheme', :controller => 'billing_accounts', :action => 'show_account_medical_scheme'
+  map.show_account_medical_schemes '/show_account_medical_scheme', :controller => 'billing_accounts', :action => 'show_account_medical_scheme'
   
-
+  map.new_account_medical_scheme '/new_account_medical_scheme', :controller => 'billing_account_medical_schemes', :action => 'new'
+  
+  map.create_account_medical_scheme '/create_account_medical_scheme', :controller => 'billing_account_medical_schemes', :action => 'create'
+  
   # The priority is based upon order of creation: first created -> highest priority.
 
   # Sample of regular route:
