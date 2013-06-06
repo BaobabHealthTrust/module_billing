@@ -13,7 +13,7 @@ class PatientsController < ApplicationController
     if params[:user_id].nil?
       redirect_to "/encounters/no_user" and return
     end
-
+	
     @user = User.find(params[:user_id]) rescue nil
     
     redirect_to "/encounters/no_user" and return if @user.nil?
