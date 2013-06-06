@@ -44,6 +44,7 @@ class BillingProductController < ApplicationController
       @product.service_id = params[:service_id]
     end
     @product.creator = params[:user_id]
+	@product.product_type_id = params[:product_type]
 
      respond_to do |format|
             if @product.save

@@ -233,6 +233,7 @@ CREATE  TABLE IF NOT EXISTS `billing_rules` (
   `name` VARCHAR(50) NOT NULL ,
   `rate` FLOAT NOT NULL ,
   `medical_scheme_id` INT(11) NOT NULL ,
+  `product_id` INT(11) NOT NULL,
   `creator` INT(11) NOT NULL ,
   `voided` TINYINT(1) NOT NULL DEFAULT 0 ,
   `voided_by` DATETIME NULL ,

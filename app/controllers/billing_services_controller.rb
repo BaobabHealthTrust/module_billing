@@ -38,7 +38,6 @@ class BillingServicesController < ApplicationController
     	@service.service_type = params[:service_type]
     	@service.category_id = params[:category_id]
     	@service.creator = params[:user_id]
-
 		respond_to do |format|
 			if @service.save
 				format.html { redirect_to "/show_services?user_id=#{params[:user_id]}" if !params[:user_id].blank? }
