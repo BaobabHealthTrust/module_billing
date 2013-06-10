@@ -17,6 +17,8 @@ class BillingMedicalSchemeProvidersController < ApplicationController
 
   def new
     @medical_scheme_provider = BillingMedicalSchemeProvider.new
+    @provider_type_map = YAML.load_file("#{Rails.root}/config/application.yml")["#{Rails.env
+        }"]["scheme.provider.types"].split(",") rescue []
 
 		if params[:user_id].nil?
 			redirect_to '/encounters/no_user' and return
