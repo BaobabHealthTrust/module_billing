@@ -8,7 +8,7 @@ C.1. Please select a department
 Q.1.2. Department [pos: 1, tt_requirenextclick: false, tt_onLoad: __$("nextButton").style.display = "none", ajaxURL: /billing_departments/get_departments?search_string=, tt_onUnload: setCategoryAjaxURL()]
 
 C.1. Please select a category
-Q.1.3. Category [pos: 2, tt_onUnload: setServiceAjaxURL()]
+Q.1.3. Category [pos: 2, tt_onUnload: setServiceAjaxURL(), tt_onLoad: __$("nextButton").style.display = "block"]
 
 C.1. Please select a service
 Q.1.4. Service [pos: 3]
