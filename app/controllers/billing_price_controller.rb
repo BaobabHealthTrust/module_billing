@@ -16,19 +16,9 @@ class BillingPriceController < ApplicationController
 
   def new
 		@price = BillingPrice.new
-    @products = BillingProduct.all
-
-    product_hash_map = {}
-    @products.each do |product|
-      unless product.drug_id.blank?
-        product_hash_map[product.product_id] = product.drug.name
-      else
-        product_hash_map[product.product_id] = product.billing_service.name
-      end
+    @product_map = BillingProduct.all.map do |product|
+      [product.name, product.product_id]
     end
-    
-    @product_map = product_hash_map.each.map {|product| [product[1],product[0]]}
-
     @price_type_map = YAML.load_file("#{Rails.root}/config/application.yml")["#{Rails.env
         }"]["price.types"].split(",") rescue []
     
@@ -47,7 +37,7 @@ class BillingPriceController < ApplicationController
  		@price = BillingPrice.new
     @price.product_id = params[:product_id]
     @price.price_type = params[:price_type]
-    @price.price = params[:price]
+    @price.amount = params[:price]
     @price.creator = params[:user_id]
 
      respond_to do |format|
