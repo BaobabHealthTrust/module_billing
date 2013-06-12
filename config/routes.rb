@@ -85,14 +85,15 @@ ActionController::Routing::Routes.draw do |map|
 
   map.new_category '/new_category', :controller => 'billing_categories', :action => 'new'
 
+  map.edit_category '/edit_category', :controller => 'billing_categories', :action => 'edit'
+
+  map.update_category '/update_category', :controller => 'billing_categories', :action => 'update'
+
+  map.void_category '/void_category', :controller => 'billing_categories', :action => 'delete'
+
   map.create_category '/create_category', :controller => 'billing_categories', :action => 'create'
 
-  map.show_categories '/show_services', :controller => 'billing_services', :action => 'index'
-
-  map.new_category '/new_service', :controller => 'billing_services', :action => 'new'
-
-  map.create_category '/create_service', :controller => 'billing_services', :action => 'create'
-
+  
   map.show_products '/show_products', :controller => 'billing_product', :action => 'index'
 
   map.new_product '/new_product', :controller => 'billing_product', :action => 'new'
