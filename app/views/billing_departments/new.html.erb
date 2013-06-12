@@ -12,7 +12,7 @@ params[:location_id] + (!params[:src].nil? ? "&src=#{params[:src]}" : "") %>';
 </script> padding-top: 10px;
 
 <form action="/create_department" method='post'>
-  <label for="name">Company Name</label>
+  <label for="name">Department Name</label>
   <%= text_field_tag(:name, params[:name], :helpText => "Department Name") %>
 
   <%= hidden_field_tag "user_id", "#{params[:id] || params[:user_id]}" %>
