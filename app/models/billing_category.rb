@@ -4,5 +4,5 @@ class BillingCategory < ActiveRecord::Base
   include Openmrs
 
   belongs_to :billing_department , :foreign_key => :department_id
-  has_many :billing_services
+  has_many :billing_products, :foreign_key => :category_id
 end
