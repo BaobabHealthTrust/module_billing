@@ -49,7 +49,7 @@
             
             <div style="display: table-cell; border: 1px solid #ccc; padding: 5px;
                  text-align: center; font-weight: bold;">
-              Categories
+              Services
             </div>
             
 
@@ -92,7 +92,7 @@
                     <td align="right" style="width: 30px; vertical-align: top;">
                         <img src="/touchscreentoolkit/lib/images/cancel_flat_small_red.png" alt="delete"
                                      style="margin: 5px; border: 1px dotted #efe; padding: 10px;"
-                                     onclick="confirmDeletion('Are you sure you want <br/>to delete <%= department.name %> department?',
+                                     onclick="confirmDeletion('Are you sure you want <br/>to delete <%= department.name %> department with associated services?',
                                              '/void_department?target_id=<%= department.department_id %>&user_id=<%= params[:user_id] %>&location_id=<%=
                                      params[:location_id] %><%= (!params[:src].nil? ? "&src=#{params[:src]}" : "") %>')"/>
 
