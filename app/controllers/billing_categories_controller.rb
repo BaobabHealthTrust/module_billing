@@ -56,4 +56,59 @@ class BillingCategoriesController < ApplicationController
     render :text => "<li>" + @billing_categories.join("</li><li>") + "</li>"
   end
 
+  def edit
+   @category = BillingCategory.find(params[:target_id]) rescue nil
+   @departments_map = BillingDepartment.all.map do |department|
+      [department.name, department.department_id]
+    end
+		if params[:user_id].nil?
+			redirect_to '/encounters/no_user' and return
+		end
+		@user = User.find(params[:user_id]) rescue nil?
+
+    	respond_to do |format|
+      		format.html # new.html.erb
+      		format.xml  { render :xml => @category }
+    	end
+  end
+
+  def update
+      @category= BillingCategory.find(params[:category_id])
+      @category.name = params[:name]
+      @category.department_id = params[:department_id]
+      respond_to do |format|
+        if @category.save
+          format.html { redirect_to "/show_categories?user_id=#{params[:user_id]}" if !params[:user_id].blank? }
+          format.xml  { render :xml => @category, :status => :created, :location => @category }
+        else
+          format.html { render :action => "new" }
+          format.xml  { render :xml => @category.errors, :status => :unprocessable_entity }
+        end
+      end
+  end
+
+  def delete
+      department = BillingDepartment.find(params[:target_id])
+      categories = BillingCategory.find_all_by_department_id(department.department_id)
+      project = get_global_property_value("project.name") rescue "Unknown"
+      user_id = params[:user_id]
+      void_time = Time.now
+      void_message = "Voided through #{project}"
+
+      categories.each do |category|
+        category.billing_products.each do |product|
+          product.billing_prices.each do |price|
+            price.void(void_message,void_time,user_id)
+          end
+          product.void(void_message,void_time,user_id)
+        end
+        category.void(void_message,void_time,user_id)
+      end
+      department.void(void_message,void_time,user_id)
+
+      respond_to do |format|
+        	format.html { redirect_to "/show_departments?user_id=#{params[:user_id]}" if !params[:user_id].blank? }
+      end
+  end
+
 end
