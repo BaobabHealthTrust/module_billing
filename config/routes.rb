@@ -1,5 +1,5 @@
 ActionController::Routing::Routes.draw do |map|
-
+ 
   map.root :controller => 'clinic', :action => 'index'
   map.create '/create', :controller => 'encounters', :action => 'create'
 
@@ -72,6 +72,12 @@ ActionController::Routing::Routes.draw do |map|
   map.show_departments '/show_departments', :controller => 'billing_departments', :action => 'index'
 
   map.new_department '/new_department', :controller => 'billing_departments', :action => 'new'
+
+  map.edit_department '/edit_department', :controller => 'billing_departments', :action => 'edit'
+
+  map.update_department '/update_department', :controller => 'billing_departments', :action => 'update'
+
+  map.void_department '/void_department', :controller => 'billing_departments', :action => 'delete'
 
   map.create_department '/create_department', :controller => 'billing_departments', :action => 'create'
 
