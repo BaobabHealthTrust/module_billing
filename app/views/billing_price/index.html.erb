@@ -70,17 +70,17 @@
               </div>
               <div style="display: table-cell; border-left: 1px dotted #ccc; border-bottom: 1px dotted #ccc;
                    border-right: 1px dotted #ccc; padding: 5px; text-align: center; vertical-align: top; padding-top: 20px;">
-                   <%= price.billing_product.billing_service.name rescue price.billing_product.drug.name %>
+                   <%= price.billing_product.name %>
               </div>
 
               <div style="display: table-cell; border-bottom: 1px dotted #ccc;
                    border-right: 1px dotted #ccc;  padding: 5px; vertical-align: top; padding-top: 20px;">
-                   <%= price.price %>
+                   <%= price.price_type %>
               </div>
 
                <div style="display: table-cell; border-bottom: 1px dotted #ccc;
                    border-right: 1px dotted #ccc;  padding: 5px; vertical-align: top; padding-top: 20px;">
-                   <%= price.price_type %>
+                   <%= price.amount %>
               </div>
 
             </div>

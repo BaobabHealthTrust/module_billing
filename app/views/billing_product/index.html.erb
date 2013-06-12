@@ -53,7 +53,7 @@
 
             <div style="display: table-cell; border: 1px solid #ccc; padding: 5px;
                  text-align: center; font-weight: bold;">
-              Active
+              Price
             </div>
 
           </div>
@@ -70,7 +70,7 @@
               </div>
               <div style="display: table-cell; border-left: 1px dotted #ccc; border-bottom: 1px dotted #ccc;
                    border-right: 1px dotted #ccc; padding: 5px; text-align: center; vertical-align: top; padding-top: 20px;">
-                   <%= product.billing_service.name rescue product.drug.name %>
+                   <%= product.name %>
               </div>
               <div style="display: table-cell; border-bottom: 1px dotted #ccc;
                    border-right: 1px dotted #ccc;  padding: 5px; vertical-align: top; padding-top: 20px;">
@@ -79,7 +79,16 @@
 
               <div style="display: table-cell; border-bottom: 1px dotted #ccc;
                    border-right: 1px dotted #ccc;  padding: 5px; vertical-align: top; padding-top: 20px;">
-                <%= product.voided == false ? 'Yes' : 'No' %>
+                
+                 <table width="100%">
+                        <% product.billing_prices.each do |price|  %>
+                          <tr>
+                            <td>
+                              <%= price.amount.to_s + " - " + price.price_type %>
+                            </td>
+                          </tr>
+                        <% end %>
+                   </table>
               </div>
 
             </div>
