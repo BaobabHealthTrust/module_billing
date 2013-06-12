@@ -44,11 +44,11 @@
             </div>
             <div style="display: table-cell; border: 1px solid #ccc; padding: 5px;
                  text-align: center; font-weight: bold;">
-              Category Name
+              Department Name
             </div>
             <div style="display: table-cell; border: 1px solid #ccc; padding: 5px;
                  text-align: center; font-weight: bold;">
-              Department Name
+              Category Name
             </div>
 
             <div style="display: table-cell; border: 1px solid #ccc; padding: 5px;
@@ -66,20 +66,28 @@
             <div style="display: table-row;">
               <div style="display: table-cell; border-left: 1px dotted #ccc; border-bottom: 1px dotted #ccc;
                    border-right: 1px dotted #ccc; padding: 5px; text-align: center; vertical-align: top; padding-top: 20px;">
-                   <%= category.category_id %>
+                   <%= i %>
               </div>
               <div style="display: table-cell; border-bottom: 1px dotted #ccc;
                    border-right: 1px dotted #ccc;  padding: 5px; vertical-align: top; padding-top: 20px;">
-                   <%= category.name %>
+                   <%= category.billing_department.name %>
               </div>
               <div style="display: table-cell; border-bottom: 1px dotted #ccc;
                    border-right: 1px dotted #ccc;  padding: 5px; vertical-align: top; padding-top: 20px;">
-                <%= category.billing_department.name %>
+                <%= category.name %>
               </div>
 
               <div style="display: table-cell; border-bottom: 1px dotted #ccc;
                    border-right: 1px dotted #ccc;  padding: 5px; vertical-align: top; padding-top: 20px;">
-                <%#= category.services %>
+                <table width="100%">
+                        <% category.billing_products.each do |product|  %>
+                          <tr>
+                            <td>
+                              <%= product.name %>
+                            </td>
+                          </tr>
+                        <% end %>
+                   </table>
               </div>
               
             </div>
