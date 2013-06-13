@@ -1,0 +1,119 @@
+
+<script language="javascript">
+  tt_cancel_destination = '/select_user_task?user_id=<%= (params[:user_id] ||
+    params[:id]) %>&location_id=<%= params[:location_id] %>';
+  tt_cancel_show = '/select_user_task?user_id=<%= (params[:user_id] ||
+    params[:id]) %>&location_id=<%= params[:location_id] %>';
+
+  function confirmDeletion(message, link) {
+    if (!tstMessageBar) {
+
+      var tstMessageBar = document.createElement("div");
+      tstMessageBar.id = "messageBar";
+      tstMessageBar.className = "messageBar";
+
+      tstMessageBar.innerHTML = message + "<br/>" +
+        "<button onmousedown=\"document.getElementById('content').removeChild(document.getElementById('messageBar')); " +
+        "window.location='" + link + "';\"><span>Yes</span></button><button onmousedown=\"document.getElementById('content').removeChild(document.getElementById('messageBar'));\"><span>No</span></button>";
+
+      tstMessageBar.style.display = "block";
+      document.getElementById("content").appendChild(tstMessageBar);
+    }
+
+    return false;
+
+  }
+
+</script>
+
+<table width="100%" style="margin: 0px;" border="0" cellspacing="0">
+  <tr>
+    <td style="font-size: 2.3em; background-color: #6281A7; color: #eee; padding: 15px; text-align: center;">
+      Account's Medical Scheme
+    </td>
+  </tr>
+  <tr>
+    <td style="background-color: #ccc; padding: 5px;">
+      <div style="height: 36.2em; background-color: #fff; overflow: auto; padding: 5px;">
+
+        <div style="display: table; width: 100%; border-spacing: 2px;">
+          <div style="display: table-row; background-color: #999; color: #eee;">
+            <div style="display: table-cell; border: 1px solid #ccc; padding: 5px;
+                 text-align: center; font-weight: bold;">
+              #
+            </div>
+            <div style="display: table-cell; border: 1px solid #ccc; padding: 5px;
+                 text-align: center; font-weight: bold;">
+              Provider Type
+            </div>
+
+            <div style="display: table-cell; border: 1px solid #ccc; padding: 5px;
+                 text-align: center; font-weight: bold;">
+              Provider Name
+            </div>
+            <div style="display: table-cell; border: 1px solid #ccc; padding: 5px;
+                 text-align: center; font-weight: bold;">
+              Medical Scheme Name
+            </div>
+
+            
+          </div>
+
+          <% i = 0 %>
+          <% @medical_schemes.each do |medical_scheme| %>
+
+            <% i = i + 1 %>
+
+            <div style="display: table-row;">
+              <div style="display: table-cell; border-left: 1px dotted #ccc; border-bottom: 1px dotted #ccc;
+                   border-right: 1px dotted #ccc; padding: 5px; text-align: center; vertical-align: top; padding-top: 20px;">
+                   <%= medical_scheme.medical_scheme_id %>
+
+              </div>
+
+              <div style="display: table-cell; border-left: 1px dotted #ccc; border-bottom: 1px dotted #ccc;
+                   border-right: 1px dotted #ccc; padding: 5px; text-align: center; vertical-align: top; padding-top: 20px;">
+                   <%= medical_scheme.billing_medical_scheme_provider.provider_type %>
+
+              </div>
+              <div style="display: table-cell; border-bottom: 1px dotted #ccc;
+                   border-right: 1px dotted #ccc;  padding: 5px; vertical-align: top; padding-top: 20px;">
+				   <%= medical_scheme.billing_medical_scheme_provider.company_name%>	
+              </div>
+              <div style="display: table-cell; border-bottom: 1px dotted #ccc;
+                   border-right: 1px dotted #ccc;  padding: 5px; vertical-align: top; padding-top: 20px;">
+                   <%= medical_scheme.name %>
+
+              </div>
+
+              
+            </div>
+
+          <% end %>
+
+        </div>
+
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td style="background-color: #333;">
+      <div style="height: 4.8em;">
+        
+        <button class="green" style="float: right; margin: 8px; width: 150px; margin-right: 20px;"
+                onclick="window.location='<%= @destination %>'">
+          <span>
+            Finish
+          </span>
+        </button>
+        <button class="blue" style="float: right; margin: 8px; width: 200px; margin-right: 20px;"
+                onclick="window.location='/new_account_medical_scheme?account_id=<%= params[:account_id]%>user_id=<%= params[:user_id]
+              %>&location_id=<%= params[:location_id] %><%= (!params[:src].nil? ? "&src=#{params[:src]}" : "") %>'">
+          <span>
+            Add Medical Scheme
+          </span>
+        </button>
+      </div>
+    </td>
+  </tr>
+</table>
