@@ -1,2 +1,32 @@
-<h1>BillingProductTypes#edit</h1>
-<p>Find me in app/views/billing_product_types/edit.html.erb</p>
+<style type="text/css">
+  .long .options {
+    height: 22em !important;
+  }
+</style>
+
+<script language="javascript">
+  tt_cancel_destination = '/show_product_types?user_id=<%= params[:user_id] %>&location_id=<%=
+params[:location_id] + (!params[:src].nil? ? "&src=#{params[:src]}" : "") %>';
+  tt_cancel_show = '/show_product_types?user_id=<%= params[:user_id] %>&location_id=<%=
+params[:location_id] + (!params[:src].nil? ? "&src=#{params[:src]}" : "") %>';
+</script>
+
+<form action="/update_product_type" method='post'>
+
+  <label for="product_type_name">Product Type Name</label>
+  <%= text_field_tag(:name, @product_type.name, :helpText => "Product Type Name") %>
+
+
+  <%= hidden_field_tag "user_id", "#{params[:id] || params[:user_id]}" %>
+
+  <%= hidden_field_tag "location_id", "#{params[:location_id]}" %>
+
+  <%= hidden_field_tag "product_type_id", "#{@product_type.product_type_id}" %>
+
+  <% if !params[:src].nil? %>
+    <%= hidden_field_tag "src", "#{params[:src]}" %>
+  <% end %>
+
+  <%= submit_tag value ="Submit"%>
+
+</form>
