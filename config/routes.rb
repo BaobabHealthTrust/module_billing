@@ -152,6 +152,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.show_account_company_agreement '/show_account_company_agreement', :controller => 'billing_accounts', :action => 'show_account_company_agreement'
   
+  map.show_simple_report '/show_simple_report', :controller => 'billing_reports', :action => 'simple_result'
   
   # The priority is based upon order of creation: first created -> highest priority.
 
