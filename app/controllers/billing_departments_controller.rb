@@ -78,7 +78,7 @@ class BillingDepartmentsController < ApplicationController
 
   def delete
       department = BillingDepartment.find(params[:target_id])
-      categories = BillingCategory.find_all_by_department_id(department.department_id)
+      categories = BillingCategory.find_all_by_department_id_and_voided(department.department_id,false)
       project = get_global_property_value("project.name") rescue "Unknown"
       user_id = params[:user_id]
       void_time = Time.now
