@@ -1,0 +1,38 @@
+<style type="text/css">
+  .long .options {
+    height: 22em !important;
+  }
+</style>
+
+<script language="javascript">
+  tt_cancel_destination = '/show_categories?user_id=<%= params[:user_id] %>&location_id=<%=
+params[:location_id] + (!params[:src].nil? ? "&src=#{params[:src]}" : "") %>';
+  tt_cancel_show = '/show_categories?user_id=<%= params[:user_id] %>&location_id=<%=
+params[:location_id] + (!params[:src].nil? ? "&src=#{params[:src]}" : "") %>';
+  var department_name = "<%= @category.billing_department.name %>"
+</script>
+
+<form action="/update_category" method='post'>
+
+  <label for="department">Department</label>
+  <%= select_tag(:department_id, options_for_select(@departments_map, params[:department_id]),
+    {:helpText => "Select Department"
+        #:tt_onload => "__$('touchscreenInput' + tstCurrentPage).value = department_name"
+     }) %>
+
+  <label for="name">Enter Category</label>
+  <%= text_field_tag(:name, @category.name, :helpText => "Category Name") %>
+
+  <%= hidden_field_tag "user_id", "#{params[:id] || params[:user_id]}" %>
+
+  <%= hidden_field_tag "location_id", "#{params[:location_id]}" %>
+
+  <%= hidden_field_tag "category_id", "#{@category.category_id}" %>
+
+  <% if !params[:src].nil? %>
+    <%= hidden_field_tag "src", "#{params[:src]}" %>
+  <% end %>
+
+  <%= submit_tag value ="Submit"%>
+
+</form>
