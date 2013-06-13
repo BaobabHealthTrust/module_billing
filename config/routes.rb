@@ -110,6 +110,12 @@ ActionController::Routing::Routes.draw do |map|
 
   map.new_product_type '/new_product_type', :controller => 'billing_product_types', :action => 'new'
 
+  map.edit_product_type '/edit_product_type', :controller => 'billing_product_types', :action => 'edit'
+
+  map.update_product_type '/update_product_type', :controller => 'billing_product_types', :action => 'update'
+
+  map.void_product_type '/void_product_type', :controller => 'billing_product_types', :action => 'delete'
+
   map.create_product_type '/create_product_type', :controller => 'billing_product_types', :action => 'create'
 
   map.show_medical_schemes '/show_medical_schemes', :controller => 'billing_medical_schemes', :action => 'index'
