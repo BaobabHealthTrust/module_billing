@@ -89,7 +89,7 @@ class BillingCategoriesController < ApplicationController
 
   def delete
       category = BillingCategory.find(params[:target_id])
-      products = BillingProducts.find_all_by_category_id_and_voided(category.category_id, 0)
+      products = BillingProducts.find_all_by_category_id_and_voided(category.category_id, false)
       project = get_global_property_value("project.name") rescue "Unknown"
       user_id = params[:user_id]
       void_time = Time.now
