@@ -1,2 +1,39 @@
-<h1>BillingProduct#edit</h1>
-<p>Find me in app/views/billing_product/edit.html.erb</p>
+<style type="text/css">
+  .long .options {
+    height: 22em !important;
+  }
+</style>
+
+<script language="javascript">
+  tt_cancel_destination = '/show_products?user_id=<%= params[:user_id] %>&location_id=<%=
+params[:location_id] + (!params[:src].nil? ? "&src=#{params[:src]}" : "") %>';
+  tt_cancel_show = '/show_products?user_id=<%= params[:user_id] %>&location_id=<%=
+params[:location_id] + (!params[:src].nil? ? "&src=#{params[:src]}" : "") %>';
+</script>
+
+<form action="/update_product" method='post'>
+
+  <label for="category_id">Product Category</label>
+  <%= select_tag(:category_id, options_for_select(@category_map),
+    :helpText => "Select Product Category") %>
+
+  <label for="product_type">Product Type</label>
+  <%= select_tag(:product_type, options_for_select(@product_type_map),
+    :helpText => "Select Product Type") %>
+
+  <label for="name">Product Name</label>
+  <%= text_field_tag(:name, @product.name, :helpText => "Product Name") %>
+
+  <%= hidden_field_tag "user_id", "#{params[:id] || params[:user_id]}" %>
+
+  <%= hidden_field_tag "location_id", "#{params[:location_id]}" %>
+  
+  <%= hidden_field_tag "product_id", "#{@product.product_id}" %>
+
+  <% if !params[:src].nil? %>
+    <%= hidden_field_tag "src", "#{params[:src]}" %>
+  <% end %>
+
+  <%= submit_tag value ="Submit"%>
+
+</form>
