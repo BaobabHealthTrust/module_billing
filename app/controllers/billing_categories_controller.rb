@@ -88,26 +88,23 @@ class BillingCategoriesController < ApplicationController
   end
 
   def delete
-      department = BillingDepartment.find(params[:target_id])
-      categories = BillingCategory.find_all_by_department_id(department.department_id)
+      category = BillingCategory.find(params[:target_id])
+      products = BillingProducts.find_all_by_category_id_and_voided(category.category_id, 0)
       project = get_global_property_value("project.name") rescue "Unknown"
       user_id = params[:user_id]
       void_time = Time.now
       void_message = "Voided through #{project}"
 
-      categories.each do |category|
-        category.billing_products.each do |product|
+      products.each do |product|
           product.billing_prices.each do |price|
             price.void(void_message,void_time,user_id)
           end
           product.void(void_message,void_time,user_id)
         end
-        category.void(void_message,void_time,user_id)
-      end
-      department.void(void_message,void_time,user_id)
-
+      category.void(void_message,void_time,user_id)
+      
       respond_to do |format|
-        	format.html { redirect_to "/show_departments?user_id=#{params[:user_id]}" if !params[:user_id].blank? }
+        	format.html { redirect_to "/show_categories?user_id=#{params[:user_id]}" if !params[:user_id].blank? }
       end
   end
 
