@@ -46,10 +46,7 @@
                  text-align: center; font-weight: bold;">
               Product Type Name
             </div>
-            <div style="display: table-cell; border: 1px solid #ccc; padding: 5px;
-                 text-align: center; font-weight: bold;">
-              Active
-            </div>
+           
 
           </div>
 
@@ -60,19 +57,43 @@
 
             <div style="display: table-row;">
               <div style="display: table-cell; border-left: 1px dotted #ccc; border-bottom: 1px dotted #ccc;
-                   border-right: 1px dotted #ccc; padding: 5px; text-align: center; vertical-align: top; padding-top: 20px;">
+                   border-right: 1px dotted #ccc; padding: 5px; text-align: center; vertical-align: middle; padding-top: 20px;">
                    <%= i %>
               </div>
               <div style="display: table-cell; border-left: 1px dotted #ccc; border-bottom: 1px dotted #ccc;
-                   border-right: 1px dotted #ccc; padding: 5px; text-align: center; vertical-align: top; padding-top: 20px;">
-                   <%= product_type.name %>
+                   border-right: 1px dotted #ccc; padding: 5px; text-align: left; vertical-align: top; padding-top: 20px;">
+                  <table width="100%">
+                  <tr>
+                    <td>
+                      <table width="100%">
+                          <tr>
+                            <td>
+                              <%= product_type.name %>
+                            </td>
+                            <td align="right">
+
+                              <img src="/touchscreentoolkit/lib/images/pencil.png" alt="edit"
+                             style="margin: 5px; border: 1px dotted #efe; padding: 5px;
+                             padding-left: 5px; padding-right: 5px; cursor: pointer;"
+                             onclick="window.location='/edit_product_type?target_id=<%= product_type.product_type_id %>&user_id=<%= params[:user_id] %>&location_id=<%=
+                             params[:location_id] %><%= (!params[:src].nil? ? "&src=#{params[:src]}" : "") %>'" />
+
+                            </td>
+                          </tr>
+                      </table>
+                    </td>
+                    <td align="right" style="width: 30px; vertical-align: top;">
+                        <img src="/touchscreentoolkit/lib/images/cancel_flat_small_red.png" alt="delete"
+                                     style="margin: 5px; border: 1px dotted #efe; padding: 10px;"
+                                     onclick="confirmDeletion('Are you sure you want <br/>to delete <%= product_type.name %> ?',
+                                             '/void_product_type?target_id=<%= product_type.product_type_id %>&user_id=<%= params[:user_id] %>&location_id=<%=
+                                     params[:location_id] %><%= (!params[:src].nil? ? "&src=#{params[:src]}" : "") %>')"/>
+
+                    </td>
+                  </tr>
+                </table>
               </div>
               
-              <div style="display: table-cell; border-bottom: 1px dotted #ccc;
-                   border-right: 1px dotted #ccc;  padding: 5px; vertical-align: top; padding-top: 20px;">
-                <%= product_type.voided == false ? 'Yes' : 'No' %>
-              </div>
-
             </div>
 
           <% end %>
