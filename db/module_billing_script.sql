@@ -185,6 +185,7 @@ DROP TABLE IF EXISTS `billing_account` ;
 CREATE  TABLE IF NOT EXISTS `billing_account` (
   `account_id` INT(11) NOT NULL AUTO_INCREMENT ,
   `patient_id` INT(11) NOT NULL ,
+  `payment_method` VARCHAR(50) NOT NULL ,
   `creator` INT(11) NOT NULL ,
   `voided` TINYINT(1) NOT NULL DEFAULT 1 ,
   `voided_by` INT(11) NULL ,
@@ -256,7 +257,7 @@ CREATE  TABLE IF NOT EXISTS `billing_invoice` (
   `invoice_id` INT(11) NOT NULL AUTO_INCREMENT ,
   `account_id` INT(11) NOT NULL ,
   `invoice_type` CHAR(1) NOT NULL ,
-  `payment_method` VARCHAR(20) NOT NULL ,
+  `payment_method` VARCHAR(50) NOT NULL ,
   `total_amount` DECIMAL NOT NULL ,
   `location_id` INT(11) NOT NULL ,
   `creator` INT(11) NOT NULL ,
