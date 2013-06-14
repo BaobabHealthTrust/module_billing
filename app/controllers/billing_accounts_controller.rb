@@ -11,8 +11,8 @@ class BillingAccountsController < ApplicationController
   def invoice_history
       @patient = Patient.find(params[:patient_id])
   	  @account = BillingAccount.find_by_patient_id(@patient.id) 
-	  @invoices = BillingInvoice.find_all_by_account_id(@account.account_id)
-	  @invoicelines = BillingInvoiceLine.find_all_by_invoice_id(BillingInvoice.find_all_by_account_id(@account.account_id))
+	    @invoices = BillingInvoice.find_all_by_account_id(@account.account_id)
+	    @invoicelines = BillingInvoiceLine.find_all_by_invoice_id(BillingInvoice.find_all_by_account_id(@account.account_id))
 	  
       render :layout => false
 
@@ -45,9 +45,18 @@ class BillingAccountsController < ApplicationController
 
 
   def new
+    @patient_id = params[:patient_id]
+    @user_id = params[:user_id]
+    @location_id = params[:location_id]
+    @payment_methods_map = YAML.load_file("#{Rails.root}/config/application.yml")["#{Rails.env
+        }"]["payment.methods"].split(",") rescue []
+    @medical_schemes_map = BillingMedicalScheme.all.map do |medical_scheme|
+      [medical_scheme.billing_medical_scheme_provider.company_name + "-" + medical_scheme.name,medical_scheme.medical_scheme_id]
+    end
   end
 
   def create
+    
   end
 
   def update
