@@ -153,6 +153,21 @@ ActionController::Routing::Routes.draw do |map|
   map.show_account_company_agreement '/show_account_company_agreement', :controller => 'billing_accounts', :action => 'show_account_company_agreement'
   
   map.show_simple_report '/show_simple_report', :controller => 'billing_reports', :action => 'simple_result'
+
+
+  #Billing Account routes
+
+  map.new_billing_account '/new_billing_account', :controller => 'billing_accounts', :action => 'new'
+
+  #map.edit_product_type '/edit_product_type', :controller => 'billing_product_types', :action => 'edit'
+
+  #map.update_product_type '/update_product_type', :controller => 'billing_product_types', :action => 'update'
+
+  #map.void_product_type '/void_product_type', :controller => 'billing_product_types', :action => 'delete'
+
+  #map.create_product_type '/create_product_type', :controller => 'billing_product_types', :action => 'create'
+
+
   
   # The priority is based upon order of creation: first created -> highest priority.
 
