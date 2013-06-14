@@ -1,2 +1,39 @@
-<h1>BillingAccounts#new</h1>
-<p>Find me in app/views/billing_accounts/new.html.erb</p>
+<style type="text/css">
+  .long .options {
+    height: 22em !important;
+  }
+</style>
+
+<script language="javascript">
+  tt_cancel_destination = '/show_categories?user_id=<%= params[:user_id] %>&location_id=<%=
+params[:location_id] + (!params[:src].nil? ? "&src=#{params[:src]}" : "") %>';
+  tt_cancel_show = '/show_categories?user_id=<%= params[:user_id] %>&location_id=<%=
+params[:location_id] + (!params[:src].nil? ? "&src=#{params[:src]}" : "") %>';
+</script>
+
+<form action="/create_account" method='post'>
+
+  <label for="payment_method">Payment Method</label>
+  <%= select_tag(:payment_method, options_for_select(@payment_methods_map),
+    :helpText => "Select Payment method") %>
+
+  <%= select_tag(:medical_scheme, options_for_select(@medical_schemes_map),
+    {:helpText => "Select medical scheme", :helpText => "Select medical scheme",
+     :condition => '$("payment_method").value == "Medical Scheme"'})%>
+
+  <label for="name">Enter Category</label>
+  <%#= text_field_tag(:name, params[:name], :helpText => "Category Name") %>
+
+  <%= hidden_field_tag "user_id", "#{@user_id}" %>
+
+  <%= hidden_field_tag "location_id", "#{@location_id}" %>
+
+  <%= hidden_field_tag "patient_id", "#{@patient_id}" %>
+
+  <% if !params[:src].nil? %>
+    <%= hidden_field_tag "src", "#{params[:src]}" %>
+  <% end %>
+
+  <%= submit_tag value ="Submit"%>
+
+</form>
