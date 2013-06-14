@@ -6,7 +6,7 @@ class ClinicController < ApplicationController
     :missing_encounter_type, :diagnoses]
 
   def index
-   	
+   
 	  User.current = User.find(@user["user_id"]) rescue nil
 
 		User.current = User.find(params[:user_id]) rescue nil if User.current.blank?
@@ -16,10 +16,16 @@ class ClinicController < ApplicationController
     @location = Location.find(params[:location_id] || session[:location_id]) rescue nil
 
     session[:location_id] = @location.id if !@location.nil?
-    
-    redirect_to "/patients/show/#{params[:ext_patient_id]}?user_id=#{params[:user_id]}&location_id=#{
-    params[:location_id]}" if !params[:ext_patient_id].nil?
 
+    @billing_account = BillingAccount.find_by_patient_id(params[:ext_patient_id])
+
+    if @billing_account.blank?
+      redirect_to "/new_billing_account?patient_id=#{params[:ext_patient_id]}&user_id=#{params[:user_id]}&location_id=#{@location.id}" if !params[:ext_patient_id].nil?
+    else
+      redirect_to "/patients/show/#{params[:ext_patient_id]}?user_id=#{params[:user_id]}&location_id=#{
+    params[:location_id]}" if !params[:ext_patient_id].nil?
+    end
+   
     @project = get_global_property_value("project.name") rescue "Unknown"
 
     @facility = get_global_property_value("facility.name") rescue "Unknown"
