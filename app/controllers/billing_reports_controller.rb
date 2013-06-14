@@ -22,13 +22,31 @@ class BillingReportsController < ApplicationController
 	    @results[line.billing_product.billing_category.billing_department.department_id][line.billing_invoice.payment_method] = line.final_amount + @results[line.billing_product.billing_category.billing_department.department_id][line.billing_invoice.payment_method]
 	  end
 	  
-	  #calculate total
+	  #calculate total of each department
 	  if @results[line.billing_product.billing_category.billing_department.department_id]["total"].nil?
 	    @results[line.billing_product.billing_category.billing_department.department_id]["total"] = line.final_amount
   	  else
   	    @results[line.billing_product.billing_category.billing_department.department_id]["total"] = @results[line.billing_product.billing_category.billing_department.department_id]["total"] + line.final_amount
 	  end
-	  
 	end 
+	
+	
+	#calculate total of each payment method
+	@total_cash = 0
+	@total_scheme = 0
+	@total_company = 0
+	
+	@results.each do |result|
+	  next if result.nil?
+	  if not result["cash"].nil?
+	    @total_cash += result["cash"]
+	  elsif not result["medical scheme"].nil?
+		@total_scheme += result["medical scheme"]
+	  elsif not result["company agreement"].nil?
+	    @total_company += result["company agreement"]
+	  else
+	  end
+	end
+	@total_sum = @total_cash + @total_scheme + @total_company
   end
 end

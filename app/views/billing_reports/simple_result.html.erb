@@ -76,6 +76,7 @@
               <div style="display: table-cell; border-bottom: 1px dotted #ccc;
                    border-right: 1px dotted #ccc; vertical-align: top; padding-top: 20px;">
                    <%= result["cash"] rescue nil%>
+                   
 			  </div>
 
               <div style="display: table-cell; border-bottom: 1px dotted #ccc;
@@ -93,6 +94,31 @@
             </div>
 
           <% end %>
+          
+            <div style="display: table-row;">
+              <div style="display: table-cell; border-left: 1px dotted #ccc; border-bottom: 1px dotted #ccc;
+                   border-right: 1px dotted #ccc; padding: 5px; text-align: center; vertical-align: middle; padding-top: 20px;">
+                   Total
+              </div>
+              <div style="display: table-cell; border-bottom: 1px dotted #ccc;
+                   border-right: 1px dotted #ccc; vertical-align: top; padding-top: 20px;">
+                   <%= @total_cash %>
+                   
+			  </div>
+
+              <div style="display: table-cell; border-bottom: 1px dotted #ccc;
+                   border-right: 1px dotted #ccc; vertical-align: top; padding-top: 20px;">
+                   <%=  @total_scheme %>
+			  </div>
+              <div style="display: table-cell; border-bottom: 1px dotted #ccc;
+                   border-right: 1px dotted #ccc; vertical-align: top; padding-top: 20px;">
+                   <%= @total_company %>
+			  </div>
+              <div style="display: table-cell; border-bottom: 1px dotted #ccc;
+                   border-right: 1px dotted #ccc; vertical-align: top; padding-top: 20px;">
+                   <%= @total_sum %>
+			  </div>
+            </div>
 
         </div>
 
