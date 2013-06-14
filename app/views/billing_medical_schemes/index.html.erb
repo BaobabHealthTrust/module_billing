@@ -55,12 +55,7 @@
               Rules
             </div>
 
-            <div style="display: table-cell; border: 1px solid #ccc; padding: 5px;
-                 text-align: center; font-weight: bold;">
-              Active
-            </div>
-            
-
+           
           </div>
 
           <% i = 0 %>
@@ -88,11 +83,6 @@
                    <% BillingRules.find_all_by_medical_scheme_id(medical_scheme.medical_scheme_id).each do |rule| %>
                      <%= rule.name %><br/> 
                    <% end %>
-              </div>
-
-              <div style="display: table-cell; border-bottom: 1px dotted #ccc;
-                   border-right: 1px dotted #ccc;  padding: 5px; vertical-align: top; padding-top: 20px;">
-                   <%= medical_scheme.retired == false ? 'Yes' : 'No'  %>
               </div>
              
             </div>
