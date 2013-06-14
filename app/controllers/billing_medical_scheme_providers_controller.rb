@@ -36,6 +36,7 @@ class BillingMedicalSchemeProvidersController < ApplicationController
 
   def create
       @medical_scheme_provider = BillingMedicalSchemeProvider.new
+      @medical_scheme_provider.provider_type = params[:provider_type]
       @medical_scheme_provider.company_name = params[:company_name]
       @medical_scheme_provider.email_address = params[:email_address]
       @medical_scheme_provider.company_address = params[:company_address]
@@ -46,7 +47,7 @@ class BillingMedicalSchemeProvidersController < ApplicationController
       
       respond_to do |format|
       		if @medical_scheme_provider.save
-        		format.html { redirect_to "/show_medical_scheme_providers?#{params[:user_id]}" if !params[:user_id].blank? }
+        		format.html { redirect_to "/show_medical_scheme_providers?user_id=#{params[:user_id]}" if !params[:user_id].blank? }
         		format.xml  { render :xml => @medical_scheme_provider, :status => :created, :location => @medical_scheme_provider }
       		else
         		format.html { render :action => "new" }
