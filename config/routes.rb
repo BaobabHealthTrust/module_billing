@@ -152,9 +152,9 @@ ActionController::Routing::Routes.draw do |map|
 
   map.show_account_company_agreement '/show_account_company_agreement', :controller => 'billing_accounts', :action => 'show_account_company_agreement'
   
-  map.show_simple_report '/show_simple_report', :controller => 'billing_reports', :action => 'simple_result'
+  map.show_overview_report '/show_overview_report', :controller => 'billing_reports', :action => 'overview_result'
 
-
+  map.select_report '/select_report', :controller => 'billing_reports', :action => 'select'
   #Billing Account routes
 
   map.new_billing_account '/new_billing_account', :controller => 'billing_accounts', :action => 'new'

@@ -1,18 +1,43 @@
 class BillingReportsController < ApplicationController
-  def select
-  	@start_date
-  	@finish_date
-  	@departments
-  	
+  def select 	
+	@user_id = params[:user_id]
+	@location_id = params[:location_id]
   end
 
-  def simple_result
-# 	@start_date = params[:start_date]
-# 	@finish_date = params[:finish_date]
-# 	@departments = params[:departments]
-    @destination = "/clinic?user_id=#{params[:user_id]}"
+  def overview_result
+    @destination = "/clinic?user_id=#{params[:user_id]}&location_id=params[:location_id]"
+    @selSelect = params[:selSelect] rescue nil
+    @selYear = params[:selYear] rescue nil
+    @selMonth = params[:selMonth] rescue nil
+    @day = 			params[:day] rescue nil
+    @selQtr = "#{par      	  raise patient.to_yamlams[:selQtr].gsub(/&/, "_")}" rescue nil
+	@location =  Location.current_health_center.name rescue ''
+
+	case params[:selSelect]
+	  when "day"
+	  @start_date = params[:day]
+	  @end_date = params[:day]
+
+	  when "month"
+		@start_date = ("#{params[:selYear]}-#{params[:selMonth]}-01").to_date.strftime("%Y-%m-%d")
+		@end_date = ("#{params[:selYear]}-#{params[:selMonth]}-#{ (params[:selMonth].to_i != 12 ?
+		  ("2010-#{params[:selMonth].to_i + 1}-01".to_date - 1).strftime("%d") : 31) }").to_date.strftime("%Y-%m-%d")
+
+	  when "quarter"
+		start_date = params[:selQtr].to_s.gsub(/&max=(.+)$/,'')
+		end_date = params[:selQtr].to_s.gsub(/^min=(.+)&max=/,'')
+
+			@start_date = start_date.gsub(/^min=/,'')
+			@end_date		= end_date
+	end
+  
+    @payment_methods_map = YAML.load_file("#{Rails.root}/config/application.yml")["#{Rails.env
+        }"]["payment.methods"].split(",") rescue []
+  
 	@results = []
-	invoicelines = BillingInvoiceLine.all
+	
+	invoicelines = BillingInvoiceLine.find(:all, :conditions => ["created_at BETWEEN ? AND ?",@start_date,@end_date])
+	
 	invoicelines.each do |line|
 	  @results[line.billing_product.billing_category.billing_department.department_id] = {} if @results[line.billing_product.billing_category.billing_department.department_id].nil?
 	  @results[line.billing_product.billing_category.billing_department.department_id]["department_name"] = line.billing_product.billing_category.billing_department.name
@@ -32,21 +57,33 @@ class BillingReportsController < ApplicationController
 	
 	
 	#calculate total of each payment method
-	@total_cash = 0
-	@total_scheme = 0
-	@total_company = 0
 	
+	@totals = {}
+	@total_sum = 0
+	@payment_methods_map.each do |method|
+	  @totals[method] = 0
+	end
+
 	@results.each do |result|
-	  next if result.nil?
-	  if not result["cash"].nil?
-	    @total_cash += result["cash"]
-	  elsif not result["medical scheme"].nil?
-		@total_scheme += result["medical scheme"]
-	  elsif not result["company agreement"].nil?
-	    @total_company += result["company agreement"]
-	  else
+	  @payment_methods_map.each do |method|
+		@totals[method] += result[method] rescue 0
 	  end
 	end
-	@total_sum = @total_cash + @total_scheme + @total_company
+	
+	@payment_methods_map.each do |method|
+	  @total_sum += @totals[method] rescue 0
+	end
+
+
+	if @selSelect.include?('month')
+		@report_type =	"<b>Billing Monthly Report</b><br/> " + @start_date.to_date.strftime("%B") + "  " + @selYear
+	elsif @selSelect.include?('day')
+		@report_type = "<b>Billing Daily Report</b><br/>" + @day.to_date.strftime("%d-%B-%Y")
+	else
+		@report_type = "<b>Billing Quarterly Report</b><br/>" + @start_date.to_date.strftime("%d/%B/%Y") + "  to  " + @end_date.to_date.strftime("%d/%B/%Y")
+	end
+
   end
+
+
 end
