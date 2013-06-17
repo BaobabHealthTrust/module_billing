@@ -2,8 +2,8 @@ production:
   project.name: Billing
   facility.name: Test Centre
   price.types: General,Private,Invoice
-  scheme.provider.types: Company,Provider
-  payment.methods: Medical Scheme,Company Agreement,Cash,Social Welfare,Government Referral,Private Clinic Referral,Credit
+  scheme.provider.types: Company,Provider,Hospital,Clinic
+  payment.methods: Medical Scheme,Company Agreement,Cash,Social Welfare,Government Referral,Private Clinic Referral,Credit,Staff
   patient.registration.url: http://localhost:3005
   user.management.url: http://localhost:3004
 
@@ -11,8 +11,8 @@ development:
   project.name: Billing
   facility.name: Test Centre
   price.types: General,Private,Invoice
-  scheme.provider.types: Company,Provider
-  payment.methods: Medical Scheme,Company Agreement,Cash,Social Welfare,Government Referral,Private Clinic Referral,Credit
+  scheme.provider.types: Company,Provider,Hospital,Clinic
+  payment.methods: Medical Scheme,Company Agreement,Cash,Social Welfare,Government Referral,Private Clinic Referral,Credit,Staff
   patient.registration.url: http://localhost:3005
   user.management.url: http://localhost:3004
 
@@ -20,7 +20,7 @@ test: &TEST
   project.name: Billing
   facility.name: Test Centre
   price.types: General,Private,Invoice
-  scheme.provider.types: Company,Provider
-  payment.methods: Medical Scheme,Company Agreement,Cash,Social Welfare,Government Referral,Private Clinic Referral,Credit
+  scheme.provider.types: Company,Provider,Hospital,Clinic
+  payment.methods: Medical Scheme,Company Agreement,Cash,Social Welfare,Government Referral,Private Clinic Referral,Credit,Staff
   patient.registration.url: http://localhost:3005
   user.management.url: http://localhost:3004
