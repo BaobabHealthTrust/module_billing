@@ -4,5 +4,5 @@ class BillingMedicalSchemeProvider < ActiveRecord::Base
   include Openmrs
 
   belongs_to :billing_account, :foreign_key => :account_id
-  has_many :billing_medical_schemes
+  has_many :billing_medical_schemes, :foreign_key => :medical_scheme_provider_id
 end
