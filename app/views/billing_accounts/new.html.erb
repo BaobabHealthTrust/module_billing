@@ -29,17 +29,13 @@ params[:location_id] + (!params[:src].nil? ? "&src=#{params[:src]}" : "") %>';
     {:helpText => "Select Hospital",
      :condition => '$("payment_method").value == "Government Referral"'})%>
 
-  <%= select_tag(:referral_scheme, options_for_select(@referral_schemes_map),
+  <%= select_tag(:referral_scheme, options_for_select(@clinic_schemes_map),
     {:helpText => "Select Clinic",
      :condition => '$("payment_method").value == "Private Clinic Referral"'})%>
 
   <%= select_tag(:referral_scheme, options_for_select(@referral_schemes_map),
     {:helpText => "Select Hospital",
      :condition => '$("payment_method").value == "Staff"'})%>
-
- 
-  <label for="name">Enter Category</label>
-  <%#= text_field_tag(:name, params[:name], :helpText => "Category Name") %>
 
   <%= hidden_field_tag "user_id", "#{@user_id}" %>
 
