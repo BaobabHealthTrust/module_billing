@@ -86,6 +86,22 @@ class BillingAccountsController < ApplicationController
 
   def create
     
+    @billing_account = BillingAccount.new()
+    @billing_account.patient_id = params[:patient_id]
+    @billing_account.creator = params[:user_id]
+    @billing_account.payment_method = params[:payment_method]
+    @billing_account.save!
+
+   case params[:payment_method].upcase
+   when 'MEDICAL SCHEME','COMPANY AGREEMENT','GOVERNMENT REFERRAL','PRIVATE CLINIC REFERRAL'
+     @account_medical_scheme = BillingAccountsMedicalSchemes.new
+     @account_medical_scheme.medical_scheme_id = params[:medical_scheme]
+     @account_medical_scheme.account_id = @billing_account.account_id
+     @account_medical_scheme.save!
+   end
+
+   redirect_to "/clinic?user_id=#{params[:user_id]}&location_id=#{params[:location_id]}&ext_patient_id=#{params[:patient_id]}"
+    
   end
 
   def update
