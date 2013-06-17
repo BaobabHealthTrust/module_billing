@@ -50,9 +50,38 @@ class BillingAccountsController < ApplicationController
     @location_id = params[:location_id]
     @payment_methods_map = YAML.load_file("#{Rails.root}/config/application.yml")["#{Rails.env
         }"]["payment.methods"].split(",") rescue []
-    @medical_schemes_map = BillingMedicalScheme.all.map do |medical_scheme|
-      [medical_scheme.billing_medical_scheme_provider.company_name + "-" + medical_scheme.name,medical_scheme.medical_scheme_id]
-    end
+
+
+    @medical_schemes_map = BillingMedicalScheme.find_by_sql("SELECT * FROM billing_medical_scheme as ms
+                                                             INNER JOIN billing_medical_scheme_provider as msp
+                                                             ON msp.medical_scheme_provider_id = ms.medical_scheme_provider_id
+                                                             WHERE (msp.provider_type = 'Provider' AND msp.voided = 0 AND ms.voided = 0);").each.map do |medical_scheme|
+      [medical_scheme.company_name + "-" + medical_scheme.name,medical_scheme.medical_scheme_id]
+                                                              end
+    
+    
+
+    @company_schemes_map = BillingMedicalScheme.find_by_sql("SELECT * FROM billing_medical_scheme as ms
+                                                             INNER JOIN billing_medical_scheme_provider as msp
+                                                             ON msp.medical_scheme_provider_id = ms.medical_scheme_provider_id
+                                                             WHERE (msp.provider_type = 'Company' AND msp.voided = 0 AND ms.voided = 0);").each.map do |medical_scheme|
+      [medical_scheme.company_name + "-" + medical_scheme.name,medical_scheme.medical_scheme_id]
+                                                              end
+
+    @clinic_schemes_map = BillingMedicalScheme.find_by_sql("SELECT * FROM billing_medical_scheme as ms
+                                                             INNER JOIN billing_medical_scheme_provider as msp
+                                                             ON msp.medical_scheme_provider_id = ms.medical_scheme_provider_id
+                                                             WHERE (msp.provider_type = 'Clinic' AND msp.voided = 0 AND ms.voided = 0);").each.map do |medical_scheme|
+      [medical_scheme.company_name + "-" + medical_scheme.name,medical_scheme.medical_scheme_id]
+                                                              end
+
+    @referral_schemes_map = BillingMedicalScheme.find_by_sql("SELECT * FROM billing_medical_scheme as ms
+                                                             INNER JOIN billing_medical_scheme_provider as msp
+                                                             ON msp.medical_scheme_provider_id = ms.medical_scheme_provider_id
+                                                             WHERE (msp.provider_type = 'Hospital' AND msp.voided = 0 AND ms.voided = 0);").each.map do |medical_scheme|
+      [medical_scheme.company_name + "-" + medical_scheme.name,medical_scheme.medical_scheme_id]
+                                                              end
+    
   end
 
   def create
