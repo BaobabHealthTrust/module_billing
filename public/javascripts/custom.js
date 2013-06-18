@@ -73,5 +73,5 @@ function setCategoryAjaxURL(){
 }
 
 function setServiceAjaxURL(){
-	__$("1.4").setAttribute("ajaxURL", "/billing_services/get_services?category=" + __$("touchscreenInput" + tstCurrentPage).value)
+	__$("1.4").setAttribute("ajaxURL", "/billing_product/get_products?category=" + __$("touchscreenInput" + tstCurrentPage).value)
 }
