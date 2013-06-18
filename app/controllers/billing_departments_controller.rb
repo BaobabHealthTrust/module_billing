@@ -45,7 +45,7 @@ class BillingDepartmentsController < ApplicationController
 	end
 
   def get_departments
-    @departments = BillingDepartment.all(:conditions => ["retired = ?",false]).collect{|department| department.name}
+    @departments = BillingDepartment.all(:conditions => ["voided = ?",false]).collect{|department| department.name}
     render :text => "<li>" + @departments.join("</li><li>") + "</li>"
   end
 
