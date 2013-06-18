@@ -108,4 +108,12 @@ class BillingProductController < ApplicationController
       end
   end
 
+  def get_products
+    params[:department]
+    search_string = (params[:category] || '')
+    category_id = BillingCategory.find_by_name(search_string).category_id
+    @billing_products = BillingProduct.all(:conditions => ["category_id = ? ", category_id]).collect{|product| product.name}
+    render :text => "<li>" + @billing_products.join("</li><li>") + "</li>"
+  end
+
 end
