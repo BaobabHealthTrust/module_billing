@@ -51,6 +51,10 @@ class BillingAccountsController < ApplicationController
     @payment_methods_map = YAML.load_file("#{Rails.root}/config/application.yml")["#{Rails.env
         }"]["payment.methods"].split(",") rescue []
 
+    @price_type_map = YAML.load_file("#{Rails.root}/config/application.yml")["#{Rails.env
+        }"]["price.types"].split(",") rescue []
+
+
 
     @medical_schemes_map = BillingMedicalScheme.find_by_sql("SELECT * FROM billing_medical_scheme as ms
                                                              INNER JOIN billing_medical_scheme_provider as msp
@@ -90,6 +94,7 @@ class BillingAccountsController < ApplicationController
     @billing_account.patient_id = params[:patient_id]
     @billing_account.creator = params[:user_id]
     @billing_account.payment_method = params[:payment_method]
+    @billing_account.price_type = params[:price_type]
     @billing_account.save!
 
    case params[:payment_method].upcase
