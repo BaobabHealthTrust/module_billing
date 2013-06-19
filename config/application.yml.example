@@ -2,6 +2,7 @@ production:
   project.name: Billing
   facility.name: Test Centre
   price.types: General,Private,Invoice
+  VAT: 16.5
   scheme.provider.types: Company,Provider,Hospital,Clinic
   payment.methods: Medical Scheme,Company Agreement,Cash,Social Welfare,Government Referral,Private Clinic Referral,Credit,Staff
   patient.registration.url: http://localhost:3005
@@ -11,6 +12,7 @@ development:
   project.name: Billing
   facility.name: Test Centre
   price.types: General,Private,Invoice
+  VAT: 16.5
   scheme.provider.types: Company,Provider,Hospital,Clinic
   payment.methods: Medical Scheme,Company Agreement,Cash,Social Welfare,Government Referral,Private Clinic Referral,Credit,Staff
   patient.registration.url: http://localhost:3005
@@ -20,6 +22,7 @@ test: &TEST
   project.name: Billing
   facility.name: Test Centre
   price.types: General,Private,Invoice
+  VAT: 16.5
   scheme.provider.types: Company,Provider,Hospital,Clinic
   payment.methods: Medical Scheme,Company Agreement,Cash,Social Welfare,Government Referral,Private Clinic Referral,Credit,Staff
   patient.registration.url: http://localhost:3005
