@@ -5,22 +5,22 @@ class BillingCartController < ApplicationController
     price_type = BillingAccount.find_by_patient_id(params[:patient_id]).price_type
     @vat = YAML.load_file("#{Rails.root}/config/application.yml")["#{Rails.env
         }"]["VAT"] rescue nil
-
     @cart = find_cart
     @cart.add_product(product,price_type)
+    @location_id = session[:location_id]
   end
 
   def checkout
-    
     @cart = find_cart
-
+    @patient = Patient.find(params[:patient_id])
+    @account = @patient.billing_account
     unless @cart.nil?
       @billing_invoice = BillingInvoice.new
-      @billing_invoice.account_id = 6
-      @billing_invoice.invoice_type = "I"
-      @billing_invoice.payment_method = "Medical Scheme"
-      @billing_invoice.location_id = 721
-      @billing_invoice.creator = 1
+      @billing_invoice.account_id = @account.account_id
+      @billing_invoice.invoice_type = @account.payment_method.upcase == "CASH" ? "C" : "I"
+      @billing_invoice.payment_method = @account.payment_method
+      @billing_invoice.location_id = params[:location_id]
+      @billing_invoice.creator = params[:user_id]
       @billing_invoice.total_amount = 0
       @billing_invoice.save!
       @invoice_total_amount = 0
@@ -38,6 +38,8 @@ class BillingCartController < ApplicationController
       end
      @billing_invoice.total_amount = @invoice_total_amount
      @billing_invoice.save!
+     session[:cart] = nil
+     redirect_to "/clinic?user_id=#{params[:user_id]}&location_id=#{params[:location_id]}"
     else
 
     end
