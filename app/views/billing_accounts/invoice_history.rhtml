@@ -151,7 +151,7 @@
                 <tr>
                   <td style="width: 20%; text-align: left;
                       vertical-align: top; font-size: 1.5em; color: #1f3b5e;">
-					<%= invoice.date_created.to_date %>
+					<%= invoice.created_at.to_date %>
                   </td>
                   <td style="width: 15%; border-left: 1px dotted #ccc; vertical-align: top;">
                     <div style="width: 100%; height: 220px; overflow: auto;">
@@ -163,7 +163,7 @@
                   <td style="width:15%;border-left: 1px dotted #ccc;">
                     <div style="width: 100%; height: 220px; overflow: auto;">
                       <ul id="obs" style="width: 100%;">
-                      <%= invoice.total %>
+                      <%= invoice.total_amount %>
                       </ul>
                     </div>
                   </td>
