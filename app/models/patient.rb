@@ -9,7 +9,7 @@ class Patient < ActiveRecord::Base
   has_many :programs, :through => :patient_programs
   has_many :relationships, :foreign_key => :person_a, :dependent => :destroy, :conditions => {:voided => 0}
   has_many :orders, :conditions => {:voided => 0}
-  has_many :billing_accounts
+  has_one :billing_account, :foreign_key => :patient_id
 
   has_many :program_encounters, :class_name => 'ProgramEncounter',
     :foreign_key => :patient_id, :dependent => :destroy
