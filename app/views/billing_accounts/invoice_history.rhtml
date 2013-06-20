@@ -136,55 +136,54 @@
 
       <table id="stats" style="margin-bottom: 8px;" cellpadding="5">
         <tr style="color: #fff; background-color: #6281a7;">
-          <th style="text-align:left; width: 20%;">Date</th>
           <th style="width: 15%;">Invoice id</th>
+          <th style="width: 20%;">Date</th>
+          <th style="">Invoice Type</th>
           <th style="width: 15%;">Total Amount</th>
           <th style="width: 30%">Payment Method</th>
-          <th style="">Reprint</th>
+          
         </tr>
         <tr>
           <td colspan="5">
-            <div style="width=100%;height: 235px; overflow: hidden; border: 1px solid #ccc;">
+            <div style="width: 100%;height: 235px; overflow:auto; border: 1px solid #ccc; font-size: 1.5em; color: #1f3b5e;">
+              
               <table width="100%" cellpadding="5">
-				<% @invoices.each do |invoice| %>
 				
+			<% @invoices.each do |invoice| %>
                 <tr>
-                  <td style="width: 20%; text-align: left;
+                  <td style="width: 15%; text-align: center;
                       vertical-align: top; font-size: 1.5em; color: #1f3b5e;">
-					<%= invoice.created_at.to_date %>
+
+                    <%= invoice.invoice_id %>
                   </td>
-                  <td style="width: 15%; border-left: 1px dotted #ccc; vertical-align: top;">
-                    <div style="width: 100%; height: 220px; overflow: auto;">
-                      <ul id="encounters" style="width: 100%;">
-                      <%= invoice.invoice_id %>
-                      </ul>
-                    </div>
+                  <td style="width: 20%;text-align: left; border-left: 1px dotted #ccc; vertical-align: top; font-size: 1.5em; color: #1f3b5e">
+                    
+                      <%= invoice.created_at.to_date == Date.today()? "Today" : invoice.created_at.strftime("%d-%h-%Y") %>
+                      
                   </td>
-                  <td style="width:15%;border-left: 1px dotted #ccc;">
-                    <div style="width: 100%; height: 220px; overflow: auto;">
-                      <ul id="obs" style="width: 100%;">
-                      <%= invoice.total_amount %>
-                      </ul>
-                    </div>
-                  </td>
-                  <td style="width:30%;border-left: 1px dotted #ccc;">
-                    <div style="width: 100%; height: 220px; overflow: auto;">
-                      <ul id="obs" style="width: 100%;">
-                      <%= invoice.payment_method%>
-                      </ul>
-                    </div>
-                  </td>
-                  <td style="border-left: 1px dotted #ccc;">
-                    <div style="width: 100%; height: 220px; overflow: auto;">
-                      <ul id="obs" style="width: 100%;">
-                      print
-                      </ul>
-                    </div>
+                  
+                  <td style="border-left: 1px dotted #ccc;font-size: 1.5em; color: #1f3b5e; text-align: left">
+
+                     <%= invoice.invoice_type == "I" ? "Invoice" : "Cashsale" %>
+
                   </td>
 
+                  
+                  <td style="width:15%; text-align: right; border-left: 1px dotted #ccc; font-size: 1.5em; color: #1f3b5e">
+                    
+                      <%= number_to_currency(invoice.total_amount, :locale => :mw) %>
+                     
+                  </td>
+                  <td style="width:30%;border-left: 1px dotted #ccc; font-size: 1.5em; text-align: left; color: #1f3b5e;">
+                    
+                      <%= invoice.payment_method%>
+                     
+                  </td>
+                  
                 </tr>
-				<% end %>
+		<% end %>
               </table>
+              
             </div>
           </td>
         </tr>
