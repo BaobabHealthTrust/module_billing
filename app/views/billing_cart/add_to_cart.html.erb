@@ -41,7 +41,7 @@
                  text-align: center; font-weight: bold;">
               #
             </div>
-            <div style="display: table-cell; border: 1px solid #ccc; padding: 5px;
+            <div style="display: table-cell; border: 1px solid #ccc;
                  text-align: center; font-weight: bold;">
               Service Name
             </div>
@@ -63,17 +63,18 @@
           </div>
           
           <% i = 0 %>
+          <%  total_amount= total_tax = 0 %>
           <% for item in @cart.items %>
 
             <% i = i + 1 %>
-
+          
             <div style="display: table-row;">
               <div style="display: table-cell; border-left: 1px dotted #ccc; border-bottom: 1px dotted #ccc;
                    border-right: 1px dotted #ccc; padding: 5px; text-align: center; vertical-align: top; padding-top: 20px;">
                    <%= i %>
               </div>
               <div style="display: table-cell; border-left: 1px dotted #ccc; border-bottom: 1px dotted #ccc;
-                   border-right: 1px dotted #ccc; padding: 5px; text-align: center; vertical-align: top; padding-top: 20px;">
+                   border-right: 1px dotted #ccc; padding: 5px; text-align: left; vertical-align: top; padding-top: 20px;">
                    <table width="100%">
                   <tr>
                     <td>
@@ -85,7 +86,7 @@
                             <td align="right">
 
                               <img src="/touchscreentoolkit/lib/images/pencil.png" alt="edit"
-                             style="margin: 5px; border: 1px dotted #efe; padding: 5px;
+                             style="border: 1px dotted #efe;
                              padding-left: 5px; padding-right: 5px; cursor: pointer;"
                              onclick="window.location='/edit_item?target_id=<%= item.product_code %>&user_id=<%= params[:user_id] %>&location_id=<%=
                              params[:location_id] %><%= (!params[:src].nil? ? "&src=#{params[:src]}" : "") %>'" />
@@ -96,7 +97,7 @@
                     </td>
                     <td align="right" style="width: 30px; vertical-align: top;">
                         <img src="/touchscreentoolkit/lib/images/cancel_flat_small_red.png" alt="delete"
-                                     style="margin: 5px; border: 1px dotted #efe; padding: 10px;"
+                                     style="border: 1px dotted #efe;"
                                      onclick="confirmDeletion('Are you sure you want <br/>to delete <%= item.name %> with associated prices?',
                                              '/void_item?target_id=<%= item.product_code %>&user_id=<%= params[:user_id] %>&location_id=<%=
                                      params[:location_id] %><%= (!params[:src].nil? ? "&src=#{params[:src]}" : "") %>')"/>
@@ -108,25 +109,57 @@
               
 
               <div style="display: table-cell; border-bottom: 1px dotted #ccc;
-                   border-right: 1px dotted #ccc;  padding: 5px; vertical-align: top; padding-top: 20px;">
-
+                   border-right: 1px dotted #ccc;  padding: 5px; vertical-align: top; text-align: center; padding-top: 20px;">
                               <%= item.quantity  %>
               </div>
 
               <div style="display: table-cell; border-left: 1px dotted #ccc; border-bottom: 1px dotted #ccc;
-                   border-right: 1px dotted #ccc; padding: 5px; text-align: center; vertical-align: top; padding-top: 20px;">
-                   <%= (item.price * @vat)/100 %>
+                   border-right: 1px dotted #ccc; padding: 5px; text-align: right; vertical-align: top; padding-top: 20px;">
+                   <%= number_to_currency((item.price * @vat)/100, :locale => :mw) %>
+                   <% total_tax += (item.price * @vat)/100  %>
               </div>
 
               <div style="display: table-cell; border-left: 1px dotted #ccc; border-bottom: 1px dotted #ccc;
-                   border-right: 1px dotted #ccc; padding: 5px; text-align: center; vertical-align: top; padding-top: 20px;">
-                   <%= item.price %>
+                   border-right: 1px dotted #ccc; padding: 5px; text-align: right; vertical-align: top; padding-top: 20px;">
+                   <%= number_to_currency(item.price, :locale => :mw) %>
+                   <% total_amount += item.price %>
               </div>
 
             </div>
 
           <% end %>
 
+        </div>
+
+        <div style="display: table; width: 100%; border-spacing: 2px;">
+          <div style="display: table-row; background-color: #999; color: #eee;">
+            
+             <div style="display: table-cell; border: 1px solid #ccc; padding: 5px;
+                 text-align: center; font-weight: bold;">
+              Subtotal
+            </div>
+
+            <div style="display: table-cell; border: 1px solid #ccc; padding: 5px;
+                 text-align: center; font-weight: bold;">
+              Total
+            </div>
+
+          </div>
+
+          
+            <div style="display: table-row;">
+            
+              <div style="display: table-cell; border-left: 1px dotted #ccc; border-bottom: 1px dotted #ccc;
+                   border-right: 1px dotted #ccc; padding: 5px; text-align: right; vertical-align: top; padding-top: 20px;">
+                <%= number_to_currency(total_amount - total_tax, :locale => :mw) %>
+              </div>
+
+              <div style="display: table-cell; border-left: 1px dotted #ccc; border-bottom: 1px dotted #ccc;
+                   border-right: 1px dotted #ccc; padding: 5px; text-align: right; vertical-align: top; padding-top: 20px;">
+                   <%= number_to_currency(total_amount, :locale => :mw) %>
+              </div>
+
+            </div>
         </div>
 
       </div>
