@@ -55,6 +55,10 @@
                  text-align: center; font-weight: bold;">
               Price
             </div>
+            
+            <div style="display: table-cell; border: 1px solid #ccc; padding: 5px;
+                 text-align: center; font-weight: bold;">
+            </div>
 
           </div>
 
@@ -77,10 +81,42 @@
                    border-right: 1px dotted #ccc;  padding: 5px; text-align: left; vertical-align: top; padding-top: 20px;">
                    <%= price.price_type %>
               </div>
-
+              <div style="display: table-cell; border-bottom: 1px dotted #ccc;
+                   border-right: 1px dotted #ccc;  padding: 5px; vertical-align: top; text-align: right; padding-top: 20px;">
+                <%= number_to_currency(price.amount, :locale => :mw) %>
+              </div>
                <div style="display: table-cell; border-bottom: 1px dotted #ccc;
                    border-right: 1px dotted #ccc;  padding: 5px; vertical-align: top; text-align: right; padding-top: 20px;">
-                   <%= number_to_currency(price.amount, :locale => :mw) %>
+                 
+                 <table width="100%">
+                  <tr>
+                    <td>
+                      <table width="100%">
+                          <tr>
+                            <td>
+                              
+                            </td>
+                            <td align="right">
+
+                              <img src="/touchscreentoolkit/lib/images/pencil.png" alt="edit"
+                             style="border: 1px dotted #efe; cursor: pointer;"
+                             onclick="window.location='/edit_price?target_id=<%= price.price_id %>&user_id=<%= params[:user_id] %>&location_id=<%=
+                             params[:location_id] %><%= (!params[:src].nil? ? "&src=#{params[:src]}" : "") %>'" />
+
+                            </td>
+                          </tr>
+                      </table>
+                    </td>
+                    <td align="right" style="width: 10px; vertical-align: top;">
+                        <img src="/touchscreentoolkit/lib/images/cancel_flat_small_red.png" alt="delete"
+                                     style="border: 1px dotted #efe;"
+                                     onclick="confirmDeletion('Are you sure you want <br/>to delete <%= number_to_currency(price.amount, :locale => :mw) %>',
+                                             '/void_price?target_id=<%= price.price_id %>&user_id=<%= params[:user_id] %>&location_id=<%=
+                                     params[:location_id] %><%= (!params[:src].nil? ? "&src=#{params[:src]}" : "") %>')"/>
+
+                    </td>
+                  </tr>
+                </table>
               </div>
 
             </div>
