@@ -1,2 +1,31 @@
-<h1>BillingPrice#edit</h1>
-<p>Find me in app/views/billing_price/edit.html.erb</p>
+<style type="text/css">
+  .long .options {
+    height: 22em !important;
+  }
+</style>
+
+<script language="javascript">
+  tt_cancel_destination = '/show_prices?user_id=<%= params[:user_id] %>&location_id=<%=
+params[:location_id] + (!params[:src].nil? ? "&src=#{params[:src]}" : "") %>';
+  tt_cancel_show = '/show_prices?user_id=<%= params[:user_id] %>&location_id=<%=
+params[:location_id] + (!params[:src].nil? ? "&src=#{params[:src]}" : "") %>';
+</script>
+
+<form action="/update_price" method='post'>
+
+  <label for="price">Edit Amount</label>
+  <%= text_field_tag(:price, @price.amount, :helpText => "Edit Amount") %>
+
+  <%= hidden_field_tag "user_id", "#{params[:id] || params[:user_id]}" %>
+
+  <%= hidden_field_tag "location_id", "#{params[:location_id]}" %>
+
+  <%= hidden_field_tag "price_id", "#{@price.price_id}" %>
+
+  <% if !params[:src].nil? %>
+    <%= hidden_field_tag "src", "#{params[:src]}" %>
+  <% end %>
+
+  <%= submit_tag value ="Submit"%>
+
+</form>
