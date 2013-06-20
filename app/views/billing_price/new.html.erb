@@ -22,7 +22,7 @@ params[:location_id] + (!params[:src].nil? ? "&src=#{params[:src]}" : "") %>';
     :helpText => "Select Price Type") %>
 
   <label for="price">Enter Price</label>
-  <%= text_field_tag(:price, params[:price], :helpText => "Product Price") %>
+  <%= text_field_tag(:price, params[:price], :helpText => "Service Price") %>
   
   <%= hidden_field_tag "user_id", "#{params[:id] || params[:user_id]}" %>
 
