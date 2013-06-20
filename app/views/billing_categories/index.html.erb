@@ -40,14 +40,6 @@
           <div style="display: table-row; background-color: #999; color: #eee;">
             <div style="display: table-cell; border: 1px solid #ccc; padding: 5px;
                  text-align: center; font-weight: bold;">
-              #
-            </div>
-            <div style="display: table-cell; border: 1px solid #ccc; padding: 5px;
-                 text-align: center; font-weight: bold;">
-              Department Name
-            </div>
-            <div style="display: table-cell; border: 1px solid #ccc; padding: 5px;
-                 text-align: center; font-weight: bold;">
               Category Name
             </div>
 
@@ -58,29 +50,18 @@
             
           </div>
 
-          <% i = 0 %>
           <% @categories.each do |category| %>
 
-            <% i = i + 1 %>
-
             <div style="display: table-row;">
-              <div style="display: table-cell; border-left: 1px dotted #ccc; border-bottom: 1px dotted #ccc;
-                   border-right: 1px dotted #ccc; padding: 5px; text-align: center; vertical-align: top; padding-top: 20px;">
-                   <%= i %>
-              </div>
               <div style="display: table-cell; border-bottom: 1px dotted #ccc;
-                   border-right: 1px dotted #ccc;  padding: 5px; vertical-align: top; padding-top: 20px;">
-                   <%= category.billing_department.name %>
-              </div>
-              <div style="display: table-cell; border-bottom: 1px dotted #ccc;
-                   border-right: 1px dotted #ccc;  padding: 5px; vertical-align: top; padding-top: 20px;">
+                   border-right: 1px dotted #ccc;  border-left: 1px dotted #ccc; padding: 5px; vertical-align: top; padding-top: 20px;">
                 <table width="100%">
                   <tr>
                     <td>
                       <table width="100%">
                           <tr>
                             <td>
-                              <%= category.name %>
+                              <%= category.name + "(" + category.billing_department.name + ")"  %>
                             </td>
                             <td align="right">
 

@@ -13,8 +13,8 @@ params[:location_id] + (!params[:src].nil? ? "&src=#{params[:src]}" : "") %>';
 
 <form action="/create_product_type" method='post'>
 
-  <label for="product_type_name">Product Type Name</label>
-  <%= text_field_tag(:product_type_name, params[:name], :helpText => "Product Type Name") %>
+  <label for="product_type_name">Service Type Name</label>
+  <%= text_field_tag(:product_type_name, params[:name], :helpText => "Service Type Name") %>
 
   
   <%= hidden_field_tag "user_id", "#{params[:id] || params[:user_id]}" %>
