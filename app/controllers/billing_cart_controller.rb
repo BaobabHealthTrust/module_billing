@@ -1,13 +1,17 @@
 class BillingCartController < ApplicationController
   
   def add_to_cart
-    product = BillingProduct.find_by_name(params[:product])
-    price_type = BillingAccount.find_by_patient_id(params[:patient_id]).price_type
     @vat = YAML.load_file("#{Rails.root}/config/application.yml")["#{Rails.env
-        }"]["VAT"] rescue nil
+      }"]["VAT"] rescue nil
     @cart = find_cart
-    @cart.add_product(product,price_type)
     @location_id = session[:location_id]
+    @patient_id = params[:patient_id]
+
+    if params[:product]
+      product = BillingProduct.find_by_name(params[:product])
+      price_type = BillingAccount.find_by_patient_id(@patient_id).price_type
+      @cart.add_product(product,price_type)
+    end      
   end
 
   def checkout
@@ -46,6 +50,15 @@ class BillingCartController < ApplicationController
   end
 
   def remove_from_cart
+    a = BillingProduct.find(params[:target_id])
+    @cart = find_cart
+    @cart.remove_product(a)
+
+    if @cart.items.length == 0
+       redirect_to "/patients/show?patient_id=#{params[:patient_id]}&location_id=#{params[:location_id]}&user_id=#{params[:user_id]}"
+    else
+       redirect_to "/add_to_cart?patient_id=#{params[:patient_id]}&location_id=#{params[:location_id]}&user_id=#{params[:user_id]}"
+    end
   end
 
   def empty_cart
