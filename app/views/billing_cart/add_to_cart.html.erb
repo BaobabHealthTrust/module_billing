@@ -90,8 +90,8 @@
                         <img src="/touchscreentoolkit/lib/images/cancel_flat_small_red.png" alt="delete"
                                      style="border: 1px dotted #efe;"
                                      onclick="confirmDeletion('Are you sure you want <br/>to delete <%= item.name %> service?',
-                                             '/void_item?target_id=<%= item.product_code %>&user_id=<%= params[:user_id] %>&location_id=<%=
-                                     params[:location_id] %><%= (!params[:src].nil? ? "&src=#{params[:src]}" : "") %>')"/>
+                                             '/remove_from_cart?target_id=<%= item.product_code %>&user_id=<%= params[:user_id] %>&patient_id=<%= @patient_id %>&location_id=<%=
+                                     @location_id %><%= (!params[:src].nil? ? "&src=#{params[:src]}" : "") %>')"/>
 
                     </td>
                   </tr>
