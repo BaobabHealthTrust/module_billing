@@ -14,6 +14,14 @@ def add_product(product,price_type)
   end
 end
 
+def remove_product(product)
+  current_item = @items.find {|item| item.product == product}
+
+  if current_item
+    @items.delete(current_item)
+  end
+end
+
 end
 
 
