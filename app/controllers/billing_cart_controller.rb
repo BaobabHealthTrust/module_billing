@@ -1,13 +1,20 @@
 class BillingCartController < ApplicationController
   
   def add_to_cart
+    
     @vat = YAML.load_file("#{Rails.root}/config/application.yml")["#{Rails.env
       }"]["VAT"] rescue nil
     @cart = find_cart
     @location_id = session[:location_id]
     @patient_id = params[:patient_id]
-
+    @patient = Patient.find(params[:id] || params[:patient_id]) rescue nil
+   
     if params[:product]
+      if params[:health_passport].to_s == "No"
+        product = BillingProduct.find_by_name("Health Passport")
+        price_type = BillingAccount.find_by_patient_id(@patient_id).price_type
+        @cart.add_product(product,price_type)
+      end
       product = BillingProduct.find_by_name(params[:product])
       price_type = BillingAccount.find_by_patient_id(@patient_id).price_type
       @cart.add_product(product,price_type)
