@@ -25,69 +25,6 @@
 
 </script>
 
-<style type="text/css">
-  body {
-    -moz-user-select:none;
-  }
-
-  #stats {
-    width:98%;
-    border:1px solid #eee;
-    margin:10px;
-    margin-top: 0px;
-    background:white;
-  }
-  #stats td, #stats th {
-    text-align:center;
-  }
-  .odd {
-    background-color: #eeeef7;
-  }
-  .even {
-    background-color: #fff;
-  }
-
-  #table_div {
-    overflow:auto;
-    height: 320px;
-    background-color: white;
-    border: solid 1px #eee;
-    border-width: 1px;
-    overflow: hidden;
-  }
-
-  .btnsqr {
-    min-height: 50px !important;
-    min-width: 350px !important;
-    margin: 0px !important;
-    margin-bottom: 5px !important;
-    font-size: 1.2em !important;
-    background-color: #6281a7 !important;
-    color: #FFF !important;
-    font-weight: normal !important;
-    border: 5px outset #000 !important;
-    padding: 10px !important;
-    cursor: pointer !important;
-    background:url(/touchscreentoolkit/lib/images/btn_blue.png) right repeat !important;
-    -moz-user-select:none !important;
-    -moz-user-focus:disabled !important;
-    float: left;
-  }
-
-  .btnsqr:hover {
-    background:url(/touchscreentoolkit/lib/images/btn_blue_hover.png) right repeat;
-    -moz-user-select:none !important;
-    -moz-user-focus:disabled !important;
-  }
-
-  .btnsqr:active {
-    background:url(/touchscreentoolkit/lib/images/btn_yellow.png) right repeat;
-    border: 3px inset #000;
-  }
-
-
-</style>
-
 
 <table width="100%" style="margin: 0px;" border="0" cellspacing="0">
   <tr>
@@ -258,49 +195,40 @@
               <table>
                 <tr>
                   <td>
-                    <button class="btn" style="margin: 8px; width: 250px; float: right;"
-                            onclick="window.location='/select_department?patient_id=<%= params[:patient_id] %>&location_id=<%= params[:location_id] %>&user_id=<%= params[:user_id] %>'">
+                    <button class="blue" style="margin: 8px; width: 250px; float: right;"
+                            onclick="window.location='/select_department?patient_id=<%= params[:patient_id] %>&location_id=<%= session[:location_id] %>&user_id=<%= params[:user_id] %>'">
                       <span>
                         Select Department
                       </span>
                     </button>
                   </td>
                 </tr>
+                
                 <tr>
                   <td>
-                    <%if @department_id %>>
-                      <button class="btn" style="margin: 8px; width: 250px; float: right;"
-                              onclick="window.location='/select_category?patient_id=<%= params[:patient_id] %>&location_id=<%= params[:location_id] %>&user_id=<%= params[:user_id] %>&department_id=<%= params[:department_id]%>'">
+                    <%if @department_id %>
+                      <button class="blue" style="margin: 8px; width: 250px; float: right;"
+                              onclick="window.location='/select_category?patient_id=<%= params[:patient_id] %>&location_id=<%= session[:location_id] %>&user_id=<%= params[:user_id] %>&department_id=<%= params[:department_id]%>'">
                         <span>
                           Select Category
                         </span>
                       </button>
-                    <%else%>
-                      <button class="btn" style="margin: 8px; width: 250px; float: right;"
-                              onclick="window.location='#'">
-                        <span>
-                          Select Category
-                        </span>
-                      </button>
-                    <%end%>
+                    <% end %>
                   </td>
                 </tr>
 
-                <%# if @user.admin? || @user.manager? %>
-
                   <tr>
                     <td>
-                      <button class="btn" style="margin: 8px; width: 250px; float: right;"
-                              onclick="window.location='/user_list?user_id=#&location_id=<%= params[:location_id] %>'">
+                       <% if @category_id %>
+                      <button class="blue" style="margin: 8px; width: 250px; float: right;"
+                              onclick="window.location='/select_product?patient_id=<%= params[:patient_id] %>&location_id=<%= session[:location_id] %>&user_id=<%= params[:user_id] %>&department_id=<%= params[:department_id]%>&category_id=<%= params[:category_id]%>'">
                         <span>
-                          Select Service
+                        Select Service
                         </span>
                       </button>
+                      <% end %>
                     </td>
                   </tr>
-
-                <%# end %>
-
               </table>
             </td>
           </tr>
