@@ -10,15 +10,19 @@ class BillingCartController < ApplicationController
     @patient = Patient.find(params[:id] || params[:patient_id]) rescue nil
    
     if params[:product]
-      if params[:health_passport].to_s == "No"
-        product = BillingProduct.find_by_name("Health Passport")
-        price_type = BillingAccount.find_by_patient_id(@patient_id).price_type
-        @cart.add_product(product,price_type)
-      end
       product = BillingProduct.find_by_name(params[:product])
       price_type = BillingAccount.find_by_patient_id(@patient_id).price_type
       @cart.add_product(product,price_type)
-    end      
+    end
+
+    @department_id = nil
+
+    if params[:department_id]
+      @department_id = BillingDepartment.find(params[:department_id]).department_id
+    end
+
+    render :layout => true
+
   end
 
   def checkout
