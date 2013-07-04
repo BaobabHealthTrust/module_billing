@@ -116,9 +116,9 @@ class BillingProductController < ApplicationController
     render :text => "<li>" + @billing_products.join("</li><li>") + "</li>"
   end
 
-  def products
+  def select_product
     category_id = params[:category_id]
-    @products = BillingProduct.all(:conditions => ["category_id = ? ", category_id]).map do |category|
+    @products = BillingProduct.all(:conditions => ["category_id = ? ", category_id]).map do |product|
       [product.name, product.product_id]
     end
   end
