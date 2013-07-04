@@ -62,6 +62,12 @@ class BillingDepartmentsController < ApplicationController
     	end
   end
 
+  def select_department
+    @departments = BillingDepartment.all.map do |department|
+      [department.name, department.department_id]
+    end
+  end
+
   def update
       @department = BillingDepartment.find(params[:department_id])
       @department.name = params[:name]
