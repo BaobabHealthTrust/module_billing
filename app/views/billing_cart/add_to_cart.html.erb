@@ -1,3 +1,94 @@
+<script language="javascript">
+  tt_cancel_destination = '/select_user_task?user_id=<%= (params[:user_id] ||
+    params[:id]) %>&location_id=<%= params[:location_id] %>';
+  tt_cancel_show = '/select_user_task?user_id=<%= (params[:user_id] ||
+    params[:id]) %>&location_id=<%= params[:location_id] %>';
+
+  function confirmDeletion(message, link) {
+    if (!tstMessageBar) {
+
+      var tstMessageBar = document.createElement("div");
+      tstMessageBar.id = "messageBar";
+      tstMessageBar.className = "messageBar";
+
+      tstMessageBar.innerHTML = message + "<br/>" +
+        "<button onmousedown=\"document.getElementById('content').removeChild(document.getElementById('messageBar')); " +
+        "window.location='" + link + "';\"><span>Yes</span></button><button onmousedown=\"document.getElementById('content').removeChild(document.getElementById('messageBar'));\"><span>No</span></button>";
+
+      tstMessageBar.style.display = "block";
+      document.getElementById("content").appendChild(tstMessageBar);
+    }
+
+    return false;
+
+  }
+
+</script>
+
+<style type="text/css">
+  body {
+    -moz-user-select:none;
+  }
+
+  #stats {
+    width:98%;
+    border:1px solid #eee;
+    margin:10px;
+    margin-top: 0px;
+    background:white;
+  }
+  #stats td, #stats th {
+    text-align:center;
+  }
+  .odd {
+    background-color: #eeeef7;
+  }
+  .even {
+    background-color: #fff;
+  }
+
+  #table_div {
+    overflow:auto;
+    height: 320px;
+    background-color: white;
+    border: solid 1px #eee;
+    border-width: 1px;
+    overflow: hidden;
+  }
+
+  .btnsqr {
+    min-height: 50px !important;
+    min-width: 350px !important;
+    margin: 0px !important;
+    margin-bottom: 5px !important;
+    font-size: 1.2em !important;
+    background-color: #6281a7 !important;
+    color: #FFF !important;
+    font-weight: normal !important;
+    border: 5px outset #000 !important;
+    padding: 10px !important;
+    cursor: pointer !important;
+    background:url(/touchscreentoolkit/lib/images/btn_blue.png) right repeat !important;
+    -moz-user-select:none !important;
+    -moz-user-focus:disabled !important;
+    float: left;
+  }
+
+  .btnsqr:hover {
+    background:url(/touchscreentoolkit/lib/images/btn_blue_hover.png) right repeat;
+    -moz-user-select:none !important;
+    -moz-user-focus:disabled !important;
+  }
+
+  .btnsqr:active {
+    background:url(/touchscreentoolkit/lib/images/btn_yellow.png) right repeat;
+    border: 3px inset #000;
+  }
+
+
+</style>
+
+
 <table width="100%" style="margin: 0px;" border="0" cellspacing="0">
   <tr>
     <td style="font-size: 2.3em; background-color: #6281A7; color: #eee; padding: 15px; text-align: center;">
@@ -26,16 +117,13 @@
                           <li style="padding-left: 5px;list-style: none;">Gender : <%= "#{@patient.gender}" %></li>
                       </ul>
                     </div>
-
-
-
                  </td>
                 </tr>
                 <tr>
                   <td style="vertical-align: top; font-size: 2em; padding-top: 30px; ">
                     Invoice Details
                   </td>
-                  <td style="vertical-align: top; font-size: 1.8em; border-left: 1px dotted #ccc;" align="left">
+                  <td style="vertical-align: top; font-size: 1.2em; border-left: 1px dotted #ccc;" align="left">
                     <div style="height: 36.2em; background-color: #fff; overflow: auto; padding: 5px;">
 
         <div style="display: table; width: 100%; border-spacing: 2px;">
@@ -170,8 +258,8 @@
               <table>
                 <tr>
                   <td>
-                    <button class="blue" style="margin: 8px; width: 250px; float: right;"
-                            onclick="window.location='/edit_user?user_id=#&location_id=<%= params[:location_id] %>'">
+                    <button class="btn" style="margin: 8px; width: 250px; float: right;"
+                            onclick="window.location='/select_department?patient_id=<%= params[:patient_id] %>&location_id=<%= params[:location_id] %>&user_id=<%= params[:user_id] %>'">
                       <span>
                         Select Department
                       </span>
@@ -180,12 +268,21 @@
                 </tr>
                 <tr>
                   <td>
-                    <button class="blue" style="margin: 8px; width: 250px; float: right;"
-                            onclick="window.location='/edit_password?user_id=#&location_id=<%= params[:location_id] %>'">
-                      <span>
-                        Select Category
-                      </span>
-                    </button>
+                    <%if @department_id %>>
+                      <button class="btn" style="margin: 8px; width: 250px; float: right;"
+                              onclick="window.location='/select_category?patient_id=<%= params[:patient_id] %>&location_id=<%= params[:location_id] %>&user_id=<%= params[:user_id] %>&department_id=<%= params[:department_id]%>'">
+                        <span>
+                          Select Category
+                        </span>
+                      </button>
+                    <%else%>
+                      <button class="btn" style="margin: 8px; width: 250px; float: right;"
+                              onclick="window.location='#'">
+                        <span>
+                          Select Category
+                        </span>
+                      </button>
+                    <%end%>
                   </td>
                 </tr>
 
@@ -193,7 +290,7 @@
 
                   <tr>
                     <td>
-                      <button class="blue" style="margin: 8px; width: 250px; float: right;"
+                      <button class="btn" style="margin: 8px; width: 250px; float: right;"
                               onclick="window.location='/user_list?user_id=#&location_id=<%= params[:location_id] %>'">
                         <span>
                           Select Service
