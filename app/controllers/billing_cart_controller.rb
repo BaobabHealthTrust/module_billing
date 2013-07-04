@@ -1,7 +1,6 @@
 class BillingCartController < ApplicationController
   
   def add_to_cart
-    
     @vat = YAML.load_file("#{Rails.root}/config/application.yml")["#{Rails.env
       }"]["VAT"] rescue nil
     @cart = find_cart
@@ -9,16 +8,29 @@ class BillingCartController < ApplicationController
     @patient_id = params[:patient_id]
     @patient = Patient.find(params[:id] || params[:patient_id]) rescue nil
    
+   
     if params[:product]
       product = BillingProduct.find_by_name(params[:product])
       price_type = BillingAccount.find_by_patient_id(@patient_id).price_type
       @cart.add_product(product,price_type)
+    elsif params[:product_id]
+      product = BillingProduct.find(params[:product_id])
+      price_type = BillingAccount.find_by_patient_id(@patient_id).price_type
+      params[:quantity].to_i.times do
+        @cart.add_product(product,price_type)
+      end
     end
 
     @department_id = nil
 
     if params[:department_id]
       @department_id = BillingDepartment.find(params[:department_id]).department_id
+    end
+
+    @category_id = nil
+    
+    if params[:category_id]
+      @category_id = BillingCategory.find(params[:category_id]).category_id
     end
 
     render :layout => true
