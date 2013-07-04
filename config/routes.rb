@@ -81,6 +81,8 @@ ActionController::Routing::Routes.draw do |map|
 
   map.create_department '/create_department', :controller => 'billing_departments', :action => 'create'
 
+  map.select_department '/select_department', :controller => 'billing_departments', :action => 'select_department'
+
   map.show_categories '/show_categories', :controller => 'billing_categories', :action => 'index'
 
   map.new_category '/new_category', :controller => 'billing_categories', :action => 'new'
@@ -93,7 +95,8 @@ ActionController::Routing::Routes.draw do |map|
 
   map.create_category '/create_category', :controller => 'billing_categories', :action => 'create'
 
-  
+  map.select_category '/select_category', :controller => 'billing_categories', :action => 'select_category'
+
   map.show_products '/show_products', :controller => 'billing_product', :action => 'index'
 
   map.new_product '/new_product', :controller => 'billing_product', :action => 'new'
