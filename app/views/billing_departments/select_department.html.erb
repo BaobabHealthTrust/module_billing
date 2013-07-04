@@ -17,11 +17,11 @@ params[:location_id] + (!params[:src].nil? ? "&src=#{params[:src]}" : "") %>';
   <%= select_tag(:department_id, options_for_select(@departments, params[:department_id]),
     :helpText => "Select Department") %>
 
-  <%= hidden_field_tag "user_id", "#{params[:id] || params[:user_id]}" %>
+  <%= hidden_field_tag "user_id", (params[:id] || params[:user_id]) %>
 
-  <%= hidden_field_tag "location_id", "#{params[:location_id]}" %>
+  <%= hidden_field_tag "location_id", params[:location_id] %>
 
-  <%= hidden_field_tag "patient_id", "#{params[:patient_id]}" %>
+  <%= hidden_field_tag "patient_id",  params[:patient_id] %>
 
   <% if !params[:src].nil? %>
     <%= hidden_field_tag "src", "#{params[:src]}" %>
