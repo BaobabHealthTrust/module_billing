@@ -396,7 +396,7 @@
         li.onclick = function(){
           if(this.innerHTML.match(/unticked/)){
             ajaxCustomRequest(__$('details'),
-            '/clinic/add_field?user_id=<%= @user["user_id"] rescue params[:user_id] %>&target=' + this.getAttribute("target"))
+            '/clinic/add_field?user_id=<%= session[:user_id] rescue params[:user_id] %>&target=' + this.getAttribute("target"))
           } else {
             confirmDeletion('Are you sure you want to remove this user from this project?',
             this.getAttribute("target"));
@@ -457,7 +457,7 @@
 
   function runCmd(id){
     ajaxCustomRequest(__$('details'),
-    '/clinic/remove_field?user_id=<%= @user["user_id"] rescue params[:user_id] %>&target=' + id);
+    '/clinic/remove_field?user_id=<%= session[:user_id] rescue params[:user_id] %>&target=' + id);
   }
 
   function confirmDeletion(message, id) {
