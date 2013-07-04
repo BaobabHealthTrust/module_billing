@@ -1,15 +1,19 @@
 
 class ClinicController < ApplicationController
+  unloadable
 
- 	before_filter :check_user, :except => [:user_login, :user_logout, :missing_program, :static_locations,
-    :missing_concept, :no_user, :no_patient, :project_users_list, :show_selected_fields, :check_role_activities,
-    :missing_encounter_type, :diagnoses]
+ 	before_filter :start_session
+
+  before_filter :check_user, :except => [:user_login, :user_logout, :missing_program,
+    :missing_concept, :no_user, :no_patient, :project_users_list, :check_role_activities]
 
   def index
-   
-	  User.current = User.find(@user["user_id"]) rescue nil
+    
+	  if session[:user_id].blank?
+      reset_session
 
-		User.current = User.find(params[:user_id]) rescue nil if User.current.blank?
+      user_login and return
+    end
 
     Location.current = Location.find(params[:location_id] || session[:location_id]) rescue nil
 
@@ -33,6 +37,10 @@ class ClinicController < ApplicationController
     @patient_registration = get_global_property_value("patient.registration.url") rescue ""
 
     @link = get_global_property_value("user.management.url").to_s rescue nil
+
+    @user = JSON.parse(RestClient.get("#{@link}/verify/#{(session[:user_id])}")) rescue {}
+
+    session[:user] = @user rescue nil
 
     if @link.nil?
       flash[:error] = "Missing configuration for <br/>user management connection!"
@@ -62,10 +70,27 @@ class ClinicController < ApplicationController
 
   end
 
+  def user_login
+
+    link = get_global_property_value("user.management.url").to_s rescue nil
+
+    if link.nil?
+      flash[:error] = "Missing configuration for <br/>user management connection!"
+
+      redirect_to "/no_user" and return
+    end
+
+    host = request.host_with_port rescue ""
+
+    redirect_to "#{link}/login?ext=true&src=#{host}" and return if params[:ext_user_id].nil?
+
+  end
+
   def user_logout
 
     link = get_global_property_value("user.management.url").to_s rescue nil
 
+    reset_session
 
     if link.nil?
       flash[:error] = "Missing configuration for <br/>user management connection!"
@@ -141,6 +166,11 @@ class ClinicController < ApplicationController
   end
 
   def project_users
+    if !session[:user].nil?
+      @user = session[:user]
+    else
+      @user = JSON.parse(RestClient.get("#{@link}/verify/#{(session[:user_id])}")) rescue {}
+    end
     render :layout => false
   end
 
@@ -374,7 +404,7 @@ class ClinicController < ApplicationController
 
     unless @project.nil?
       
-      UserProperty.find_by_user_id_and_property(@user["user_id"],
+      UserProperty.find_by_user_id_and_property(session[:user_id],
         "#{@project}.activities").property_value.split(",").each{|activity|
         
         activities[activity.titleize] = 1 if activity.downcase.match("^" +
@@ -393,7 +423,7 @@ class ClinicController < ApplicationController
 
     unless @project.nil? || params[:activity].nil?
 
-      user = UserProperty.find_by_user_id_and_property(@user["user_id"],
+      user = UserProperty.find_by_user_id_and_property(session[:user_id],
         "#{@project}.activities")
 
       unless user.nil?
@@ -408,7 +438,7 @@ class ClinicController < ApplicationController
       else
 
         UserProperty.create(
-          :user_id => @user["user_id"],
+          :user_id => session[:user_id],
           :property => "#{@project}.activities",
           :property_value => params[:activity]
         )
@@ -441,7 +471,7 @@ class ClinicController < ApplicationController
 
     unless @project.nil?
 
-      UserProperty.find_by_user_id_and_property(@user["user_id"],
+      UserProperty.find_by_user_id_and_property(session[:user_id],
         "#{@project}.activities").property_value.split(",").each{|activity|
 
         activities[activity.titleize] = 1
@@ -459,7 +489,7 @@ class ClinicController < ApplicationController
 
     unless @project.nil? || params[:activity].nil?
 
-      user = UserProperty.find_by_user_id_and_property(@user["user_id"],
+      user = UserProperty.find_by_user_id_and_property(session[:user_id],
         "#{@project}.activities")
 
       unless user.nil?
@@ -494,7 +524,7 @@ class ClinicController < ApplicationController
 
     unless @project.nil?
 
-      UserProperty.find_by_user_id_and_property(@user["user_id"],
+      UserProperty.find_by_user_id_and_property(session[:user_id],
         "#{@project}.activities").property_value.split(",").each{|activity|
 
         activities[activity.titleize] = 1
@@ -595,6 +625,15 @@ class ClinicController < ApplicationController
   def settings
       render :layout => false
   end
- 
+
+  protected
+
+  def sync_user
+    if !session[:user].nil?
+      @user = session[:user]
+    else
+      @user = JSON.parse(RestClient.get("#{@link}/verify/#{(session[:user_id])}")) rescue {}
+    end
+  end
 
 end
