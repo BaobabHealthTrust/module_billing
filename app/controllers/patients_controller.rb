@@ -1,7 +1,9 @@
 
 class PatientsController < ApplicationController
+ unloadable
 
-  before_filter :check_user
+  before_filter :sync_user, :except => [:index, :user_login, :user_logout,
+    :set_datetime, :update_datetime, :reset_datetime]
 
   def show
     @patient = Patient.find(params[:id] || params[:patient_id]) rescue nil
@@ -165,6 +167,16 @@ class PatientsController < ApplicationController
       weight = (weight > 100) ? weight/1000.0 : weight # quick check of weight in grams and that in KG's
       @weights << age + "," + weight.to_s if !age.blank? && !weight.blank?
     end  
+  end
+
+  protected
+  
+  def sync_user
+    if !session[:user].nil?
+      @user = session[:user]
+    else
+      @user = JSON.parse(RestClient.get("#{@link}/verify/#{(session[:user_id])}")) rescue {}
+    end
   end
   
 end
