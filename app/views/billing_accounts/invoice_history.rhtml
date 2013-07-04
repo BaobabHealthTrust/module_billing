@@ -396,7 +396,7 @@
       }
 
       function runCmd(id){
-        ajaxCustomRequest(__$('obs'), '/void?user_id=<%= @user["user_id"] rescue params[:user_id] %>&encounter_id=' + id);
+        ajaxCustomRequest(__$('obs'), '/void?user_id=<%= session[:user_id] rescue params[:user_id] %>&encounter_id=' + id);
 
         __$("encounters").removeChild(__$("tblEncounter" + id));
       }
