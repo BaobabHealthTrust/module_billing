@@ -1,10 +1,6 @@
 
 class EncountersController < ApplicationController
-
-	before_filter :check_user, :except => [:missing_program, :static_locations,
-		  :missing_concept, :no_user, :no_patient, :check_role_activities,
-		  :missing_encounter_type, :diagnoses]
-
+	unloadable
 
 =begin
 def create
@@ -369,7 +365,7 @@ def create
 
 
 
-    User.current = User.find(@user["user_id"]) rescue nil
+    User.current = User.find(session[:user_id]) rescue nil
 
     Location.current = Location.find(params[:location_id] || session[:location_id]) rescue nil
 
