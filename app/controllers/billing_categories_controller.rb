@@ -56,6 +56,13 @@ class BillingCategoriesController < ApplicationController
     render :text => "<li>" + @billing_categories.join("</li><li>") + "</li>"
   end
 
+  def select_category
+    department_id = params[:department_id]
+    @categories = BillingCategory.all(:conditions => ["department_id = ? ", department_id]).map do |category|
+      [category.name, category.category_id]
+    end
+  end
+
   def edit
    @category = BillingCategory.find(params[:target_id]) rescue nil
    @departments_map = BillingDepartment.all.map do |department|
