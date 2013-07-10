@@ -126,6 +126,28 @@
 
     </style>
 
+    <script language="javascript">
+  function confirmDeletion(message, link) {
+    if (!tstMessageBar) {
+
+      var tstMessageBar = document.createElement("div");
+      tstMessageBar.id = "messageBar";
+      tstMessageBar.className = "messageBar";
+
+      tstMessageBar.innerHTML = message + "<br/>" +
+        "<button onmousedown=\"document.getElementById('content').removeChild(document.getElementById('messageBar')); " +
+        "window.location='" + link + "';\"><span>Yes</span></button><button onmousedown=\"document.getElementById('content').removeChild(document.getElementById('messageBar'));\"><span>No</span></button>";
+
+      tstMessageBar.style.display = "block";
+      document.getElementById("content").appendChild(tstMessageBar);
+    }
+
+    return false;
+
+  }
+
+</script>
+
   </head>
   <body>
     <div id="content" style="background-color: #fff; border-top: 1px #fff solid; margin-top: 0px;">
@@ -136,7 +158,7 @@
 
       <table id="stats" style="margin-bottom: 8px;" cellpadding="5">
         <tr style="color: #fff; background-color: #6281a7;">
-          <th style="width: 15%;">Invoice id</th>
+          <th style="width: 15%;">Invoice Number</th>
           <th style="width: 20%;">Date</th>
           <th style="">Invoice Type</th>
           <th style="width: 15%;">Total Amount</th>
@@ -154,29 +176,41 @@
                   <td style="width: 15%; text-align: center;
                       vertical-align: top; font-size: 1.5em; color: #1f3b5e;">
 
-                    <%= invoice.invoice_id %>
+                    <button class="blue" style="float: right; margin: 8px; width: 200px; margin-right: 20px;"
+                onclick="window.location='/#?user_id=<%= params[:user_id]
+              %>&location_id=<%= params[:location_id] %><%= (!params[:src].nil? ? "&src=#{params[:src]}" : "") %>'">
+          <span>
+            <%= invoice.invoice_id %>
+          </span>
+        </button>
                   </td>
-                  <td style="width: 20%;text-align: left; border-left: 1px dotted #ccc; vertical-align: top; font-size: 1.5em; color: #1f3b5e">
+                  <td style="width: 20%;text-align: left; border-left: 1px dotted #ccc; vertical-align: middle; font-size: 1.5em; color: #1f3b5e">
                     
                       <%= invoice.created_at.to_date == Date.today()? "Today" : invoice.created_at.strftime("%d-%h-%Y") %>
                       
                   </td>
                   
-                  <td style="border-left: 1px dotted #ccc;font-size: 1.5em; color: #1f3b5e; text-align: left">
+                  <td style="border-left: 1px dotted #ccc;font-size: 1.5em; color: #1f3b5e; text-align: left; vertical-align: middle;">
 
                      <%= invoice.invoice_type == "I" ? "Invoice" : "Cashsale" %>
 
                   </td>
 
                   
-                  <td style="width:15%; text-align: right; border-left: 1px dotted #ccc; font-size: 1.5em; color: #1f3b5e">
+                  <td style="width:15%; text-align: right; border-left: 1px dotted #ccc; font-size: 1.5em; color: #1f3b5e ; vertical-align: middle;">
                     
                       <%= number_to_currency(invoice.total_amount, :locale => :mw) %>
-                     
+                    
                   </td>
-                  <td style="width:30%;border-left: 1px dotted #ccc; font-size: 1.5em; text-align: left; color: #1f3b5e;">
+                  <td style="width:30%;border-left: 1px dotted #ccc; font-size: 1.5em; text-align: left; color: #1f3b5e; vertical-align: middle;">
                     
                       <%= invoice.payment_method%>
+
+                    <img src="/touchscreentoolkit/lib/images/cancel_flat_small_red.png" alt="delete"
+                                     style="padding-left: 10px;vertical-align: middle;"
+                                     onclick="confirmDeletion('Are you sure you want <br/>to delete this invoice and associated invoice lines?',
+                                             '/void_invoice?target_id=<%= invoice.invoice_id %>&user_id=<%= params[:user_id] %>&location_id=<%=
+                                     params[:location_id] %>&patient_id=<%=  invoice.billing_account.patient.id %><%= (!params[:src].nil? ? "&src=#{params[:src]}" : "") %>')"/>
                      
                   </td>
                   
@@ -400,27 +434,6 @@
 
         __$("encounters").removeChild(__$("tblEncounter" + id));
       }
-
-      function confirmDeletion(message, id) {
-        if (!tstMessageBar) {
-
-          var tstMessageBar = document.createElement("div");
-          tstMessageBar.id = "messageBar";
-          tstMessageBar.className = "messageBar";
-
-          tstMessageBar.innerHTML = message + "<br/>" +
-            "<button onmousedown=\"__$('content').removeChild(document.getElementById('messageBar')); " +
-            "runCmd('" + id + "');\"><span>Yes</span></button><button onmousedown=\"__$('content')" +
-            ".removeChild(document.getElementById('messageBar'));\"><span>No</span></button>";
-
-          tstMessageBar.style.display = "block";
-          __$('content').appendChild(tstMessageBar);
-        }
-
-        return false;
-
-      }
-
       //-->
     </script>
   </body>
