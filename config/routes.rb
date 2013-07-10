@@ -177,6 +177,9 @@ ActionController::Routing::Routes.draw do |map|
   map.remove_from_cart '/remove_from_cart', :controller => 'billing_cart', :action => 'remove_from_cart'
   
   map.empty_cart '/empty_cart', :controller => 'billing_cart', :action => 'empty_cart'
+
+  map.void_invoice '/void_invoice', :controller => 'billing_invoice', :action => 'delete'
+
   #map.edit_product_type '/edit_product_type', :controller => 'billing_product_types', :action => 'edit'
 
   #map.update_product_type '/update_product_type', :controller => 'billing_product_types', :action => 'update'
