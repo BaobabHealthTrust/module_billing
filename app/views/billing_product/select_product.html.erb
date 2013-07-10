@@ -1,0 +1,35 @@
+<style type="text/css">
+  .long .options {
+    height: 22em !important;
+  }
+</style>
+
+<script language="javascript">
+  tt_cancel_destination = '/show_products?user_id=<%= params[:user_id] %>&location_id=<%=
+params[:location_id] + (!params[:src].nil? ? "&src=#{params[:src]}" : "") %>';
+  tt_cancel_show = '/show_products?user_id=<%= params[:user_id] %>&location_id=<%=
+params[:location_id] + (!params[:src].nil? ? "&src=#{params[:src]}" : "") %>';
+</script>
+
+<form action="/add_to_cart" method='post'>
+
+  <label for="category_id">Select Service</label>
+  <%= select_tag(:product_id, options_for_select(@products),
+    :helpText => "Select Service") %>
+
+  <label for="name">Enter Quantity</label>
+  <%= text_field_tag(:quantity, params[:quantity], :helpText => "Enter quantity") %>
+
+  <%= hidden_field_tag "user_id", (params[:id] || params[:user_id]) %>
+
+  <%= hidden_field_tag "location_id", params[:location_id] %>
+
+  <%= hidden_field_tag "patient_id",  params[:patient_id] %>
+
+  <% if !params[:src].nil? %>
+    <%= hidden_field_tag "src", "#{params[:src]}" %>
+  <% end %>
+
+  <%= submit_tag value ="Submit"%>
+
+</form>
