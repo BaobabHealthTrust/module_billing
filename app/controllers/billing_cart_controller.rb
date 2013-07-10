@@ -33,6 +33,8 @@ class BillingCartController < ApplicationController
       @category_id = BillingCategory.find(params[:category_id]).category_id
     end
 
+    @destination = "/invoice_summary?patient_id=#{@patient_id}&user_id=#{params[:user_id]}"
+
     render :layout => true
 
   end
@@ -85,6 +87,12 @@ class BillingCartController < ApplicationController
   end
 
   def empty_cart
+  end
+
+  def summary
+    @cart = find_cart
+    @vat = YAML.load_file("#{Rails.root}/config/application.yml")["#{Rails.env
+      }"]["VAT"] rescue nil
   end
   
   private
