@@ -180,6 +180,9 @@ ActionController::Routing::Routes.draw do |map|
 
   map.void_invoice '/void_invoice', :controller => 'billing_invoice', :action => 'delete'
 
+  map.invoice_summary '/invoice_summary', :controller => 'billing_cart', :action => 'summary'
+
+
   #map.edit_product_type '/edit_product_type', :controller => 'billing_product_types', :action => 'edit'
 
   #map.update_product_type '/update_product_type', :controller => 'billing_product_types', :action => 'update'
