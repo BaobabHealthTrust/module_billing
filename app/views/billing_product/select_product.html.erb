@@ -18,7 +18,7 @@ params[:location_id] + (!params[:src].nil? ? "&src=#{params[:src]}" : "") %>';
     :helpText => "Select Service") %>
 
   <label for="name">Enter Quantity</label>
-  <%= text_field_tag(:quantity, params[:quantity], :helpText => "Enter quantity") %>
+  <%= text_field_tag(:quantity, params[:quantity], :helpText => "Enter quantity",:field_type => 'number') %>
 
   <%= hidden_field_tag "user_id", (params[:id] || params[:user_id]) %>
 
