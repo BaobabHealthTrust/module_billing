@@ -1,5 +1,6 @@
 class BillingAccountsController < ApplicationController
   def index
+
   end
 
   def account_setting
@@ -12,17 +13,15 @@ class BillingAccountsController < ApplicationController
       @patient = Patient.find(params[:patient_id])
   	  @account = BillingAccount.find_by_patient_id(@patient.id) 
 	    @invoices = BillingInvoice.find_all_by_account_id(@account.account_id)
-	    @invoicelines = BillingInvoiceLine.find_all_by_invoice_id(BillingInvoice.find_all_by_account_id(@account.account_id))
-	  
+	    @invoicelines = BillingInvoiceLine.find_all_by_invoice_id(BillingInvoice.find_all_by_account_id(@account.account_id))  
       render :layout => false
-
   end
   
   def show
   end
 
   def show_account_medical_scheme
-  	  @account = BillingAccount.find(params[:account_id])
+  	@account = BillingAccount.find(params[:account_id])
 	  scheme_ids = BillingAccountsMedicalSchemes.find_all_by_account_id(@account.account_id).map { |account_scheme| [account_scheme.medical_scheme_id]}      
 	  
 	  @medical_schemes = []
@@ -89,7 +88,6 @@ class BillingAccountsController < ApplicationController
   end
 
   def create
-    
     @billing_account = BillingAccount.new()
     @billing_account.patient_id = params[:patient_id]
     @billing_account.creator = params[:user_id]
@@ -107,12 +105,6 @@ class BillingAccountsController < ApplicationController
 
    redirect_to "/clinic?user_id=#{params[:user_id]}&location_id=#{params[:location_id]}&ext_patient_id=#{params[:patient_id]}"
     
-  end
-
-  def update
-  end
-
-  def delete
   end
 
 end

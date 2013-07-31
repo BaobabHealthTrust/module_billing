@@ -208,6 +208,7 @@
                 <tr>
                   <td>
                     <button class="blue" style="margin: 8px; width: 250px; float: right;"
+             
                             onclick="window.location='/select_department?patient_id=<%= params[:patient_id] %>&location_id=<%= session[:location_id] %>&user_id=<%= params[:user_id] %>'">
                       <span>
                         Select Department
@@ -252,9 +253,9 @@
     <td style="background-color: #333;">
       <div style="height: 4.8em;">
         <button class="red" style="float: left; margin: 8px; width: 150px; margin-right: 20px;"
-                onclick="window.location='/logout/#'">
+                onclick="window.location='/protocol_patients/services?patient_id=<%=params[:patient_id] %>&user_id=<%= params[:user_id] %>'">
           <span>
-            Cancel
+            Back
           </span>
         </button>
         <button class="green" style="float: right; margin: 8px; width: 150px; margin-right: 20px;"
