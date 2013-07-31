@@ -172,6 +172,8 @@ ActionController::Routing::Routes.draw do |map|
 
   map.add_to_cart '/add_to_cart', :controller => 'billing_cart', :action => 'add_to_cart'
 
+  map.add_to_cart2 '/add_to_cart2', :controller => 'billing_cart', :action => 'add_to_cart2'
+  
   map.checkout '/checkout', :controller => 'billing_cart', :action => 'checkout'
 
   map.remove_from_cart '/remove_from_cart', :controller => 'billing_cart', :action => 'remove_from_cart'
