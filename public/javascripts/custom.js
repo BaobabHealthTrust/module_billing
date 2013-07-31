@@ -69,9 +69,9 @@ function populateMonth(id){
 }
 
 function setCategoryAjaxURL(){
-	__$("1.3").setAttribute("ajaxURL", "/billing_categories/get_categories?department=" + __$("touchscreenInput" + tstCurrentPage).value)
+	__$("1.2").setAttribute("ajaxURL", "/billing_categories/get_categories?department=" + __$("touchscreenInput" + tstCurrentPage).value)
 }
 
 function setServiceAjaxURL(){
-	__$("1.4").setAttribute("ajaxURL", "/billing_product/get_products?category=" + __$("touchscreenInput" + tstCurrentPage).value)
+	__$("1.3").setAttribute("ajaxURL", "/billing_product/get_products?category=" + __$("touchscreenInput" + tstCurrentPage).value)
 }
