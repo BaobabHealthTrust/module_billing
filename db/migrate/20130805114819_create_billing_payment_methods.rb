@@ -1,6 +1,6 @@
 class CreateBillingPaymentMethods < ActiveRecord::Migration
   def self.up
-    create_table :billing_payment_methods do |t|
+    create_table :billing_payment_method do |t|
       t.string :name
       t.bolean :voided
 
@@ -9,6 +9,6 @@ class CreateBillingPaymentMethods < ActiveRecord::Migration
   end
 
   def self.down
-    drop_table :billing_payment_methods
+    drop_table :billing_payment_method
   end
 end

@@ -1,6 +1,6 @@
 class CreateBillingSchemeProviderTypes < ActiveRecord::Migration
   def self.up
-    create_table :billing_scheme_provider_types do |t|
+    create_table :billing_scheme_provider_type do |t|
       t.string :name
       t.bolean :voided
 
@@ -9,6 +9,6 @@ class CreateBillingSchemeProviderTypes < ActiveRecord::Migration
   end
 
   def self.down
-    drop_table :billing_scheme_provider_types
+    drop_table :billing_scheme_provider_type
   end
 end

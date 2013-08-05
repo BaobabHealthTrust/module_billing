@@ -1,6 +1,6 @@
 class CreateBillingPriceTypes < ActiveRecord::Migration
   def self.up
-    create_table :billing_price_types do |t|
+    create_table :billing_price_type do |t|
       t.string :name
       t.bolean :voided
 
@@ -9,6 +9,6 @@ class CreateBillingPriceTypes < ActiveRecord::Migration
   end
 
   def self.down
-    drop_table :billing_price_types
+    drop_table :billing_price_type
   end
 end
