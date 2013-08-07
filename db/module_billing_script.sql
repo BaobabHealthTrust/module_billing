@@ -2,19 +2,21 @@ SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL';
 
+CREATE SCHEMA IF NOT EXISTS `default_schema` ;
+USE `default_schema` ;
 
 -- -----------------------------------------------------
--- Table `billing_department`
+-- Table `default_schema`.`billing_department`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `billing_department` ;
+DROP TABLE IF EXISTS `default_schema`.`billing_department` ;
 
-CREATE  TABLE IF NOT EXISTS `billing_department` (
+CREATE  TABLE IF NOT EXISTS `default_schema`.`billing_department` (
   `department_id` INT(11) NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(50) NOT NULL ,
   `creator` INT(11) NOT NULL ,
   `voided` TINYINT(1) NOT NULL DEFAULT 0 ,
   `voided_by` INT(11) NULL DEFAULT NULL ,
-  `date_voided` DATETIME NULL ,
+  `date_voided` DATETIME NULL DEFAULT NULL ,
   `void_reason` VARCHAR(50) NULL DEFAULT NULL ,
   `created_at` DATETIME NOT NULL ,
   `updated_at` DATETIME NOT NULL ,
@@ -23,44 +25,44 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `billing_category`
+-- Table `default_schema`.`billing_category`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `billing_category` ;
+DROP TABLE IF EXISTS `default_schema`.`billing_category` ;
 
-CREATE  TABLE IF NOT EXISTS `billing_category` (
+CREATE  TABLE IF NOT EXISTS `default_schema`.`billing_category` (
   `category_id` INT NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(50) NOT NULL ,
   `department_id` INT(11) NOT NULL ,
   `creator` INT(11) NOT NULL ,
   `voided` TINYINT(1) NOT NULL DEFAULT 0 ,
-  `voided_by` INT(11) NULL ,
-  `date_voided` DATETIME NULL ,
-  `void_reason` VARCHAR(50) NULL ,
+  `voided_by` INT(11) NULL DEFAULT NULL ,
+  `date_voided` DATETIME NULL DEFAULT NULL ,
+  `void_reason` VARCHAR(50) NULL DEFAULT NULL ,
   `created_at` DATETIME NOT NULL ,
   `updated_at` DATETIME NOT NULL ,
   PRIMARY KEY (`category_id`) ,
   INDEX `fk_billing_category_1` (`department_id` ASC) ,
   CONSTRAINT `fk_billing_category_1`
     FOREIGN KEY (`department_id` )
-    REFERENCES `billing_department` (`department_id` )
+    REFERENCES `default_schema`.`billing_department` (`department_id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `billing_product_type`
+-- Table `default_schema`.`billing_product_type`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `billing_product_type` ;
+DROP TABLE IF EXISTS `default_schema`.`billing_product_type` ;
 
-CREATE  TABLE IF NOT EXISTS `billing_product_type` (
+CREATE  TABLE IF NOT EXISTS `default_schema`.`billing_product_type` (
   `product_type_id` INT(11) NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(50) NOT NULL ,
   `creator` INT(11) NOT NULL ,
   `voided` TINYINT(1) NOT NULL DEFAULT 0 ,
   `voided_by` INT(11) NULL DEFAULT NULL ,
   `void_reason` VARCHAR(50) NULL DEFAULT NULL ,
-  `date_voided` DATETIME NULL ,
+  `date_voided` DATETIME NULL DEFAULT NULL ,
   `created_at` DATETIME NULL DEFAULT NULL ,
   `updated_at` DATETIME NULL DEFAULT NULL ,
   PRIMARY KEY (`product_type_id`) )
@@ -68,11 +70,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `billing_product`
+-- Table `default_schema`.`billing_product`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `billing_product` ;
+DROP TABLE IF EXISTS `default_schema`.`billing_product` ;
 
-CREATE  TABLE IF NOT EXISTS `billing_product` (
+CREATE  TABLE IF NOT EXISTS `default_schema`.`billing_product` (
   `product_id` INT(11) NOT NULL AUTO_INCREMENT ,
   `product_type_id` INT(11) NOT NULL ,
   `category_id` INT(11) NOT NULL ,
@@ -82,33 +84,33 @@ CREATE  TABLE IF NOT EXISTS `billing_product` (
   `voided_by` INT(11) NULL DEFAULT NULL ,
   `date_voided` DATETIME NULL DEFAULT NULL ,
   `void_reason` VARCHAR(50) NULL DEFAULT NULL ,
-  `created_at` DATETIME NULL ,
-  `updated_at` DATETIME NULL ,
+  `created_at` DATETIME NULL DEFAULT NULL ,
+  `updated_at` DATETIME NULL DEFAULT NULL ,
   PRIMARY KEY (`product_id`) ,
   INDEX `fk_billing_product_2` (`product_type_id` ASC) ,
   INDEX `fk_billing_product_1` (`category_id` ASC) ,
   CONSTRAINT `fk_billing_product_2`
     FOREIGN KEY (`product_type_id` )
-    REFERENCES `billing_product_type` (`product_type_id` )
+    REFERENCES `default_schema`.`billing_product_type` (`product_type_id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_billing_product_1`
     FOREIGN KEY (`category_id` )
-    REFERENCES `billing_category` (`category_id` )
+    REFERENCES `default_schema`.`billing_category` (`category_id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `billing_price`
+-- Table `default_schema`.`billing_price`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `billing_price` ;
+DROP TABLE IF EXISTS `default_schema`.`billing_price` ;
 
-CREATE  TABLE IF NOT EXISTS `billing_price` (
+CREATE  TABLE IF NOT EXISTS `default_schema`.`billing_price` (
   `price_id` INT(11) NOT NULL AUTO_INCREMENT ,
   `product_id` INT(11) NOT NULL ,
-  `price_type` VARCHAR(50) NOT NULL ,
+  `price_type` INT(11) NOT NULL ,
   `amount` DECIMAL NOT NULL ,
   `creator` INT(11) NOT NULL ,
   `voided` TINYINT(1) NOT NULL DEFAULT 0 ,
@@ -121,22 +123,22 @@ CREATE  TABLE IF NOT EXISTS `billing_price` (
   INDEX `fk_billing_price_1` (`product_id` ASC) ,
   CONSTRAINT `fk_billing_price_1`
     FOREIGN KEY (`product_id` )
-    REFERENCES `billing_product` (`product_id` )
+    REFERENCES `default_schema`.`billing_product` (`product_id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `billing_medical_scheme_provider`
+-- Table `default_schema`.`billing_medical_scheme_provider`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `billing_medical_scheme_provider` ;
+DROP TABLE IF EXISTS `default_schema`.`billing_medical_scheme_provider` ;
 
-CREATE  TABLE IF NOT EXISTS `billing_medical_scheme_provider` (
+CREATE  TABLE IF NOT EXISTS `default_schema`.`billing_medical_scheme_provider` (
   `medical_scheme_provider_id` INT(11) NOT NULL AUTO_INCREMENT ,
   `company_name` VARCHAR(50) NOT NULL ,
   `company_address` VARCHAR(50) NOT NULL ,
-  `provider_type` VARCHAR(30) NOT NULL ,
+  `provider_type` INT(11) NOT NULL ,
   `phone_number_1` VARCHAR(30) NOT NULL ,
   `phone_number_2` VARCHAR(30) NULL DEFAULT NULL ,
   `email_address` VARCHAR(30) NULL DEFAULT NULL ,
@@ -144,7 +146,7 @@ CREATE  TABLE IF NOT EXISTS `billing_medical_scheme_provider` (
   `voided` TINYINT(1) NOT NULL DEFAULT 0 ,
   `voided_by` INT(11) NULL DEFAULT NULL ,
   `void_reason` VARCHAR(50) NULL DEFAULT NULL ,
-  `date_voided` DATETIME NULL ,
+  `date_voided` DATETIME NULL DEFAULT NULL ,
   `created_at` DATETIME NOT NULL ,
   `updated_at` DATETIME NOT NULL ,
   PRIMARY KEY (`medical_scheme_provider_id`) )
@@ -152,11 +154,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `billing_medical_scheme`
+-- Table `default_schema`.`billing_medical_scheme`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `billing_medical_scheme` ;
+DROP TABLE IF EXISTS `default_schema`.`billing_medical_scheme` ;
 
-CREATE  TABLE IF NOT EXISTS `billing_medical_scheme` (
+CREATE  TABLE IF NOT EXISTS `default_schema`.`billing_medical_scheme` (
   `medical_scheme_id` INT NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(50) NOT NULL ,
   `medical_scheme_provider_id` INT(11) NOT NULL ,
@@ -164,34 +166,34 @@ CREATE  TABLE IF NOT EXISTS `billing_medical_scheme` (
   `voided` TINYINT(1) NOT NULL DEFAULT 0 ,
   `voided_by` INT(11) NULL DEFAULT NULL ,
   `date_voided` DATETIME NULL DEFAULT NULL ,
-  `void_reason` VARCHAR(50) NULL ,
+  `void_reason` VARCHAR(50) NULL DEFAULT NULL ,
   `created_at` DATETIME NOT NULL ,
   `updated_at` DATETIME NOT NULL ,
   PRIMARY KEY (`medical_scheme_id`) ,
   INDEX `fk_billing_medical_scheme_1` (`medical_scheme_provider_id` ASC) ,
   CONSTRAINT `fk_billing_medical_scheme_1`
     FOREIGN KEY (`medical_scheme_provider_id` )
-    REFERENCES `billing_medical_scheme_provider` (`medical_scheme_provider_id` )
+    REFERENCES `default_schema`.`billing_medical_scheme_provider` (`medical_scheme_provider_id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `billing_account`
+-- Table `default_schema`.`billing_account`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `billing_account` ;
+DROP TABLE IF EXISTS `default_schema`.`billing_account` ;
 
-CREATE  TABLE IF NOT EXISTS `billing_account` (
+CREATE  TABLE IF NOT EXISTS `default_schema`.`billing_account` (
   `account_id` INT(11) NOT NULL AUTO_INCREMENT ,
   `patient_id` INT(11) NOT NULL ,
-  `payment_method` VARCHAR(50) NOT NULL ,
-  `price_type` VARCHAR(50) NOT NULL ,
+  `payment_method_id` INT(11) NULL ,
+  `price_type` INT(11) NULL ,
   `creator` INT(11) NOT NULL ,
   `voided` TINYINT(1) NOT NULL DEFAULT 0 ,
-  `voided_by` INT(11) NULL ,
-  `date_voided` DATETIME NULL ,
-  `void_reason` VARCHAR(50) NULL ,
+  `voided_by` INT(11) NULL DEFAULT NULL ,
+  `date_voided` DATETIME NULL DEFAULT NULL ,
+  `void_reason` VARCHAR(50) NULL DEFAULT NULL ,
   `created_at` DATETIME NOT NULL ,
   `updated_at` DATETIME NOT NULL ,
   PRIMARY KEY (`account_id`) )
@@ -199,11 +201,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `billing_accounts_medical_schemes`
+-- Table `default_schema`.`billing_accounts_medical_schemes`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `billing_accounts_medical_schemes` ;
+DROP TABLE IF EXISTS `default_schema`.`billing_accounts_medical_schemes` ;
 
-CREATE  TABLE IF NOT EXISTS `billing_accounts_medical_schemes` (
+CREATE  TABLE IF NOT EXISTS `default_schema`.`billing_accounts_medical_schemes` (
   `medical_scheme_id` INT(11) NOT NULL ,
   `account_id` INT(11) NOT NULL ,
   PRIMARY KEY (`medical_scheme_id`, `account_id`) ,
@@ -211,23 +213,23 @@ CREATE  TABLE IF NOT EXISTS `billing_accounts_medical_schemes` (
   INDEX `fk_billing_accounts_medical_schemes_2` (`account_id` ASC) ,
   CONSTRAINT `fk_billing_accounts_medical_schemes_1`
     FOREIGN KEY (`medical_scheme_id` )
-    REFERENCES `billing_medical_scheme` (`medical_scheme_id` )
+    REFERENCES `default_schema`.`billing_medical_scheme` (`medical_scheme_id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_billing_accounts_medical_schemes_2`
     FOREIGN KEY (`account_id` )
-    REFERENCES `billing_account` (`account_id` )
+    REFERENCES `default_schema`.`billing_account` (`account_id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `billing_rules`
+-- Table `default_schema`.`billing_rules`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `billing_rules` ;
+DROP TABLE IF EXISTS `default_schema`.`billing_rules` ;
 
-CREATE  TABLE IF NOT EXISTS `billing_rules` (
+CREATE  TABLE IF NOT EXISTS `default_schema`.`billing_rules` (
   `rule_id` INT(11) NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(50) NOT NULL ,
   `rate` FLOAT NOT NULL ,
@@ -236,25 +238,25 @@ CREATE  TABLE IF NOT EXISTS `billing_rules` (
   `voided` TINYINT(1) NOT NULL DEFAULT 0 ,
   `voided_by` DATETIME NULL DEFAULT NULL ,
   `void_reason` DATETIME NULL DEFAULT NULL ,
-  `date_voided` DATETIME NULL ,
+  `date_voided` DATETIME NULL DEFAULT NULL ,
   `created_at` DATETIME NOT NULL ,
   `updated_at` DATETIME NOT NULL ,
   PRIMARY KEY (`rule_id`) ,
   INDEX `fk_billing_rules_1` (`medical_scheme_id` ASC) ,
   CONSTRAINT `fk_billing_rules_1`
     FOREIGN KEY (`medical_scheme_id` )
-    REFERENCES `billing_medical_scheme` (`medical_scheme_id` )
+    REFERENCES `default_schema`.`billing_medical_scheme` (`medical_scheme_id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `billing_invoice`
+-- Table `default_schema`.`billing_invoice`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `billing_invoice` ;
+DROP TABLE IF EXISTS `default_schema`.`billing_invoice` ;
 
-CREATE  TABLE IF NOT EXISTS `billing_invoice` (
+CREATE  TABLE IF NOT EXISTS `default_schema`.`billing_invoice` (
   `invoice_id` INT(11) NOT NULL AUTO_INCREMENT ,
   `account_id` INT(11) NOT NULL ,
   `invoice_type` CHAR(1) NOT NULL ,
@@ -263,27 +265,27 @@ CREATE  TABLE IF NOT EXISTS `billing_invoice` (
   `location_id` INT(11) NOT NULL ,
   `creator` INT(11) NOT NULL ,
   `voided` TINYINT(1) NOT NULL DEFAULT 0 ,
-  `voided_by` INT(11) NULL ,
-  `date_voided` DATETIME NULL ,
-  `void_reason` VARCHAR(50) NULL ,
+  `voided_by` INT(11) NULL DEFAULT NULL ,
+  `date_voided` DATETIME NULL DEFAULT NULL ,
+  `void_reason` VARCHAR(50) NULL DEFAULT NULL ,
   `created_at` DATETIME NOT NULL ,
   `updated_at` DATETIME NOT NULL ,
   PRIMARY KEY (`invoice_id`) ,
   INDEX `fk_billing_invoice_2` (`account_id` ASC) ,
   CONSTRAINT `fk_billing_invoice_2`
     FOREIGN KEY (`account_id` )
-    REFERENCES `billing_account` (`account_id` )
+    REFERENCES `default_schema`.`billing_account` (`account_id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `billing_invoice_line`
+-- Table `default_schema`.`billing_invoice_line`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `billing_invoice_line` ;
+DROP TABLE IF EXISTS `default_schema`.`billing_invoice_line` ;
 
-CREATE  TABLE IF NOT EXISTS `billing_invoice_line` (
+CREATE  TABLE IF NOT EXISTS `default_schema`.`billing_invoice_line` (
   `invoice_line_id` INT NOT NULL AUTO_INCREMENT ,
   `invoice_id` INT(11) NOT NULL ,
   `product_id` INT(11) NOT NULL ,
@@ -294,9 +296,9 @@ CREATE  TABLE IF NOT EXISTS `billing_invoice_line` (
   `discount_amount` DECIMAL NOT NULL DEFAULT 0 ,
   `final_amount` DECIMAL NOT NULL ,
   `voided` TINYINT(1) NOT NULL DEFAULT 0 ,
-  `voided_by` INT(11) NULL ,
-  `void_reason` VARCHAR(50) NULL ,
-  `date_voided` DATETIME NULL ,
+  `voided_by` INT(11) NULL DEFAULT NULL ,
+  `void_reason` VARCHAR(50) NULL DEFAULT NULL ,
+  `date_voided` DATETIME NULL DEFAULT NULL ,
   `created_at` DATETIME NOT NULL ,
   `updated_at` DATETIME NOT NULL ,
   PRIMARY KEY (`invoice_line_id`) ,
@@ -305,19 +307,76 @@ CREATE  TABLE IF NOT EXISTS `billing_invoice_line` (
   INDEX `fk_billing_invoice_line_1` (`product_id` ASC) ,
   CONSTRAINT `fk_billing_invoice_line_2`
     FOREIGN KEY (`invoice_id` )
-    REFERENCES `billing_invoice` (`invoice_id` )
+    REFERENCES `default_schema`.`billing_invoice` (`invoice_id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_billing_invoice_line_3`
     FOREIGN KEY (`rule_id` )
-    REFERENCES `billing_rules` (`rule_id` )
+    REFERENCES `default_schema`.`billing_rules` (`rule_id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_billing_invoice_line_1`
     FOREIGN KEY (`product_id` )
-    REFERENCES `billing_product` (`product_id` )
+    REFERENCES `default_schema`.`billing_product` (`product_id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `default_schema`.`billing_payment_method`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `default_schema`.`billing_payment_method` ;
+
+CREATE  TABLE IF NOT EXISTS `default_schema`.`billing_payment_method` (
+  `payment_method_id` INT(11) NOT NULL AUTO_INCREMENT ,
+  `name` VARCHAR(50) NOT NULL ,
+  `creator` INT(11) NOT NULL ,
+  `voided` TINYINT(1) NOT NULL DEFAULT 0 ,
+  `voided_by` INT(11) NULL DEFAULT NULL ,
+  `void_reason` VARCHAR(50) NULL DEFAULT NULL ,
+  `date_voided` DATETIME NULL DEFAULT NULL ,
+  `created_at` DATETIME NULL DEFAULT NULL ,
+  `updated_at` DATETIME NULL DEFAULT NULL ,
+  PRIMARY KEY (`payment_method_id`) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `default_schema`.`billing_scheme_provider_type`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `default_schema`.`billing_scheme_provider_type` ;
+
+CREATE  TABLE IF NOT EXISTS `default_schema`.`billing_scheme_provider_type` (
+  `scheme_provider_type_id` INT(11) NOT NULL AUTO_INCREMENT ,
+  `name` VARCHAR(50) NOT NULL ,
+  `creator` INT(11) NOT NULL ,
+  `voided` TINYINT(1) NOT NULL DEFAULT 0 ,
+  `voided_by` INT(11) NULL DEFAULT NULL ,
+  `void_reason` VARCHAR(50) NULL DEFAULT NULL ,
+  `date_voided` DATETIME NULL DEFAULT NULL ,
+  `created_at` DATETIME NULL DEFAULT NULL ,
+  `updated_at` DATETIME NULL DEFAULT NULL ,
+  PRIMARY KEY (`scheme_provider_type_id`) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `default_schema`.`billing_price_type`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `default_schema`.`billing_price_type` ;
+
+CREATE  TABLE IF NOT EXISTS `default_schema`.`billing_price_type` (
+  `price_type_id` INT(11) NOT NULL AUTO_INCREMENT ,
+  `name` VARCHAR(50) NOT NULL ,
+  `creator` INT(11) NOT NULL ,
+  `voided` TINYINT(1) NOT NULL DEFAULT 0 ,
+  `voided_by` INT(11) NULL DEFAULT NULL ,
+  `void_reason` VARCHAR(50) NULL DEFAULT NULL ,
+  `date_voided` DATETIME NULL DEFAULT NULL ,
+  `created_at` DATETIME NULL DEFAULT NULL ,
+  `updated_at` DATETIME NULL DEFAULT NULL ,
+  PRIMARY KEY (`price_type_id`) )
 ENGINE = InnoDB;
 
 
