@@ -48,7 +48,6 @@
                       <ul>
                           <li style="padding-left: 5px;padding-top: 2px;list-style: none;">Patient Name : <%= "#{@patient.name}" %></li>
                           <li style="padding-left: 5px;padding-top: 2px;list-style: none;">National ID : <%= "#{@patient.national_id}" %></li>
-                          <li style="padding-left: 5px;padding-top: 2px;list-style: none;">Residence : <%= "#{@patient.address}" %></li>
                           <li style="padding-left: 5px;padding-top: 2px;list-style: none;">Age : <%= "#{(@patient.age > 0 ? @patient.age : "#{@patient.age_in_months} months")}" %></li>
                           <% if @patient.gender == "M" %>
                              <li style="padding-left: 5px; vertical-align: center; list-style: none;">Gender : <img src="/touchscreentoolkit/lib/images/male.gif" alt="Male" /></li>
@@ -66,7 +65,7 @@
                     <div style="height: 36.2em; background-color: #fff; overflow: auto; padding: 5px;">
 
         <div style="display: table; width: 100%; border-spacing: 2px;">
-          <div style="display: table-row; background-color: #999; color: #eee;">
+          <div style="display: table-row; background-color: #6281A7; color: #eee;">
             <div style="display: table-cell; border: 1px solid #ccc; padding: 5px;
                  text-align: center; font-weight: bold;">
               #
@@ -83,11 +82,6 @@
             <div style="display: table-cell; border: 1px solid #ccc; padding: 5px;
                  text-align: center; font-weight: bold;">
               Unit Price
-            </div>
-
-            <div style="display: table-cell; border: 1px solid #ccc; padding: 5px;
-                 text-align: center; font-weight: bold;">
-              VAT
             </div>
 
             <div style="display: table-cell; border: 1px solid #ccc; padding: 5px;
@@ -142,11 +136,6 @@
               <div style="display: table-cell; border-left: 1px dotted #ccc; border-bottom: 1px dotted #ccc;
                    border-right: 1px dotted #ccc; padding: 5px; text-align: right; vertical-align: top; padding-top: 20px;">
                    <%= number_to_currency(item.price/item.quantity, :locale => :mw) %>
-              </div>
-
-              <div style="display: table-cell; border-left: 1px dotted #ccc; border-bottom: 1px dotted #ccc;
-                   border-right: 1px dotted #ccc; padding: 5px; text-align: right; vertical-align: top; padding-top: 20px;">
-                   <%= number_to_currency((item.price * @vat)/100, :locale => :mw) %>
                    <% total_tax += (item.price * @vat)/100  %>
               </div>
 
@@ -163,7 +152,7 @@
         </div>
 
         <div style="display: table; width: 100%; border-spacing: 2px;">
-          <div style="display: table-row; background-color: #999; color: #eee;">
+          <div style="display: table-row; background-color: #6281A7; color: #eee;">
 
              <div style="display: table-cell; border: 1px solid #ccc; padding: 5px;
                  text-align: center; font-weight: bold;">

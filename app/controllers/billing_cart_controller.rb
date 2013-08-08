@@ -13,7 +13,7 @@ class BillingCartController < ApplicationController
       product = BillingProduct.find_by_name(params[:product])
       price_type = BillingAccount.find_by_patient_id(@patient_id).price_type
       @cart.add_product(product,price_type)
-    elsif params[:product_id] && params[:admitted_date] && params[:discharge_date]
+    elsif !params[:product_id].blank? && !params[:admitted_date].blank? && !params[:discharge_date].blank?
       product = BillingProduct.find(params[:product_id])
       price_type = BillingAccount.find_by_patient_id(@patient_id).price_type
       quantity = params[:discharge_date].to_date.day - params[:admitted_date].to_date.day
@@ -21,7 +21,7 @@ class BillingCartController < ApplicationController
       quantity.times do
         @cart.add_product(product,price_type)
       end
-    elsif params[:product_id]
+    elsif !params[:product_id].blank?
       product = BillingProduct.find(params[:product_id])
       price_type = BillingAccount.find_by_patient_id(@patient_id).price_type
       params[:quantity].to_i.times do
@@ -102,6 +102,7 @@ class BillingCartController < ApplicationController
   end
 
   def checkout
+   # raise params.to_yaml
     @cart = find_cart
     @patient = Patient.find(params[:patient_id])
     @account = @patient.billing_account
@@ -130,7 +131,9 @@ class BillingCartController < ApplicationController
      @billing_invoice.total_amount = @invoice_total_amount
      @billing_invoice.save!
      session[:cart] = nil
-     redirect_to "/clinic?user_id=#{params[:user_id]}&location_id=#{params[:location_id]}"
+     
+     print_and_redirect("/billing_cart/invoice_number?invoice_number=#{@billing_invoice.invoice_id}", "/clinic?user_id=#{params[:user_id]}&location_id=#{params[:location_id]}")
+     
     else
 
     end
@@ -158,7 +161,45 @@ class BillingCartController < ApplicationController
     @destination = "/checkout?patient_id=#{params[:patient_id]}&user_id=#{params[:user_id]}"
    
   end
-  
+
+  def invoice_number
+    print_string = receipt(params[:invoice_number])
+    send_data(print_string,:type=>"application/label; charset=utf-8",:stream=> false,
+      :filename=>"#{params[:invoice_number]}#{rand(10000)}.lbl",:disposition => "inline")
+  end
+
+  def receipt_print
+    print_and_redirect("/billing_cart/invoice_number?invoice_number=#{params[:invoice_number]}", "/patients/show/#{params[:patient_id]}")
+  end
+
+
+  def receipt(invoice_number)
+    invoice = BillingInvoice.find(invoice_number)
+    receipt_number = invoice.invoice_id
+    invoice_date = invoice.created_at
+    account_id = invoice.account_id
+    patient_id = BillingAccount.find_by_account_id(account_id).patient_id
+    patient = Patient.find(patient_id)
+    patient_name = patient.name
+    patient_gender = patient.gender
+    patient_age = patient.age > 0 ? patient.age : "#{patient.age_in_months} months"
+
+    label = ZebraPrinter::StandardLabel.new
+    label.font_size = 4
+    label.x = 200
+    label.font_horizontal_multiplier = 1
+    label.font_vertical_multiplier = 1
+    label.left_margin = 100
+    label.draw_barcode(100,220,0,1,5,15,90,false,"#{invoice_number}")
+    label.draw_multi_text("#{receipt_number}")
+    label.draw_multi_text("#{invoice_date}")
+    label.draw_multi_text("#{patient_name.titleize}")
+    label.draw_multi_text("#{ patient_gender}")
+    label.draw_multi_text("#{patient_age}")
+    label.print(1)
+  end
+
+
   private
 
   def find_cart
