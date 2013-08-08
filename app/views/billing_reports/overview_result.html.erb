@@ -60,23 +60,25 @@ params[:location_id] + (!params[:src].nil? ? "&src=#{params[:src]}" : "") %>';
             
      
 
-		  <% @results.each do |result| %>  	
+		  <% @results.each do |result| %>
+                  <%  next if result.nil? %>
             <div style="display: table-row;">
               <div style="display: table-cell; border-left: 1px dotted #ccc; border-bottom: 1px dotted #ccc; width:170px;
                    border-right: 1px dotted #ccc; padding: 5px; text-align: center; vertical-align: middle; padding-top: 20px;">
-                   <%= result["department_name"] rescue nil%>
+                   <%= result["department_name"]  %>
               </div>
 
 			  <% @payment_methods_map.each do |method|%>
 				  <div style="display: table-cell; border-bottom: 1px dotted #ccc; width: <%= 100/@payment_methods_map.length %>%
 					   border-right: 1px dotted #ccc; vertical-align: top; right ;padding-top: 20px;">
-					   <%= result[method] rescue nil%>
+	<b><%= number_to_currency(result[method].to_f,:locale => :mw) rescue  number_to_currency(0.to_f,:locale => :mw) %></b>
+     
 				  </div>
 			  <% end %>
 
               <div style="display: table-cell; border-bottom: 1px dotted #ccc;background:#E0E0E0;
                    border-right: 1px dotted #ccc; vertical-align: top; padding-top: 20px;">
-                   <b><%= result["total"] rescue nil%></b>
+                   <b><%= number_to_currency(result["total"].to_f,:locale => :mw) rescue  number_to_currency(0.to_f,:locale => :mw) %></b>
 			  </div>
             </div>
 
@@ -92,14 +94,14 @@ params[:location_id] + (!params[:src].nil? ? "&src=#{params[:src]}" : "") %>';
               <% @payment_methods_map.each do |method| %>
                 <div style="display: table-cell; border-bottom: 1px dotted #ccc;
                      border-right: 1px dotted #ccc; vertical-align: top; padding-top: 20px;">
-                     <b><%= @totals[method] %></b>
+                     <b><%= number_to_currency(@totals[method].to_f,:locale => :mw) rescue  number_to_currency(0.to_f,:locale => :mw) %></b>
                    
 			    </div>
               <% end %>
 
               <div style="display: table-cell; border-bottom: 1px dotted #ccc; background: #A8A8A8;
                    border-right: 1px dotted #ccc; vertical-align: top; padding-top: 20px;">
-                   <b><%= @total_sum %></b>
+                   <b><%= number_to_currency(@total_sum.to_f,:locale => :mw) rescue  number_to_currency(0.to_f,:locale => :mw) %></b>
 			  </div>
             </div>
 
