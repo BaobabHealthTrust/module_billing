@@ -158,6 +158,15 @@ class ClinicController < ApplicationController
   end
 
   def overview
+    @services = BillingInvoiceLine.find_by_sql("SELECT d.name,i.invoice_line_id,i.product_id,COUNT(i.product_id) as howmany
+                                                FROM billing_invoice_line i
+                                                INNER JOIN billing_product p
+                                                USING(product_id)
+                                                INNER JOIN billing_category c
+                                                USING(category_id)
+                                                INNER JOIN billing_department d
+                                                USING(department_id)
+                                                GROUP BY d.name")
     render :layout => false
   end
 
