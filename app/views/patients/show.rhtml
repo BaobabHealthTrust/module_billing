@@ -99,8 +99,8 @@ next_task = @task.encounter_type.gsub('_',' ') rescue nil
       <span id='patient_age'><%= "#{(@patient.age > 0 ? @patient.age : "#{@patient.age_in_months} months")}" %></span>
       <span id='patient_gender'><%= "#{@patient.gender}" %></span>
       <select id="tabs">
-        <option value='/patients/current_visit/<%= @patient.id %>?user_id=<%= @user.id %>'>Current Visit</option>
-        <option value='/patients/visit_history/<%= @patient.id %>?user_id=<%= @user.id %>'>Visit History</option>
+        <!--<option value='/patients/current_visit/<%= @patient.id %>?user_id=<%= @user.id %>'>Current Visit</option>-->
+        <!--<option value='/patients/visit_history/<%= @patient.id %>?user_id=<%= @user.id %>'>Visit History</option>-->
         <option value='/billing_accounts/invoice_history?patient_id=<%= @patient.id %>&user_id=<%= @user.id %>'>Invoice History</option>
         <option value='/billing_accounts/account_setting?patient_id=<%= @patient.id %>&user_id=<%= @user.id %>'>Account Setting</option>
       </select>
