@@ -1,9 +1,9 @@
 
 <script language="javascript">
-  tt_cancel_destination = '/select_user_task?user_id=<%= (params[:user_id] ||
-    params[:id]) %>&location_id=<%= params[:location_id] %>';
-  tt_cancel_show = '/select_user_task?user_id=<%= (params[:user_id] ||
-    params[:id]) %>&location_id=<%= params[:location_id] %>';
+ tt_cancel_destination = '/add_to_cart?patient_id=<%= params[:patient_id] %>&user_id=<%= params[:user_id] %>&location_id=<%=
+params[:location_id] + (!params[:src].nil? ? "&src=#{params[:src]}" : "") %>';
+  tt_cancel_show = '/add_to_cart?patient_id=<%= params[:patient_id] %>&location_id=<%=
+params[:location_id] + (!params[:src].nil? ? "&src=#{params[:src]}" : "") %>';
 
   function confirmDeletion(message, link) {
     if (!tstMessageBar) {

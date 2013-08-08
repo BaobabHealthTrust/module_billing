@@ -1,5 +1,5 @@
 class BillingReportsController < ApplicationController
-  def select 	
+  def select
 	@user_id = params[:user_id]
 	@location_id = params[:location_id]
   end
@@ -81,7 +81,7 @@ class BillingReportsController < ApplicationController
 	else
 		@report_type = "<b>Billing Quarterly Report</b><br/>" + @start_date.to_date.strftime("%d/%B/%Y") + "  to  " + @end_date.to_date.strftime("%d/%B/%Y")
 	end
-
+  @destination = "/clinic?user_id=#{params[:user_id]}&location_id=#{params[:location_id]}"
   end
 
 
