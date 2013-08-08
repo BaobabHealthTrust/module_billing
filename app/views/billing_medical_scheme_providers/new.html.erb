@@ -20,13 +20,13 @@ params[:location_id] + (!params[:src].nil? ? "&src=#{params[:src]}" : "") %>';
   <%= text_field_tag(:company_name, params[:company_name], :helpText => "Company Name") %>
 
   <label for="company_address">Company Address</label>
-  <%= text_field_tag(:company_address, params[:company_address], :helpText => "Company Address") %>
+  <%= text_area_tag(:company_address, params[:company_address], :helpText => "Company Address") %>
 
   <label for="phone_number_1">Phone Number 1</label>
-  <%= text_field_tag(:phone_number_1, params[:phone_number_1], :helpText => "Phone Number 1") %>
+  <%= text_field_tag(:phone_number_1, params[:phone_number_1], :helpText => "Phone Number 1", :field_type => 'number') %>
 
   <label for="phone_number_2">Phone Number 2</label>
-  <%= text_field_tag(:phone_number_2, params[:phone_number_2], :helpText => "Phone Number 2") %>
+  <%= text_field_tag(:phone_number_2, params[:phone_number_2], :helpText => "Phone Number 2", :field_type => 'number') %>
 
   <label for="email_address">Email Address</label>
   <%= text_field_tag(:email_address, params[:email_address], :helpText => "Email Address") %>

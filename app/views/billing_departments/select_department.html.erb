@@ -5,9 +5,9 @@
 </style>
 
 <script language="javascript">
-  tt_cancel_destination = '/show_categories?user_id=<%= params[:user_id] %>&location_id=<%=
+  tt_cancel_destination = '/add_to_cart?patient_id=<%= params[:patient_id] %>&user_id=<%= params[:user_id] %>&location_id=<%=
 params[:location_id] + (!params[:src].nil? ? "&src=#{params[:src]}" : "") %>';
-  tt_cancel_show = '/show_categories?user_id=<%= params[:user_id] %>&location_id=<%=
+  tt_cancel_show = '/add_to_cart?patient_id=<%= params[:patient_id] %>&location_id=<%=
 params[:location_id] + (!params[:src].nil? ? "&src=#{params[:src]}" : "") %>';
 </script>
 

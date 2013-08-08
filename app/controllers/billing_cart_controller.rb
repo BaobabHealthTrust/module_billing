@@ -22,9 +22,12 @@ class BillingCartController < ApplicationController
     end
 
     @department_id = nil
+    @department_name = nil
 
     if params[:department_id]
-      @department_id = BillingDepartment.find(params[:department_id]).department_id
+      department = BillingDepartment.find(params[:department_id])
+      @department_id = department.department_id
+      @department_name = department.name
     end
 
     @category_id = nil
@@ -70,9 +73,12 @@ class BillingCartController < ApplicationController
     end
 
     @department_id = nil
+    @department_name = nil
 
     if params[:department_id]
-      @department_id = BillingDepartment.find(params[:department_id]).department_id
+      department = BillingDepartment.find(params[:department_id])
+      @department_id = department.department_id
+      @department_name = department.name
     end
 
     @category_id = nil

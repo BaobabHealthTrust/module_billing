@@ -58,6 +58,7 @@ class BillingCategoriesController < ApplicationController
 
   def select_category
     department_id = params[:department_id]
+    department_name = BillingDepartment.find(department_id).name
     @categories = BillingCategory.all(:conditions => ["department_id = ? ", department_id]).map do |category|
       [category.name, category.category_id]
     end

@@ -219,9 +219,9 @@
                 
                 <tr>
                   <td>
-                    <%if @department_id %>
+                    <%  unless @department_id.nil? %>
                       <button class="blue" style="margin: 8px; width: 250px; float: right;"
-                              onclick="window.location='/select_category?patient_id=<%= params[:patient_id] %>&location_id=<%= session[:location_id] %>&user_id=<%= params[:user_id] %>&department_id=<%= params[:department_id]%>'">
+                              onclick="window.location='/select_category?patient_id=<%= params[:patient_id] %>&location_id=<%= session[:location_id] %>&user_id=<%= params[:user_id] %>&department_id=<%= params[:department_id]%>&department_name=<%= @department_name%>'">
                         <span>
                           Select Category
                         </span>
@@ -234,7 +234,7 @@
                     <td>
                        <% if @category_id %>
                       <button class="blue" style="margin: 8px; width: 250px; float: right;"
-                              onclick="window.location='/select_product?patient_id=<%= params[:patient_id] %>&location_id=<%= session[:location_id] %>&user_id=<%= params[:user_id] %>&department_id=<%= params[:department_id]%>&category_id=<%= params[:category_id]%>'">
+                              onclick="window.location='/select_product?patient_id=<%= params[:patient_id] %>&location_id=<%= session[:location_id] %>&user_id=<%= params[:user_id] %>&department_id=<%= params[:department_id]%>&category_id=<%= params[:category_id]%>&department_name=<%= params[:department_name]%>'">
                         <span>
                         Select Service
                         </span>

@@ -5,10 +5,17 @@
 </style>
 
 <script language="javascript">
-  tt_cancel_destination = '/show_products?user_id=<%= params[:user_id] %>&location_id=<%=
+  tt_cancel_destination = '/add_to_cart?patient_id=<%= params[:patient_id] %>&user_id=<%= params[:user_id] %>&location_id=<%=
 params[:location_id] + (!params[:src].nil? ? "&src=#{params[:src]}" : "") %>';
-  tt_cancel_show = '/show_products?user_id=<%= params[:user_id] %>&location_id=<%=
+  tt_cancel_show = '/add_to_cart?patient_id=<%= params[:patient_id] %>&location_id=<%=
 params[:location_id] + (!params[:src].nil? ? "&src=#{params[:src]}" : "") %>';
+
+  function getdepartment(){
+    department = "<%=params[:department_name]%>";
+    return department;
+  }
+
+
 </script>
 
 <form action="/add_to_cart" method='post'>
@@ -16,9 +23,19 @@ params[:location_id] + (!params[:src].nil? ? "&src=#{params[:src]}" : "") %>';
   <label for="category_id">Select Service</label>
   <%= select_tag(:product_id, options_for_select(@products),
     :helpText => "Select Service") %>
-
+  
   <label for="name">Enter Quantity</label>
-  <%= text_field_tag(:quantity, params[:quantity], :helpText => "Enter quantity",:field_type => 'number') %>
+  <%= text_field_tag(:quantity, 1, :helpText => "Enter quantity",:field_type => 'number', :condition => "getdepartment() == 'Pharmacy'") %>
+
+  <%= touch_date_tag "admitted_date", 'admitted_date', nil,
+    {:id => "admitted_date",
+     :condition => "getdepartment() == 'Inpatient'",
+     :helpText => "Admitted Date"} %>
+
+  <%= touch_date_tag "discharge_date", 'discharge_date', nil,
+    {:id => "discharge_date",
+     :condition => "getdepartment() == 'Inpatient'",
+     :helpText => "Discharge Date"} %>
 
   <%= hidden_field_tag "user_id", (params[:id] || params[:user_id]) %>
 
