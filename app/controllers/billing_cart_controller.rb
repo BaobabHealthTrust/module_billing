@@ -102,7 +102,6 @@ class BillingCartController < ApplicationController
   end
 
   def checkout
-   # raise params.to_yaml
     @cart = find_cart
     @patient = Patient.find(params[:patient_id])
     @account = @patient.billing_account
@@ -184,18 +183,37 @@ class BillingCartController < ApplicationController
     patient_gender = patient.gender
     patient_age = patient.age > 0 ? patient.age : "#{patient.age_in_months} months"
 
+    total_amount = invoice.total_amount
+    vat = YAML.load_file("#{Rails.root}/config/application.yml")["#{Rails.env
+      }"]["VAT"] rescue nil
+    tax = (total_amount * vat) / 100
+    sub_total = total_amount - tax
+
+
+    invoice_lines = invoice.billing_invoice_lines
+    
     label = ZebraPrinter::StandardLabel.new
     label.font_size = 4
     label.x = 200
     label.font_horizontal_multiplier = 1
     label.font_vertical_multiplier = 1
     label.left_margin = 100
-    label.draw_barcode(100,220,0,1,5,15,90,false,"#{invoice_number}")
-    label.draw_multi_text("#{receipt_number}")
-    label.draw_multi_text("#{invoice_date}")
-    label.draw_multi_text("#{patient_name.titleize}")
-    label.draw_multi_text("#{ patient_gender}")
-    label.draw_multi_text("#{patient_age}")
+    label.draw_barcode(100,400,0,1,5,15,90,false,"#{invoice_number}")
+    label.draw_multi_text("Receipt No #{ receipt_number}")
+    label.draw_multi_text("Invoice Date #{ invoice_date.strftime('%d %b %Y')}")
+    label.draw_multi_text("Name #{ patient_name.titleize}")
+    label.draw_multi_text("Gender #{ patient_gender}")
+    label.draw_multi_text("Age #{ patient_age}")
+    label.draw_multi_text("INVOICE")
+    label.draw_multi_text("#SRVNO DEPARTMENT DESCRIPTION AMOUNT")
+    invoice_lines.each do |invoice_line|
+      label.draw_multi_text("#{invoice_line.invoice_line_id} #{invoice_line.billing_product.billing_category.billing_department.name.titleize} #{invoice_line.billing_product.name} #{invoice_line.final_amount}")
+    end
+
+    label.draw_multi_text("Subtotal #{ sub_total }")
+    label.draw_multi_text("Tax #{ tax }")
+    label.draw_multi_text("Total #{ total_amount }")
+    
     label.print(1)
   end
 

@@ -5,5 +5,5 @@ class BillingInvoice < ActiveRecord::Base
 
   belongs_to :billing_account, :foreign_key => :account_id
 	belongs_to :location, :foreign_key => :location_id
-  has_many :billing_invoice_lines
+  has_many :billing_invoice_lines, :foreign_key => :invoice_id
 end

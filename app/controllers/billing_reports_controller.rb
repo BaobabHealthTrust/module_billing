@@ -15,13 +15,13 @@ class BillingReportsController < ApplicationController
 
 	case params[:selSelect]
 	  when "day"
-	  @start_date = params[:day]
-	  @end_date = params[:day]
-
+	  @start_date = params[:day].to_date.strftime("%Y-%m-%d 00:00:00")
+	  @end_date = params[:day].to_date.strftime("%Y-%m-%d 23:59:59")
+    
 	  when "month"
-		@start_date = ("#{params[:selYear]}-#{params[:selMonth]}-01").to_date.strftime("%Y-%m-%d")
+		@start_date = ("#{params[:selYear]}-#{params[:selMonth]}-01").to_date.strftime("%Y-%m-%d 23:59:59")
 		@end_date = ("#{params[:selYear]}-#{params[:selMonth]}-#{ (params[:selMonth].to_i != 12 ?
-		  ("2010-#{params[:selMonth].to_i + 1}-01".to_date - 1).strftime("%d") : 31) }").to_date.strftime("%Y-%m-%d")
+		  ("2010-#{params[:selMonth].to_i + 1}-01".to_date - 1).strftime("%d") : 31) }").to_date.strftime("%Y-%m-%d 00:00:00")
 
 	  when "quarter"
 		start_date = params[:selQtr].to_s.gsub(/&max=(.+)$/,'')
@@ -37,7 +37,6 @@ class BillingReportsController < ApplicationController
 	@results = []
 	
 	invoicelines = BillingInvoiceLine.find(:all, :conditions => ["created_at BETWEEN ? AND ?",@start_date,@end_date])
-	
 	invoicelines.each do |line|
 	  @results[line.billing_product.billing_category.billing_department.department_id] = {} if @results[line.billing_product.billing_category.billing_department.department_id].nil?
 	  @results[line.billing_product.billing_category.billing_department.department_id]["department_name"] = line.billing_product.billing_category.billing_department.name
@@ -63,7 +62,7 @@ class BillingReportsController < ApplicationController
 	@payment_methods_map.each do |method|
 	  @totals[method] = 0
 	end
-
+ 
 	@results.each do |result|
 	  @payment_methods_map.each do |method|
 		@totals[method] += result[method] rescue 0
