@@ -27,13 +27,15 @@ params[:location_id] + (!params[:src].nil? ? "&src=#{params[:src]}" : "") %>';
   <label for="name">Enter Quantity</label>
   <%= text_field_tag(:quantity, 1, :helpText => "Enter quantity",:field_type => 'number', :condition => "getdepartment() == 'Pharmacy'") %>
 
-  <%= touch_date_tag "admitted_date", 'admitted_date', nil,
+  <%= text_field_tag "admitted_date", nil,
     {:id => "admitted_date",
+     :field_type => 'date',
      :condition => "getdepartment() == 'Inpatient'",
      :helpText => "Admitted Date"} %>
 
-  <%= touch_date_tag "discharge_date", 'discharge_date', nil,
+  <%= text_field_tag "discharge_date", nil,
     {:id => "discharge_date",
+     :field_type => 'date',
      :condition => "getdepartment() == 'Inpatient'",
      :helpText => "Discharge Date"} %>
 
