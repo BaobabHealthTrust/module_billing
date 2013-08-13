@@ -2,6 +2,7 @@ SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL';
 
+DROP SCHEMA IF EXISTS `default_schema` ;
 CREATE SCHEMA IF NOT EXISTS `default_schema` ;
 USE `default_schema` ;
 
@@ -110,7 +111,7 @@ DROP TABLE IF EXISTS `default_schema`.`billing_price` ;
 CREATE  TABLE IF NOT EXISTS `default_schema`.`billing_price` (
   `price_id` INT(11) NOT NULL AUTO_INCREMENT ,
   `product_id` INT(11) NOT NULL ,
-  `price_type` INT(11) NOT NULL ,
+  `price_type` VARCHAR(50) NOT NULL ,
   `amount` DECIMAL NOT NULL ,
   `creator` INT(11) NOT NULL ,
   `voided` TINYINT(1) NOT NULL DEFAULT 0 ,
@@ -138,7 +139,7 @@ CREATE  TABLE IF NOT EXISTS `default_schema`.`billing_medical_scheme_provider` (
   `medical_scheme_provider_id` INT(11) NOT NULL AUTO_INCREMENT ,
   `company_name` VARCHAR(50) NOT NULL ,
   `company_address` VARCHAR(50) NOT NULL ,
-  `provider_type` INT(11) NOT NULL ,
+  `provider_type` VARCHAR(50) NOT NULL ,
   `phone_number_1` VARCHAR(30) NOT NULL ,
   `phone_number_2` VARCHAR(30) NULL DEFAULT NULL ,
   `email_address` VARCHAR(30) NULL DEFAULT NULL ,
@@ -187,8 +188,8 @@ DROP TABLE IF EXISTS `default_schema`.`billing_account` ;
 CREATE  TABLE IF NOT EXISTS `default_schema`.`billing_account` (
   `account_id` INT(11) NOT NULL AUTO_INCREMENT ,
   `patient_id` INT(11) NOT NULL ,
-  `payment_method_id` INT(11) NULL ,
-  `price_type` INT(11) NULL ,
+  `payment_method` VARCHAR(50) NULL ,
+  `price_type` VARCHAR(50) NULL ,
   `creator` INT(11) NOT NULL ,
   `voided` TINYINT(1) NOT NULL DEFAULT 0 ,
   `voided_by` INT(11) NULL DEFAULT NULL ,
