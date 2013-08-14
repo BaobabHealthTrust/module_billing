@@ -1,19 +1,16 @@
 
 production:
-  clinical.encounters.sequential.list: ADMISSIONS,PAYMENT METHOD,PHARMACY,SERVICES
-  clinical.encounters.display.list: ADMISSIONS;PAYMENT METHOD;PHARMACY;SERVICES
-  scope: PAYMENT METHOD|,ADMISSIONS|,PHARMACY|,SERVICES|
-  label: PAYMENT METHOD|Payment method
+  clinical.encounters.sequential.list: SERVICES
+  clinical.encounters.display.list: SERVICES
+  scope: SERVICES|TODAY
 
 development:
-  clinical.encounters.sequential.list: ADMISSIONS,PAYMENT METHOD,PHARMACY,SERVICES
-  clinical.encounters.display.list: ADMISSIONS;PAYMENT METHOD;PHARMACY;SERVICES
-  scope: PAYMENT METHOD|,ADMISSIONS|,PHARMACY|,SERVICES|
-  label: PAYMENT METHOD|Payment method
+  clinical.encounters.sequential.list: SERVICES
+  clinical.encounters.display.list: SERVICES
+  scope: SERVICES|TODAY
 
 test: &TEST
-  clinical.encounters.sequential.list: ADMISSIONS,PAYMENT METHOD,PHARMACY,SERVICES
-  clinical.encounters.display.list: ADMISSIONS;PAYMENT METHOD;PHARMACY;SERVICES
-  scope: PAYMENT METHOD|,ADMISSIONS|,PHARMACY|,SERVICES|
-  label: PAYMENT METHOD|Payment method
+  clinical.encounters.sequential.list: SERVICES
+  clinical.encounters.display.list: SERVICES
+  scope: SERVICES|TODAY
 
