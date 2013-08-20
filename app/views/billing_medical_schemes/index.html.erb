@@ -71,6 +71,21 @@
               <div style="display: table-cell; border-bottom: 1px dotted #ccc;
                    border-right: 1px dotted #ccc;  padding: 5px; vertical-align: top; padding-top: 20px;">
                    <%= medical_scheme.name %>
+                   <img align='right' src="/touchscreentoolkit/lib/images/cancel_flat_small_red.png" alt="delete"
+                        style="margin: 5px; border: 1px dotted #efe; padding: 1px;"
+                        onclick=
+                        "confirmDeletion(
+                         'Are you sure you want <br/>to delete <%= medical_scheme.name %> department with associated services?',
+                         '/billing_medical_schemes/delete?target_id=<%= medical_scheme.medical_scheme_id %>&user_id=<%= params[:user_id] %>&location_id=<%=params[:location_id] %><%= (!params[:src].nil? ? "&src=#{params[:src]}" : "")%>')  
+                        "
+                   />
+                   <img align='right' src="/touchscreentoolkit/lib/images/pencil.png" alt="edit"
+                        style="margin: 5px; border: 1px dotted #efe; padding: 1px;
+                        padding-left: 5px; padding-right: 5px; cursor: pointer;"
+                        onclick="window.location='/billing_medical_schemes/edit?target_id=<%= medical_scheme.medical_scheme_id %>&user_id=<%= params[:user_id] %>&location_id=<%=params[:location_id] %><%=(!params[:src].nil? ? "&src=#{params[:src]}" : "")%>'"
+                   />
+                     
+                   
               </div>
 
               <div style="display: table-cell; border-bottom: 1px dotted #ccc;
