@@ -41,7 +41,7 @@ class BillingMedicalSchemesController < ApplicationController
 		
   		respond_to do |format|
       		if @medical_scheme.save
-        		flash[:notice] = 'Rule was successfully created.'
+        		#flash[:notice] = 'Rule was successfully created.'
         		format.html { redirect_to "/show_medical_schemes?user_id=#{params[:user_id]}" if !params[:user_id].blank? }
         		format.xml  { render :xml => @medical_scheme, :status => :created, :location => @medical_scheme }
       		else

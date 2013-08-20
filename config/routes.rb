@@ -69,6 +69,12 @@ ActionController::Routing::Routes.draw do |map|
 
   map.create_medical_scheme_provider '/create_medical_scheme_provider', :controller => 'billing_medical_scheme_providers', :action => 'create'
 
+  map.edit_medical_scheme_provider '/edit_medical_scheme_provider', :controller => 'billing_medical_scheme_providers', :action => 'edit'
+  
+  map.update_medical_scheme_provider '/update_medical_scheme_provider', :controller => 'billing_medical_scheme_providers', :action => 'update'
+  
+  map.void_medical_scheme_provider '/void_medical_scheme_provider', :controller => 'billing_medical_scheme_providers', :action => 'delete'
+  
   map.show_departments '/show_departments', :controller => 'billing_departments', :action => 'index'
 
   map.new_department '/new_department', :controller => 'billing_departments', :action => 'new'

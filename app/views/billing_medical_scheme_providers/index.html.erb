@@ -66,6 +66,10 @@
                  text-align: center; font-weight: bold;">
               Medical Schemes
             </div>
+            <div style="display: table-cell; border: 1px solid #ccc; padding: 5px;
+                 text-align: center; font-weight: bold;">
+              
+            </div>
           </div>
 
           <% i = 0 %>
@@ -101,6 +105,39 @@
               <div style="display: table-cell; border-bottom: 1px dotted #ccc;
                    border-right: 1px dotted #ccc;  padding: 5px; vertical-align: top; padding-top: 20px;">
                    <%#= medical_scheme_providers.medical_schemes %>
+              </div>
+              <div style="display: table-cell; border-bottom: 1px dotted #ccc;
+                   border-right: 1px dotted #ccc;  padding: 5px; vertical-align: top; text-align: right; padding-top: 20px;">
+                 
+                 <table width="100%">
+                  <tr>
+                    <td>
+                      <table width="100%">
+                          <tr>
+                            <td>
+                              
+                            </td>
+                            <td align="right">
+
+                              <img src="/touchscreentoolkit/lib/images/pencil.png" alt="edit"
+                             style="border: 1px dotted #efe; cursor: pointer;" 
+                              onclick="window.location='/edit_medical_scheme_provider?target_id=<%= medical_scheme_providers.medical_scheme_provider_id %>&user_id=<%= params[:user_id] %>&location_id=<%=
+                             params[:location_id] %><%= (!params[:src].nil? ? "&src=#{params[:src]}" : "") %>'" />
+
+                            </td>
+                          </tr>
+                      </table>
+                    </td>
+                    <td align="right" style="width: 10px; vertical-align: top;">
+                        <img src="/touchscreentoolkit/lib/images/cancel_flat_small_red.png" alt="delete"
+                                     style="border: 1px dotted #efe;" 
+                                      onclick="confirmDeletion('Are you sure you want <br/>to delete <%= medical_scheme_providers.company_name %>?',
+                                             '/void_medical_scheme_provider?target_id=<%= medical_scheme_providers.medical_scheme_provider_id %>&user_id=<%= params[:user_id] %>&location_id=<%=
+                                     params[:location_id] %><%= (!params[:src].nil? ? "&src=#{params[:src]}" : "") %>')"/>
+
+                    </td>
+                  </tr>
+                </table>
               </div>
             </div>
 
