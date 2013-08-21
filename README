@@ -4,7 +4,7 @@ Instructions for Running Application
 
  Run the application as is normally done
  
- 2. With Internal User Management and Patient Registration Modules
+2. With Internal User Management and Patient Registration Modules
  
  		a. Merge parent application routes with routes in user management and patient registration modules
  		b. Merge parent application library files in /lib with library files in user management and patient registration modules
@@ -14,4 +14,10 @@ Instructions for Running Application
  		The application link can as well be used as link for user management and patient registration by other applications
 
  Ideally, all applications to use one database
+
+3. Setup application and database settings in config
+
+4. Setup DDE settings in db/create_dde_server_connection.sql
+
+5. Run script/initial_database_setup.sh
  		
