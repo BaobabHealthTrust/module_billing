@@ -18,10 +18,10 @@ development:
   adapter: mysql
   encoding: utf8
   reconnect: false
-  database: core_patient_registration_development
+  database: core_patient_registration_development_1
   pool: 5
   username: root
-  password: admin
+  password: p@ssword
   socket: /var/run/mysqld/mysqld.sock
 
 # Warning: The database defined as "test" will be erased and
