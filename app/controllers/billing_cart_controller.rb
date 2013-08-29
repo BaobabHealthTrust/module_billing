@@ -192,13 +192,13 @@ class BillingCartController < ApplicationController
 
     invoice_lines = invoice.billing_invoice_lines
     
-    label = ZebraPrinter::StandardLabel.new
+    label = ZebraPrinter::Receipt.new
     label.font_size = 4
-    label.x = 200
+    label.x = 130
     label.font_horizontal_multiplier = 1
     label.font_vertical_multiplier = 1
     label.left_margin = 100
-    label.draw_barcode(100,400,0,1,5,15,90,false,"#{invoice_number}")
+    #label.draw_barcode(100,400,0,1,5,15,90,false,"#{invoice_number}")
     label.draw_multi_text("Receipt No #{ receipt_number}")
     label.draw_multi_text("Invoice Date #{ invoice_date.strftime('%d %b %Y')}")
     label.draw_multi_text("Name #{ patient_name.titleize}")
