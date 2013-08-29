@@ -198,6 +198,8 @@ class BillingCartController < ApplicationController
     label.font_horizontal_multiplier = 1
     label.font_vertical_multiplier = 1
     label.left_margin = 100
+    image = ChunkyPNG::Image.from_file("#{Rails.root}/public/images/daeyang.png")
+    label.draw_image(image.dimension.width, image.dimension.height, image)
     #label.draw_barcode(100,400,0,1,5,15,90,false,"#{invoice_number}")
     label.draw_multi_text("Receipt No #{ receipt_number}")
     label.draw_multi_text("Invoice Date #{ invoice_date.strftime('%d %b %Y')}")
