@@ -44,6 +44,10 @@ module ZebraPrinter #:nodoc:
       @output << "Z#{@orientation}\n"
     end
 
+    def draw_image(x2,y2,image,x = 100, y = 200)
+      @output << "X#{x},#{y},#{image},#{x2},#{y2}\n"
+    end
+
   end
 
 end
