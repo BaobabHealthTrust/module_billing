@@ -173,6 +173,21 @@ class BillingCartController < ApplicationController
 
 
   def receipt(invoice_number)
+    
+    application_config = YAML.load_file("#{Rails.root}/config/application.yml")["#{Rails.env
+      }"] rescue nil
+    # Fonts
+    title_header_font = {:font_reverse => false,:font_size => 4, :font_horizontal_multiplier => 1, :font_vertical_multiplier => 1}
+    normal_font = {:font_reverse => false, :font_size => 3, :font_horizontal_multiplier => 1, :font_vertical_multiplier => 1 }
+    title_font_top_bottom = {:font_reverse => false, :font_size => 4, :font_horizontal_multiplier => 1, :font_vertical_multiplier => 1, :left_margin => 100}
+    title_font_bottom = {:font_reverse => false, :font_size => 2, :font_horizontal_multiplier => 1, :font_vertical_multiplier => 1}
+
+    # Headers
+    facility_name = application_config["facility.name"] rescue " "
+    facility_address = application_config["facility.address"] rescue " "
+    facility_telephone = application_config["facility.telephone"] rescue " "
+    facility_url = application_config["facility.url"] rescue " "
+    
     invoice = BillingInvoice.find(invoice_number)
     receipt_number = invoice.invoice_id
     invoice_date = invoice.created_at
@@ -184,8 +199,8 @@ class BillingCartController < ApplicationController
     patient_age = patient.age > 0 ? patient.age : "#{patient.age_in_months} months"
 
     total_amount = invoice.total_amount
-    vat = YAML.load_file("#{Rails.root}/config/application.yml")["#{Rails.env
-      }"]["VAT"] rescue nil
+    
+    vat = application_config["VAT"] rescue 1.0
     tax = (total_amount * vat) / 100
     sub_total = total_amount - tax
 
@@ -198,23 +213,28 @@ class BillingCartController < ApplicationController
     label.font_horizontal_multiplier = 1
     label.font_vertical_multiplier = 1
     label.left_margin = 100
-    image = ChunkyPNG::Image.from_file("#{Rails.root}/public/images/daeyang.png")
-    label.draw_image(image.dimension.width, image.dimension.height, image)
+    #image = ChunkyPNG::Image.from_file("#{Rails.root}/public/images/daeyang.png")
+    #label.draw_image(image.dimension.width, image.dimension.height, image)
     #label.draw_barcode(100,400,0,1,5,15,90,false,"#{invoice_number}")
-    label.draw_multi_text("Receipt No #{ receipt_number}")
-    label.draw_multi_text("Invoice Date #{ invoice_date.strftime('%d %b %Y')}")
-    label.draw_multi_text("Name #{ patient_name.titleize}")
-    label.draw_multi_text("Gender #{ patient_gender}")
-    label.draw_multi_text("Age #{ patient_age}")
+    label.draw_multi_text(facility_name, title_font_top_bottom)
+    label.draw_multi_text(facility_address, normal_font)
+    label.draw_multi_text(facility_telephone, normal_font)
+    label.draw_multi_text(facility_url,normal_font )
+
+    label.draw_multi_text("Receipt No #{ receipt_number}", normal_font)
+    label.draw_multi_text("Invoice Date #{ invoice_date.strftime('%d %b %Y')}", normal_font)
+    label.draw_multi_text("Name #{ patient_name.titleize}", normal_font)
+    label.draw_multi_text("Gender #{ patient_gender}", normal_font)
+    label.draw_multi_text("Age #{ patient_age}", normal_font)
     label.draw_multi_text("INVOICE")
     label.draw_multi_text("#SRVNO DEPARTMENT DESCRIPTION AMOUNT")
     invoice_lines.each do |invoice_line|
-      label.draw_multi_text("#{invoice_line.invoice_line_id} #{invoice_line.billing_product.billing_category.billing_department.name.titleize} #{invoice_line.billing_product.name} #{invoice_line.final_amount}")
+      label.draw_multi_text("#{invoice_line.invoice_line_id} #{invoice_line.billing_product.billing_category.billing_department.name.titleize} #{invoice_line.billing_product.name} #{invoice_line.final_amount}", normal_font)
     end
 
-    label.draw_multi_text("Subtotal #{ sub_total }")
+    label.draw_multi_text("Subtotal #{ sub_total }",normal_font)
     label.draw_multi_text("Tax #{ tax }")
-    label.draw_multi_text("Total #{ total_amount }")
+    label.draw_multi_text("Total #{ total_amount }",normal_font)
     
     label.print(1)
   end
