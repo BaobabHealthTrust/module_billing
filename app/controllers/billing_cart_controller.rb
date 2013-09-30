@@ -173,6 +173,21 @@ class BillingCartController < ApplicationController
 
 
   def receipt(invoice_number)
+    
+    application_config = YAML.load_file("#{Rails.root}/config/application.yml")["#{Rails.env
+      }"] rescue nil
+    # Fonts
+    title_header_font = {:font_reverse => false,:font_size => 4, :font_horizontal_multiplier => 1, :font_vertical_multiplier => 1 }
+    normal_font = {:font_reverse => false, :font_size => 3, :font_horizontal_multiplier => 1, :font_vertical_multiplier => 1 }
+    #title_font_top_bottom = {:font_reverse => false, :font_size => 4, :font_horizontal_multiplier => 1, :font_vertical_multiplier => 1, :left_margin => 100}
+    title_font_bottom = {:font_reverse => false, :font_size => 2, :font_horizontal_multiplier => 1, :font_vertical_multiplier => 1}
+
+    # Headers
+    facility_name = application_config["facility.name"] rescue " "
+    facility_address = application_config["facility.address"] rescue " "
+    facility_telephone = application_config["facility.telephone"] rescue " "
+    facility_url = application_config["facility.url"] rescue " "
+    
     invoice = BillingInvoice.find(invoice_number)
     receipt_number = invoice.invoice_id
     invoice_date = invoice.created_at
@@ -184,37 +199,106 @@ class BillingCartController < ApplicationController
     patient_age = patient.age > 0 ? patient.age : "#{patient.age_in_months} months"
 
     total_amount = invoice.total_amount
-    vat = YAML.load_file("#{Rails.root}/config/application.yml")["#{Rails.env
-      }"]["VAT"] rescue nil
+    
+    vat = application_config["VAT"] rescue 1.0
     tax = (total_amount * vat) / 100
     sub_total = total_amount - tax
 
 
     invoice_lines = invoice.billing_invoice_lines
     
-    label = ZebraPrinter::StandardLabel.new
-    label.font_size = 4
-    label.x = 200
-    label.font_horizontal_multiplier = 1
-    label.font_vertical_multiplier = 1
-    label.left_margin = 100
-    label.draw_barcode(100,400,0,1,5,15,90,false,"#{invoice_number}")
-    label.draw_multi_text("Receipt No #{ receipt_number}")
-    label.draw_multi_text("Invoice Date #{ invoice_date.strftime('%d %b %Y')}")
-    label.draw_multi_text("Name #{ patient_name.titleize}")
-    label.draw_multi_text("Gender #{ patient_gender}")
-    label.draw_multi_text("Age #{ patient_age}")
-    label.draw_multi_text("INVOICE")
-    label.draw_multi_text("#SRVNO DEPARTMENT DESCRIPTION AMOUNT")
-    invoice_lines.each do |invoice_line|
-      label.draw_multi_text("#{invoice_line.invoice_line_id} #{invoice_line.billing_product.billing_category.billing_department.name.titleize} #{invoice_line.billing_product.name} #{invoice_line.final_amount}")
-    end
+    receipt = ZebraPrinter::Receipt.new
+    receipt.font_size = 4
+    receipt.x = 140
+    receipt.font_horizontal_multiplier = 1
+    receipt.font_vertical_multiplier = 1
+    receipt.left_margin = 100
+    #receipt.draw_barcode(100,400,0,1,5,15,90,false,"#{invoice_number}")
+    #draw_text(text, @x, @y, 0, @font_size, @font_horizontal_multiplier, @font_vertical_multiplier, @font_reverse)
+    # draw logo
+    receipt.draw_image(140,10)
 
-    label.draw_multi_text("Subtotal #{ sub_total }")
-    label.draw_multi_text("Tax #{ tax }")
-    label.draw_multi_text("Total #{ total_amount }")
+    # facility information
+    receipt.draw_text(facility_name,260,30,0,4)
+    receipt.draw_text(facility_address, 260,68,0,3)
+    receipt.draw_text(facility_telephone, 260,98,0,3)
+    receipt.draw_text(facility_url, 260,128,0,3)
+
+    # receipt information
+    receipt.draw_text("Receipt No.", 140,208,0,3)
+    receipt.draw_text("#{ receipt_number}",400,208  ,0,3)
+    receipt.draw_line(350,228,300,2)
+
+
+     # receipt date information
+    receipt.draw_text("Invoice Date", 140,248,0,3)
+    receipt.draw_text("#{invoice_date.strftime('%d %b %Y')}",400,248  ,0,3)
+    receipt.draw_line(350,268,300,2)
+
+      # patient name
+    receipt.draw_text("Name", 140,288,0,3)
+    receipt.draw_text("#{patient_name.titleize}",400,288 ,0,3)
+    receipt.draw_line(350,308,300,2)
+
+
+      # patient gender
+    receipt.draw_text("Gender", 140,328,0,3)
+    receipt.draw_text("#{patient_gender == "F" ? "Female" : "Male" }",400,328 ,0,3)
+    receipt.draw_line(350,348,300,2)
+
+
+      # patient age
+    receipt.draw_text("Age", 140,368,0,3)
+    receipt.draw_text("#{patient_age}",400,368,0,3)
+    receipt.draw_line(350,388,300,2)
+
+     # upper line
+    receipt.draw_text("-" * 41, 140, 420, 0, 3)
+    receipt.draw_text("INVOICE", 360, 450, 0, 4)
+    receipt.draw_text("-" * 41, 140, 480, 0, 3)
+
+    # item header
+    receipt.draw_text("SRVC NO.", 140, 520, 0, 3)
+    receipt.draw_text("DEPT.", 260, 520, 0, 3)
+    receipt.draw_text("Description", 360, 520, 0, 3)
+    receipt.draw_text("Amount", 580, 520, 0, 3)
+    receipt.draw_line(140,540,570,2)
+
+    # invoice lines
+    y = 560
+    invoice_lines.each do |invoice_line|
+        receipt.draw_text("#{invoice_line.invoice_line_id}", 140, y, 0, 3)
+        receipt.draw_text("#{invoice_line.billing_product.billing_category.billing_department.name.titleize}", 260, y, 0, 3)
+        receipt.draw_text("#{invoice_line.billing_product.name}", 360, y, 0, 3)
+        receipt.draw_text("#{invoice_line.final_amount}", 580, y, 0, 3)
+        y += 40
+    end
+    receipt.draw_line(140,y,570,2)
+
+    y += 40
+    receipt.draw_text("Subtotal", 360, y, 0, 3)
+    receipt.draw_text("#{sub_total}", 580, y, 0, 3)
+
+    y += 40
+    receipt.draw_text("Tax", 360, y, 0, 3)
+    receipt.draw_text("#{tax}", 580, y, 0, 3)
     
-    label.print(1)
+    y += 40
+    receipt.draw_text("TOTAL", 360, y, 0, 4)
+    receipt.draw_text("#{total_amount}", 580, y, 0, 4)
+
+    y += 60
+    receipt.draw_text("Received", 360, y, 0, 3)
+    receipt.draw_text("#{20000}", 580, y, 0, 3)
+
+    y += 40
+    receipt.draw_text("Change", 360, y, 0, 3)
+    receipt.draw_text("#{20000 - total_amount}", 580, y, 0, 3)
+
+    y += 80
+    receipt.draw_barcode(250,y,0,1,5,15,80,true,"#{receipt_number}")
+    
+    receipt.print(1)
   end
 
 
