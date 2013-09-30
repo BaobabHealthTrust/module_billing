@@ -226,30 +226,30 @@ class BillingCartController < ApplicationController
 
     # receipt information
     receipt.draw_text("Receipt No.", 140,208,0,3)
-    receipt.draw_text("#{ receipt_number}",400,208  ,0,3)
+    receipt.draw_text("#{ receipt_number}",350,208  ,0,3)
     receipt.draw_line(350,228,300,2)
 
 
      # receipt date information
     receipt.draw_text("Invoice Date", 140,248,0,3)
-    receipt.draw_text("#{invoice_date.strftime('%d %b %Y')}",400,248  ,0,3)
+    receipt.draw_text("#{invoice_date.strftime('%d %b %Y')}",350,248  ,0,3)
     receipt.draw_line(350,268,300,2)
 
       # patient name
     receipt.draw_text("Name", 140,288,0,3)
-    receipt.draw_text("#{patient_name.titleize}",400,288 ,0,3)
+    receipt.draw_text("#{patient_name.titleize}",350,288 ,0,3)
     receipt.draw_line(350,308,300,2)
 
 
       # patient gender
     receipt.draw_text("Gender", 140,328,0,3)
-    receipt.draw_text("#{patient_gender == "F" ? "Female" : "Male" }",400,328 ,0,3)
+    receipt.draw_text("#{patient_gender == "F" ? "Female" : "Male" }",350,328 ,0,3)
     receipt.draw_line(350,348,300,2)
 
 
       # patient age
     receipt.draw_text("Age", 140,368,0,3)
-    receipt.draw_text("#{patient_age}",400,368,0,3)
+    receipt.draw_text("#{patient_age}",350,368,0,3)
     receipt.draw_line(350,388,300,2)
 
      # upper line
