@@ -23,4 +23,3 @@ end
 
 require 'composite_primary_keys'
 require 'rest-client'
-require 'chunky_png'

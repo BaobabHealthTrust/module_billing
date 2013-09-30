@@ -267,33 +267,33 @@ class BillingCartController < ApplicationController
     # invoice lines
     y = 560
     invoice_lines.each do |invoice_line|
-        receipt.draw_text("#{invoice_line.invoice_line_id}", 140, y, 0, 3)
-        receipt.draw_text("#{invoice_line.billing_product.billing_category.billing_department.name.titleize}", 260, y, 0, 3)
+        receipt.draw_text("##{invoice_line.invoice_line_id}", 140, y, 0, 3)
+        receipt.draw_text("#{invoice_line.billing_product.billing_category.billing_department.name.upcase[0..2]}", 260, y, 0, 3)
         receipt.draw_text("#{invoice_line.billing_product.name}", 360, y, 0, 3)
-        receipt.draw_text("#{invoice_line.final_amount}", 580, y, 0, 3)
+        receipt.draw_text("#{sprintf('%.2f', invoice_line.final_amount)}", 580, y, 0, 3)
         y += 40
     end
     receipt.draw_line(140,y,570,2)
 
     y += 40
     receipt.draw_text("Subtotal", 360, y, 0, 3)
-    receipt.draw_text("#{sub_total}", 580, y, 0, 3)
+    receipt.draw_text("#{sprintf('%.2f',sub_total)}", 580, y, 0, 3)
 
     y += 40
     receipt.draw_text("Tax", 360, y, 0, 3)
-    receipt.draw_text("#{tax}", 580, y, 0, 3)
+    receipt.draw_text("#{sprintf('%.2f',tax)}", 580, y, 0, 3)
     
     y += 40
     receipt.draw_text("TOTAL", 360, y, 0, 4)
-    receipt.draw_text("#{total_amount}", 580, y, 0, 4)
+    receipt.draw_text("#{sprintf('%.2f',total_amount)}", 580, y, 0, 4)
 
     y += 60
     receipt.draw_text("Received", 360, y, 0, 3)
-    receipt.draw_text("#{20000}", 580, y, 0, 3)
+    receipt.draw_text("#{sprintf('%.2f',20000)}", 580, y, 0, 3)
 
     y += 40
     receipt.draw_text("Change", 360, y, 0, 3)
-    receipt.draw_text("#{20000 - total_amount}", 580, y, 0, 3)
+    receipt.draw_text("#{sprintf('%.2f',20000 - total_amount)}", 580, y, 0, 3)
 
     y += 80
     receipt.draw_barcode(250,y,0,1,5,15,80,true,"#{receipt_number}")
