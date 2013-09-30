@@ -44,8 +44,7 @@ module ZebraPrinter #:nodoc:
       @output << "Z#{@orientation}\n"
     end
 
-    def set_image(file_name)
-      filename = file_name
+    def set_image(filename)
       image_data = File.open(filename, 'rb') { |f| f.read }
       image_size = image_data.size
       @output << "\nN\n"
@@ -58,7 +57,7 @@ module ZebraPrinter #:nodoc:
 
     def draw_image(x,y)
        @output << "\nN\n"
-       @output << 'GG' + "#{x},#{y}" + "LOGO" + "\n"
+       @output << 'GG' + "#{x},#{y}," + '"LOGO"' + "\n"
     end
 
   end
