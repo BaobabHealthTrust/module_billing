@@ -44,8 +44,8 @@ class BillingCartController < ApplicationController
       @category_id = BillingCategory.find(params[:category_id]).category_id
     end
 
-    @destination = "/invoice_summary?patient_id=#{@patient_id}&user_id=#{params[:user_id]}"
-
+    #@destination = "/invoice_summary?patient_id=#{@patient_id}&user_id=#{params[:user_id]}"
+    @destination = "/payment_method?patient_id=#{@patient_id}&user_id=#{params[:user_id]}"
     render :layout => true
 
   end
@@ -226,30 +226,30 @@ class BillingCartController < ApplicationController
 
     # receipt information
     receipt.draw_text("Receipt No.", 140,208,0,3)
-    receipt.draw_text("#{ receipt_number}",400,208  ,0,3)
+    receipt.draw_text("#{ receipt_number}",350,208  ,0,3)
     receipt.draw_line(350,228,300,2)
 
 
      # receipt date information
     receipt.draw_text("Invoice Date", 140,248,0,3)
-    receipt.draw_text("#{invoice_date.strftime('%d %b %Y')}",400,248  ,0,3)
+    receipt.draw_text("#{invoice_date.strftime('%d %b %Y')}",350,248  ,0,3)
     receipt.draw_line(350,268,300,2)
 
       # patient name
     receipt.draw_text("Name", 140,288,0,3)
-    receipt.draw_text("#{patient_name.titleize}",400,288 ,0,3)
+    receipt.draw_text("#{patient_name.titleize}",350,288 ,0,3)
     receipt.draw_line(350,308,300,2)
 
 
       # patient gender
     receipt.draw_text("Gender", 140,328,0,3)
-    receipt.draw_text("#{patient_gender == "F" ? "Female" : "Male" }",400,328 ,0,3)
+    receipt.draw_text("#{patient_gender == "F" ? "Female" : "Male" }",350,328 ,0,3)
     receipt.draw_line(350,348,300,2)
 
 
       # patient age
     receipt.draw_text("Age", 140,368,0,3)
-    receipt.draw_text("#{patient_age}",400,368,0,3)
+    receipt.draw_text("#{patient_age}",350,368,0,3)
     receipt.draw_line(350,388,300,2)
 
      # upper line
@@ -267,33 +267,33 @@ class BillingCartController < ApplicationController
     # invoice lines
     y = 560
     invoice_lines.each do |invoice_line|
-        receipt.draw_text("#{invoice_line.invoice_line_id}", 140, y, 0, 3)
-        receipt.draw_text("#{invoice_line.billing_product.billing_category.billing_department.name.titleize}", 260, y, 0, 3)
+        receipt.draw_text("##{invoice_line.invoice_line_id}", 140, y, 0, 3)
+        receipt.draw_text("#{invoice_line.billing_product.billing_category.billing_department.name.upcase[0..2]}", 260, y, 0, 3)
         receipt.draw_text("#{invoice_line.billing_product.name}", 360, y, 0, 3)
-        receipt.draw_text("#{invoice_line.final_amount}", 580, y, 0, 3)
+        receipt.draw_text("#{sprintf('%.2f', invoice_line.final_amount)}", 580, y, 0, 3)
         y += 40
     end
     receipt.draw_line(140,y,570,2)
 
     y += 40
     receipt.draw_text("Subtotal", 360, y, 0, 3)
-    receipt.draw_text("#{sub_total}", 580, y, 0, 3)
+    receipt.draw_text("#{sprintf('%.2f',sub_total)}", 580, y, 0, 3)
 
     y += 40
     receipt.draw_text("Tax", 360, y, 0, 3)
-    receipt.draw_text("#{tax}", 580, y, 0, 3)
+    receipt.draw_text("#{sprintf('%.2f',tax)}", 580, y, 0, 3)
     
     y += 40
     receipt.draw_text("TOTAL", 360, y, 0, 4)
-    receipt.draw_text("#{total_amount}", 580, y, 0, 4)
+    receipt.draw_text("#{sprintf('%.2f',total_amount)}", 580, y, 0, 4)
 
     y += 60
     receipt.draw_text("Received", 360, y, 0, 3)
-    receipt.draw_text("#{20000}", 580, y, 0, 3)
+    receipt.draw_text("#{sprintf('%.2f',20000)}", 580, y, 0, 3)
 
     y += 40
     receipt.draw_text("Change", 360, y, 0, 3)
-    receipt.draw_text("#{20000 - total_amount}", 580, y, 0, 3)
+    receipt.draw_text("#{sprintf('%.2f',20000 - total_amount)}", 580, y, 0, 3)
 
     y += 80
     receipt.draw_barcode(250,y,0,1,5,15,80,true,"#{receipt_number}")
@@ -301,6 +301,32 @@ class BillingCartController < ApplicationController
     receipt.print(1)
   end
 
+  def payment_method
+    @payment_methods = ["Cash","Cheque","Invoice"]
+    @patient_id = params[:patient_id]
+    @user_id = params[:user_id]
+  end
+
+  def payment_amount
+    @cart = find_cart
+    unless @cart.nil?
+      @invoice_total_amount = 0
+      for item in @cart.items
+        @billing_invoice_line = BillingInvoiceLine.new
+        @billing_invoice_line.discount_amount = 0
+        @billing_invoice_line.price_per_unit = item.price / item.quantity
+        @billing_invoice_line.final_amount =  (item.quantity * @billing_invoice_line.price_per_unit) - @billing_invoice_line.discount_amount
+        @invoice_total_amount += @billing_invoice_line.final_amount
+      end
+     @invoice_total_amount
+    end
+
+    if params[:payment_method].upcase == "CASH"
+      @total_amount =  ""
+    else
+      @total_amount =  @invoice_total_amount
+    end
+  end
 
   private
 
