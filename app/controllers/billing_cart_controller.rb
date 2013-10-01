@@ -44,8 +44,8 @@ class BillingCartController < ApplicationController
       @category_id = BillingCategory.find(params[:category_id]).category_id
     end
 
-    @destination = "/invoice_summary?patient_id=#{@patient_id}&user_id=#{params[:user_id]}"
-
+    #@destination = "/invoice_summary?patient_id=#{@patient_id}&user_id=#{params[:user_id]}"
+    @destination = "/payment_method?patient_id=#{@patient_id}&user_id=#{params[:user_id]}"
     render :layout => true
 
   end
@@ -301,6 +301,32 @@ class BillingCartController < ApplicationController
     receipt.print(1)
   end
 
+  def payment_method
+    @payment_methods = ["Cash","Cheque","Invoice"]
+    @patient_id = params[:patient_id]
+    @user_id = params[:user_id]
+  end
+
+  def payment_amount
+    @cart = find_cart
+    unless @cart.nil?
+      @invoice_total_amount = 0
+      for item in @cart.items
+        @billing_invoice_line = BillingInvoiceLine.new
+        @billing_invoice_line.discount_amount = 0
+        @billing_invoice_line.price_per_unit = item.price / item.quantity
+        @billing_invoice_line.final_amount =  (item.quantity * @billing_invoice_line.price_per_unit) - @billing_invoice_line.discount_amount
+        @invoice_total_amount += @billing_invoice_line.final_amount
+      end
+     @invoice_total_amount
+    end
+
+    if params[:payment_method].upcase == "CASH"
+      @total_amount =  ""
+    else
+      @total_amount =  @invoice_total_amount
+    end
+  end
 
   private
 

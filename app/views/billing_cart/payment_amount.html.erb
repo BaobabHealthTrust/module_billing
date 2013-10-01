@@ -1,0 +1,41 @@
+<style type="text/css">
+  .long .options {
+    height: 22em !important;
+  }
+</style>
+
+<script language="javascript">
+  /*tt_cancel_destination = '/add_to_cart?patient_id=<%= @patient_id %>&user_id=<%= @user_id %>';
+  tt_cancel_show = '/add_to_cart?patient_id=<%= params[:patient_id] %>';
+
+  function getdepartment(){
+    department = "<%=params[:department_name]%>";
+    return department;
+  */
+  }
+
+
+</script>
+
+<form action="/summary" method='post'>
+
+  <label for="category_id">Enter Tendered Amount</label>
+
+  <%= text_field_tag "tendered_amount", @total_amount,
+    {:id => "tendered_amount",
+     :field_type => 'number',
+     :helpText => "Tendered Amount"} %>
+
+  <%= hidden_field_tag "user_id", (params[:id] || params[:user_id]) %>
+
+  <%= hidden_field_tag "location_id", params[:location_id] %>
+
+  <%= hidden_field_tag "patient_id",  params[:patient_id] %>
+
+  <% if !params[:src].nil? %>
+    <%= hidden_field_tag "src", "#{params[:src]}" %>
+  <% end %>
+
+  <%= submit_tag value ="Submit"%>
+
+</form>

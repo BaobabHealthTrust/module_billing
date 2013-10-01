@@ -178,6 +178,10 @@ ActionController::Routing::Routes.draw do |map|
 
   map.add_to_cart '/add_to_cart', :controller => 'billing_cart', :action => 'add_to_cart'
 
+  map.payment_method '/payment_method', :controller => 'billing_cart', :action => 'payment_method'
+
+  map.payment_amount '/payment_amount', :controller => 'billing_cart', :action => 'payment_amount'
+
   #map.add_to_cart2 '/add_to_cart2', :controller => 'billing_cart', :action => 'add_to_cart2'
   
   map.checkout '/checkout', :controller => 'billing_cart', :action => 'checkout'
