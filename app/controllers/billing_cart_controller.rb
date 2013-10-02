@@ -110,9 +110,8 @@ class BillingCartController < ApplicationController
       @billing_invoice.account_id = @account.account_id
       @billing_invoice.invoice_type = @account.payment_method.upcase == "CASH" ? "C" : "I"
       @billing_invoice.payment_method = @account.payment_method
-      @billing_invoice.location_id =
+      @billing_invoice.location_id = 1
       @billing_invoice.creator = params[:user_id]
-      @billing_invoice.total_amount = 0
       @billing_invoice.save!
       @invoice_total_amount = 0
       for item in @cart.items
@@ -127,8 +126,13 @@ class BillingCartController < ApplicationController
         @billing_invoice_line.save!
         @invoice_total_amount += @billing_invoice_line.final_amount
       end
+      
      @billing_invoice.total_amount = @invoice_total_amount
+     @billing_invoice.tendered_amount = params[:tendered_amount].to_f
+     @billing_invoice.change_amount = @billing_invoice.tendered_amount - @billing_invoice.total_amount
+     @billing_invoice.paid = true if @billing_invoice.invoice_type == "C"
      @billing_invoice.save!
+
      session[:cart] = nil
      
      print_and_redirect("/billing_cart/invoice_number?invoice_number=#{@billing_invoice.invoice_id}", "/clinic?user_id=#{params[:user_id]}&location_id=#{params[:location_id]}")
@@ -199,11 +203,12 @@ class BillingCartController < ApplicationController
     patient_age = patient.age > 0 ? patient.age : "#{patient.age_in_months} months"
 
     total_amount = invoice.total_amount
+    received_amount = invoice.tendered_amount
+    change_amount = invoice.change_amount
     
     vat = application_config["VAT"] rescue 1.0
     tax = (total_amount * vat) / 100
     sub_total = total_amount - tax
-
 
     invoice_lines = invoice.billing_invoice_lines
     
@@ -289,11 +294,11 @@ class BillingCartController < ApplicationController
 
     y += 60
     receipt.draw_text("Received", 360, y, 0, 3)
-    receipt.draw_text("#{sprintf('%.2f',20000)}", 580, y, 0, 3)
+    receipt.draw_text("#{sprintf('%.2f',received_amount)}", 580, y, 0, 3)
 
     y += 40
     receipt.draw_text("Change", 360, y, 0, 3)
-    receipt.draw_text("#{sprintf('%.2f',20000 - total_amount)}", 580, y, 0, 3)
+    receipt.draw_text("#{sprintf('%.2f',change_amount)}", 580, y, 0, 3)
 
     y += 80
     receipt.draw_barcode(250,y,0,1,5,15,80,true,"#{receipt_number}")
