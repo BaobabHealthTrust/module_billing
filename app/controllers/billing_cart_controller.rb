@@ -154,6 +154,7 @@ class BillingCartController < ApplicationController
   end
 
   def summary
+    @tendered_amount = params[:tendered_amount]
     @cart = find_cart
     @vat = YAML.load_file("#{Rails.root}/config/application.yml")["#{Rails.env
       }"]["VAT"] rescue nil
