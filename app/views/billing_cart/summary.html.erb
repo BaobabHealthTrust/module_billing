@@ -77,11 +77,6 @@
 
             <div style="display: table-cell; border: 1px solid #ccc; padding: 5px;
                  text-align: center; font-weight: bold;">
-              VAT
-            </div>
-
-            <div style="display: table-cell; border: 1px solid #ccc; padding: 5px;
-                 text-align: center; font-weight: bold;">
               Total Amount
             </div>
 
@@ -129,12 +124,6 @@
 
               <div style="display: table-cell; border-left: 1px dotted #ccc; border-bottom: 1px dotted #ccc;
                    border-right: 1px dotted #ccc; padding: 5px; text-align: right; vertical-align: top; padding-top: 20px;">
-                   <%= number_to_currency((item.price * @vat)/100, :locale => :mw) %>
-                   <% total_tax += (item.price * @vat)/100  %>
-              </div>
-
-              <div style="display: table-cell; border-left: 1px dotted #ccc; border-bottom: 1px dotted #ccc;
-                   border-right: 1px dotted #ccc; padding: 5px; text-align: right; vertical-align: top; padding-top: 20px;">
                    <%= number_to_currency(item.price, :locale => :mw) %>
                    <% total_amount += item.price %>
               </div>
@@ -171,6 +160,37 @@
               <div style="display: table-cell; border-left: 1px dotted #ccc; border-bottom: 1px dotted #ccc;
                    border-right: 1px dotted #ccc; padding: 5px; text-align: right; vertical-align: top; padding-top: 20px;">
                    <%= number_to_currency(total_amount, :locale => :mw) %>
+              </div>
+
+            </div>
+        </div>
+
+        <div style="display: table; width: 100%; border-spacing: 2px;">
+          <div style="display: table-row; background-color: #6281A7; color: #eee;">
+
+             <div style="display: table-cell; border: 1px solid #ccc; padding: 5px;
+                 text-align: center; font-weight: bold;">
+              Tendered Amount
+            </div>
+
+            <div style="display: table-cell; border: 1px solid #ccc; padding: 5px;
+                 text-align: center; font-weight: bold;">
+              Change
+            </div>
+
+          </div>
+
+
+            <div style="display: table-row;">
+
+              <div style="display: table-cell; border-left: 1px dotted #ccc; border-bottom: 1px dotted #ccc;
+                   border-right: 1px dotted #ccc; padding: 5px; text-align: right; vertical-align: top; padding-top: 20px;">
+                <%= number_to_currency(@tendered_amount.to_f, :locale => :mw) %>
+              </div>
+
+              <div style="display: table-cell; border-left: 1px dotted #ccc; border-bottom: 1px dotted #ccc;
+                   border-right: 1px dotted #ccc; padding: 5px; text-align: right; vertical-align: top; padding-top: 20px;">
+                   <%= number_to_currency(@tendered_amount.to_f - total_amount, :locale => :mw) %>
               </div>
 
             </div>
