@@ -301,7 +301,10 @@ class BillingCartController < ApplicationController
     receipt.draw_text("#{sprintf('%.2f',change_amount)}", 580, y, 0, 3)
 
     y += 80
-    receipt.draw_barcode(250,y,0,1,5,15,80,true,"#{receipt_number}")
+    receipt.draw_barcode(310,y,0,1,5,15,80,true,"#{receipt_number}")
+
+    y += 180
+    receipt.draw_line(100,y,50,20)
     
     receipt.print(1)
   end
