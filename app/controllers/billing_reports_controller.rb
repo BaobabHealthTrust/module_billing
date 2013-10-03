@@ -5,23 +5,22 @@ class BillingReportsController < ApplicationController
   end
 
   def overview_result
-    @destination = "/clinic?user_id=#{params[:user_id]}&location_id=params[:location_id]"
-    @selSelect = params[:selSelect] rescue nil
-    @selYear = params[:selYear] rescue nil
-    @selMonth = params[:selMonth] rescue nil
-    @day = 			params[:day] rescue nil
+    @destination = "/clinic?user_id=#{params[:user_id]}&location_id=#{params[:location_id]}"
+    @selSelect = params[:report_by] rescue nil
+    @selYear = params[:year] rescue nil
+    @selMonth = params[:month] rescue nil
     @selQtr = "#{par      	  raise patient.to_yamlams[:selQtr].gsub(/&/, "_")}" rescue nil
-	@location =  Location.current_health_center.name rescue ''
+	  @location =  Location.current_health_center.name rescue ''
 
-	case params[:selSelect]
-	  when "day"
-	  @start_date = params[:day].to_date.strftime("%Y-%m-%d 00:00:00")
-	  @end_date = params[:day].to_date.strftime("%Y-%m-%d 23:59:59")
+	case params[:report_by]
+	  when "Day"
+	  @start_date = params[:start_date].to_date.strftime("%Y-%m-%d 00:00:00")
+	  @end_date = params[:end_date].to_date.strftime("%Y-%m-%d 23:59:59")
     
-	  when "month"
-		@start_date = ("#{params[:selYear]}-#{params[:selMonth]}-01").to_date.strftime("%Y-%m-%d 23:59:59")
-		@end_date = ("#{params[:selYear]}-#{params[:selMonth]}-#{ (params[:selMonth].to_i != 12 ?
-		  ("2010-#{params[:selMonth].to_i + 1}-01".to_date - 1).strftime("%d") : 31) }").to_date.strftime("%Y-%m-%d 00:00:00")
+	  when "Month"
+		@start_date = ("#{params[:year]}-#{params[:month]}-01").to_date.strftime("%Y-%m-%d 23:59:59")
+		@end_date = ("#{params[:year]}-#{params[:month]}-#{ (params[:month].to_i != 12 ?
+		  ("2010-#{params[:month].to_i + 1}-01".to_date - 1).strftime("%d") : 31) }").to_date.strftime("%Y-%m-%d 00:00:00")
 
 	  when "quarter"
 		start_date = params[:selQtr].to_s.gsub(/&max=(.+)$/,'')
@@ -74,14 +73,16 @@ class BillingReportsController < ApplicationController
 	end
 
 
-	if @selSelect.include?('month')
+	if @selSelect.include?('Month')
 		@report_type =	"<b>Billing Monthly Report</b><br/> " + @start_date.to_date.strftime("%B") + "  " + @selYear
-	elsif @selSelect.include?('day')
-		@report_type = "<b>Billing Daily Report</b><br/>" + @day.to_date.strftime("%d-%B-%Y")
+	elsif @selSelect.include?('Day')
+		@report_type = "<b>Billing Report From</b><br/>" + @start_date.to_date.strftime("%d-%B-%Y") + " To " + @end_date.to_date.strftime("%d-%B-%Y")
 	else
 		@report_type = "<b>Billing Quarterly Report</b><br/>" + @start_date.to_date.strftime("%d/%B/%Y") + "  to  " + @end_date.to_date.strftime("%d/%B/%Y")
 	end
+
   @destination = "/clinic?user_id=#{params[:user_id]}&location_id=#{params[:location_id]}"
+
   end
 
 

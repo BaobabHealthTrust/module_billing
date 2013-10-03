@@ -1,30 +1,17 @@
-<html>
-  <head>
-    <title>Billing Module Report Selection</title>
-    <script type="text/javascript" language="javascript">
-      <!--
+<script src="/javascripts/standard.js" type="text/javascript"></script>
+<script src="/javascripts/touchscreenToolkit.js" type="text/javascript"></script>
+<script>
 
-      var minYear = 2013;
-      
-      function $(id){
-        return document.getElementById(id);
+  function changeClass(){
+    today = document.getElementById('today')
+      if (today){
+        today.setAttribute("class","blue")
       }
+    }
+</script>
 
-      //-->
-    </script>
-    <style type="text/css">
-    	.tt_controls_select_month .keyboard{display:none;}
-	    	#tt_page_select_month .options{height:550px;}
-		    #tt_page_select_month .options li{font-size:30px;}
-		    #space {display:inline;}
-		    
-      #Unknown {display: none;}
-      num {display: none;}
-    </style>
-  </head>
-  <body>
 
-    <%
+<%
 
     min = 2013
     max = Time.now.strftime("%Y").to_i
@@ -64,106 +51,71 @@
 
     open = false
 
-    # raise qtr.to_yaml
+    #raise qtr.to_yaml
     %>
-    <form id="frmReport" action="show_overview_report" method="post">
-	  <%= hidden_field_tag 'user_id', :value => @user_id %>
-	  <%= hidden_field_tag 'location_id', :value => @location_id %>
-
-      <select id="selSelect" name="selSelect" helpText="Report By:">
-        <option></option>
-        <option value="day">Day</option>
-        <option value="month">Month</option>
-        <option value="quarter">Quarter</option>
-       <!-- <option value="week">Week</option>
-        <option value="year">Year</option>
-        <option value="range">Select Range</option> -->
-      </select>
-
-      <input type="text" field_type="date" id="day" name="day" value="" helpText="Select Day:"
-             condition="$('selSelect').value == 'day';" />
-
-      <select id="selYear" field_type="number" name="selYear" helpText="Select Year:" 
-              condition="$('selSelect').value == 'month' || $('selSelect').value == 'year' || $('selSelect').value == 'week';">
-        <option></option>
-        <% array.reverse.each do |y| %>
-          <option><%= y %></option>
-        <% end %>
-       
-      </select>
-
-      <select id="selMonth" name="selMonth" helpText="Select Month" condition="$('selSelect').value == 'month';">
-        <option></option>
-        <option value="1">January</option>
-        <option value="2">February</option>
-        <option value="3">March</option>
-        <option value="4">April</option>
-        <option value="5">May</option>
-        <option value="6">June</option>
-        <option value="7">July</option>
-        <option value="8">August</option>
-        <option value="9">September</option>
-        <option value="10">October</option>
-        <option value="11">November</option>
-        <option value="12">December</option>
-      </select>
-
-      <select id="selQtr" name="selQtr" helpText="Select Quarter:"
-              condition="$('selSelect').value == 'quarter'">
-        <option></option>
-        <% qtr.reverse.each{|q|
-
-          if q.to_s.match(/^\d{4}$/)
-            if open == true
-            %>
-              </optgroup>
-            <%
-            end
-            open = true
-          %>
-
-            <optgroup label="<%= q %>" style="padding:10px; border-bottom:1px dotted black;">
-
-            <% else %>
-
-              <option value="min=<%= q["min"] %>&max=<%= q["max"] %>" style="text-align:center; padding:10px">
-                <%= q["name"] %>
-              </option>
-
-            <%
-            end
-
-          }
-
-          if open == true
-          %>
-
-          </optgroup>
-
-        <%
-        end
-      %>
-      </select>
 
 
-      <select id="selWeek" name="selWeek" helpText="Select Week:"
-              condition="$('selSelect').value == 'week'">
-        <option></option>
-        <% (1..52).each do |w| %>
-          <option value="<%= w %>">Week <%= w %></option>
-        <% end %>
-      </select>
+<style type="text/css">
 
-      <input type="text" field_type="date" id="start_date" name="start_date" value="" helpText="Select Start Date:"
-             condition="$('selSelect').value == 'range';" />
+  .dateselector {
+     position: fixed;
+     top: 345px;
+  }
 
-      <input type="text" field_type="date" id="end_date" name="end_date" value="" helpText="Select End Date:"
-             condition="$('selSelect').value == 'range';" />
+  .tt_controls_summary #clearButton { display: none; }
 
-      <input type="hidden" field_type="number" id="user_id" name="user_id" value="<%= @user_id %>" />
+  .tt_controls_summary .inputFrameClass { height: 448px; }
 
-      <input type="hidden" field_type="number" id="location_id" name="location_id" value="<%= @location_id %>" />
+  #tt_page_summary .inputFrameClass { height: 448px; }
 
-    </form>
-  </body>
-</html>
+  .selected_conditions {
+  font-size: 25px;
+  padding-left: 5px;
+  font-weight: bold;
+  }
+  #tt_page_select_year .inputFrameClass{
+    height: 581px;
+  }
+  #tt_page_select_year .inputFrameClass .options{
+    height: 570px;
+  }
+  #tt_page_select_month .inputFrameClass{
+    height: 581px;
+  }
+  #tt_page_select_month .inputFrameClass .options{
+    height: 570px;
+  }
+</style>
+
+
+<% form_tag "show_overview_report", :method => :post do %>
+
+    <%= hidden_field_tag 'user_id', params[:user_id] %>
+    <%= hidden_field_tag 'location_id', params[:location_id] %>
+
+   <% @report_by = ["Day", "Month"] %>
+   
+   <% @months = [['January','1'],['February','2'],['March','3'],['April','4'],
+                 ['May','5'],['June','6'],['July','7'],['August','8'],
+                 ['September','9'],['October','10'],['November','11'],['December','12']]%>
+   <% @years = [''] %>
+
+   <% Date.today.year.downto(2013) do |year| @years << year.to_s
+    end%>
+
+   <%=  select_tag :report_by, options_for_select(@report_by),
+     {:helpText => "Select Range", :tt_onLoad => "document.getElementById('keyboard').style.display='none'"} %>
+
+   <%= text_field_tag("start_date", nil, {:field_type => 'date', :helpText => 'Start date', :tt_onLoad => "changeClass();" , :condition => "$('report_by').value == 'Day';"}) %>
+
+   <%= text_field_tag("end_date", nil, {:field_type => 'date', :helpText => 'End date', :tt_onLoad => "changeClass();" , :condition => "$('report_by').value == 'Day';"}) %>
+
+   <%=  select_tag :year, options_for_select(@years),
+     {:helpText => "Select year", :tt_onLoad => "document.getElementById('keyboard').style.display='none'", :condition => "$('report_by').value == 'Month';"} %>
+
+   <%=  select_tag :month, options_for_select(@months),
+     {:helpText => "Select month" ,:tt_onLoad => "document.getElementById('keyboard').style.display='none'", :condition => "$('report_by').value == 'Month';"} %>
+
+  
+
+<%end%>
