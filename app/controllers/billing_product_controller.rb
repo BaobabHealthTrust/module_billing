@@ -123,4 +123,14 @@ class BillingProductController < ApplicationController
     end
   end
 
+  def get_service
+    service_conditions = ["name LIKE (?)", "#{params[:value]}%"]
+
+    services = BillingProduct.all(:conditions => service_conditions, :order => 'name')
+    services = services.map do |r|
+      "<li value='#{r.name}'>#{r.name}</li>"
+    end
+    render :text => services.join('') and return
+  end
+
 end

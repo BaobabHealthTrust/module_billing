@@ -9,13 +9,20 @@
 params[:location_id] + (!params[:src].nil? ? "&src=#{params[:src]}" : "") %>';
   tt_cancel_show = '/add_to_cart?patient_id=<%= params[:patient_id] %>&location_id=<%=
 params[:location_id] + (!params[:src].nil? ? "&src=#{params[:src]}" : "") %>';
+  
+  function getdepartment(){
+    
+    department = "<%=params[:department_name]%>";
+    return department;
+
+}
+
+
 </script>
 
 <form action="/add_to_cart" method='post'>
-
-  <label for="department">Department</label>
-  <%= select_tag(:department_id, options_for_select(@departments, params[:department_id]),
-    :helpText => "Select Department") %>
+  
+  <%= text_field "service" , 'service_name', :xhelpText => 'Service',:tt_requireNextClick => false, :ajaxURL => '/billing_product/get_service?value=', :tt_onLoad => "$('nextButton').style.display = 'none';"%>
 
   <%= hidden_field_tag "user_id", (params[:id] || params[:user_id]) %>
 
