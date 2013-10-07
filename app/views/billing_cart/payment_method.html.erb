@@ -19,7 +19,7 @@
 <form action="/payment_amount" method='post'>
 
   <label for="category_id">Select Payment Method</label>
-  <%= select_tag(:payment_method, options_for_select(@payment_methods),
+  <%= select_tag(:payment_method, options_for_select(@payment_methods.split(",").sort),
     :helpText => "Select Payment Method") %>
 
   <%= hidden_field_tag "user_id", (params[:id] || params[:user_id]) %>
