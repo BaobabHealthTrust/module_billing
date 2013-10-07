@@ -13,8 +13,13 @@
 
   <%= text_field "service" , 'service_name',:helpText => "Select Drug", :xhelpText => 'Select Drug',:tt_requireNextClick => false, :ajaxURL => '/billing_product/get_service?field=pharmacy&value=', :tt_onLoad => "$('nextButton').style.display = 'none';"%>
 
-  <label for="name">Enter Quantity</label>
-  <%= text_field_tag(:quantity, 1, :helpText => "Enter quantity",:field_type => 'number') %>
+  <%= text_field_tag "quantity", 1,
+	 {:id => "quantity",
+          :allowFreeText => true,
+          :field_type => "number",
+	  :helpText => "Enter quantity",
+	  :tt_requireNextClick => true,
+          :tt_onLoad => "$('nextButton').style.display = 'block';"}%>
 
   <%= hidden_field_tag "user_id", (params[:id] || params[:user_id]) %>
 
