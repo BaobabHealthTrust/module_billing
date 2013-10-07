@@ -94,7 +94,7 @@ class BillingCartController < ApplicationController
     @cart = find_cart
     @vat = YAML.load_file("#{Rails.root}/config/application.yml")["#{Rails.env
       }"]["VAT"] rescue nil
-    @destination = "/checkout?patient_id=#{params[:patient_id]}&user_id=#{params[:user_id]}&tendered_amount=#{params[:tendered_amount]}"
+    @destination = "/checkout?patient_id=#{params[:patient_id]}&user_id=#{params[:user_id]}&tendered_amount=#{params[:tendered_amount]}&payment_method=#{params[:payment_method]}"
   end
 
   def invoice_number
