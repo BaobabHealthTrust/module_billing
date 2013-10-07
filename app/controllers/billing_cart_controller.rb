@@ -75,9 +75,9 @@ class BillingCartController < ApplicationController
   end
 
   def remove_from_cart
-    a = BillingProduct.find(params[:target_id])
+    product = BillingProduct.find(params[:target_id])
     @cart = find_cart
-    @cart.remove_product(a)
+    @cart.remove_product(product)
 
     if @cart.items.length == 0
        redirect_to "/patients/show?patient_id=#{params[:patient_id]}&location_id=#{params[:location_id]}&user_id=#{params[:user_id]}"
@@ -127,7 +127,7 @@ class BillingCartController < ApplicationController
     invoice = BillingInvoice.find(invoice_number)
     receipt_number = invoice.invoice_id
     invoice_date = invoice.created_at
-    accout_id = invoice.account_id
+    account_id = invoice.account_id
     patient_id = BillingAccount.find_by_account_id(account_id).patient_id
     patient = Patient.find(patient_id)
     patient_name = patient.name
