@@ -11,7 +11,7 @@ class BillingCartController < ApplicationController
    
     if params[:product]
       product = BillingProduct.find_by_name(params[:product])
-      price_type = BillingAccount.find_by_patient_id(@patient_id).price_type
+      price_type = BillingAccount.find_by_patient_id(@patient_id).price_type rescue "General"
       @cart.add_product(product,price_type)
     elsif !params[:product_id].blank? && !params[:admitted_date].blank? && !params[:discharge_date].blank?
       product = BillingProduct.find(params[:product_id])
