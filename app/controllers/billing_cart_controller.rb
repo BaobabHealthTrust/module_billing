@@ -33,57 +33,6 @@ class BillingCartController < ApplicationController
 
   end
 
-  def add_to_cart2
-    
-    #raise params.to_yaml
-
-    @vat = YAML.load_file("#{Rails.root}/config/application.yml")["#{Rails.env
-      }"]["VAT"] rescue nil
-    @cart = find_cart
-    @location_id = session[:location_id]
-    @patient_id = params[:patient_id]
-    @patient = Patient.find(params[:id] || params[:patient_id]) rescue nil
-
-
-    @departments = BillingDepartment.all.map do |department|
-      [department.name, department.department_id]
-    end
-
-
-
-    if params[:product]
-      product = BillingProduct.find_by_name(params[:product])
-      price_type = BillingAccount.find_by_patient_id(@patient_id).price_type
-      @cart.add_product(product,price_type)
-    elsif params[:product_id]
-      product = BillingProduct.find(params[:product_id])
-      price_type = BillingAccount.find_by_patient_id(@patient_id).price_type
-      params[:quantity].to_i.times do
-        @cart.add_product(product,price_type)
-      end
-    end
-
-    @department_id = nil
-    @department_name = nil
-
-    if params[:department_id]
-      department = BillingDepartment.find(params[:department_id])
-      @department_id = department.department_id
-      @department_name = department.name
-    end
-
-    @category_id = nil
-
-    if params[:category_id]
-      @category_id = BillingCategory.find(params[:category_id]).category_id
-    end
-
-    @destination = "/invoice_summary?patient_id=#{@patient_id}&user_id=#{params[:user_id]}"
-
-    render :layout => false
-
-  end
-
   def checkout
     @cart = find_cart
     @patient = Patient.find(params[:patient_id])
@@ -178,7 +127,7 @@ class BillingCartController < ApplicationController
     invoice = BillingInvoice.find(invoice_number)
     receipt_number = invoice.invoice_id
     invoice_date = invoice.created_at
-    account_id = invoice.account_id
+    accout_id = invoice.account_id
     patient_id = BillingAccount.find_by_account_id(account_id).patient_id
     patient = Patient.find(patient_id)
     patient_name = patient.name
