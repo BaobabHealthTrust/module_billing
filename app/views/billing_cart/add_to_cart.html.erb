@@ -198,7 +198,7 @@
                   <td>
                     <button class="blue" style="margin: 8px; width: 250px; float: right;"
              
-                            onclick="window.location='/select_department?patient_id=<%= params[:patient_id] %>&location_id=<%= session[:location_id] %>&user_id=<%= params[:user_id] %>'">
+                            onclick="window.location='/protocol_patients/services?patient_id=<%=params[:patient_id] %>&user_id=<%= params[:user_id] %>'">
                       <span>
                         Add Service
                       </span>
@@ -208,27 +208,23 @@
                 
                 <tr>
                   <td>
-                    <%  unless @department_id.nil? %>
                       <button class="blue" style="margin: 8px; width: 250px; float: right;"
-                              onclick="window.location='/select_category?patient_id=<%= params[:patient_id] %>&location_id=<%= session[:location_id] %>&user_id=<%= params[:user_id] %>&department_id=<%= params[:department_id]%>&department_name=<%= @department_name%>'">
+                              onclick="window.location='/protocol_patients/pharmacy?patient_id=<%=params[:patient_id] %>&user_id=<%= params[:user_id] %>'">
                         <span>
-                          Select Category
+                          Add Drug
                         </span>
                       </button>
-                    <% end %>
                   </td>
                 </tr>
 
                   <tr>
                     <td>
-                       <% if @category_id %>
                       <button class="blue" style="margin: 8px; width: 250px; float: right;"
-                              onclick="window.location='/select_product?patient_id=<%= params[:patient_id] %>&location_id=<%= session[:location_id] %>&user_id=<%= params[:user_id] %>&department_id=<%= params[:department_id]%>&category_id=<%= params[:category_id]%>&department_name=<%= params[:department_name]%>'">
+                              onclick="window.location='/protocol_patients/admissions?patient_id=<%=params[:patient_id] %>&user_id=<%= params[:user_id] %>'">
                         <span>
-                        Select Service
+                        Add Ward
                         </span>
                       </button>
-                      <% end %>
                     </td>
                   </tr>
               </table>
