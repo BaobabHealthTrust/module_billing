@@ -1,43 +1,37 @@
-<script type='text/javascript' language='javascript'>
-<!--
-	tt_cancel_show = '/patients/show/<%= @patient.id %>?user_id=<%= @user.id %>';
-	tt_cancel_destination = '/patients/show/<%= @patient.id %>?user_id=<%= @user.id %>';
-	</script>
+<style type="text/css">
+  .long .options {
+    height: 22em !important;
+  }
+</style>
 
-<form method='post' action='/encounters/create'>
-	<input type='hidden' name='program' value='BILLING PROGRAM' />
-	<input type='hidden' name='encounter_type' value='Admissions ' />
-	<input type='hidden' name='patient_id' value='<%= @patient.id %>' />
-	<input type='hidden' name='user_id' value='<%= @user.id %>' />
-	<table>
-		<tr>
-			<td>
-				Please Select the Ward Type? 
-			</td>
-			<td>
-<select id='1.1' name='concept[Please Select the Ward Type? ]' helpText='Please Select the Ward Type? ' tt_onLoad='__$("nextButton").style.display = "none"'  tt_requirenextclick='false'  pos='0' >
-<option></option>
-<option value='Adults'>Adults</option>
- <option value='VIP'>VIP</option>
- <option value='Pediatrics'>Pediatrics</option>
- </select>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				Admission Date 
-			</td>
-			<td>
-<input type='text' id='1.2'  name='concept[Admission Date ]' helpText='Admission Date '  tt_onLoad='__$("nextButton").style.display = "block"'  field_type='date'  pos='2' />
-			</td>
-		</tr>
-		<tr>
-			<td>
-				Discharge Date 
-			</td>
-			<td>
-<input type='text' id='1.3'  name='concept[Discharge Date ]' helpText='Discharge Date '  field_type='date'  pos='3' />
-			</td>
-		</tr>
-	</table>
+<script language="javascript">
+  tt_cancel_destination = '/add_to_cart?patient_id=<%= params[:patient_id] %>&user_id=<%= params[:user_id] %>';
+  tt_cancel_show = '/add_to_cart?patient_id=<%= params[:patient_id] %>';
+
+  function getdepartment(){
+
+    department = "<%=params[:department_name]%>";
+    return department;
+
+}
+
+
+</script>
+
+<form action="/add_to_cart" method='post'>
+
+  <%= text_field "service" , 'service_name', :xhelpText => 'Service',:tt_requireNextClick => false, :ajaxURL => '/billing_product/get_service?field=inpatient&value=', :tt_onLoad => "$('nextButton').style.display = 'none';"%>
+
+  <%= hidden_field_tag "user_id", (params[:id] || params[:user_id]) %>
+
+  <%= hidden_field_tag "location_id", params[:location_id] %>
+
+  <%= hidden_field_tag "patient_id",  params[:patient_id] %>
+
+  <% if !params[:src].nil? %>
+    <%= hidden_field_tag "src", "#{params[:src]}" %>
+  <% end %>
+
+  <%= submit_tag value ="Submit"%>
+
 </form>
