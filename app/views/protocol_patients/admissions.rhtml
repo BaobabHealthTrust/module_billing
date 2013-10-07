@@ -17,12 +17,16 @@
   <%= text_field_tag "admitted_date", nil,
     {:id => "admitted_date",
      :field_type => 'date',
-     :helpText => "Admitted Date"} %>
+     :helpText => "Admitted Date",
+     :tt_requireNextClick => true,
+     :tt_onLoad => "$('nextButton').style.display = 'block';"} %>
 
   <%= text_field_tag "discharge_date", nil,
     {:id => "discharge_date",
      :field_type => 'date',
-     :helpText => "Discharge Date"} %>
+     :helpText => "Discharge Date",
+     :tt_requireNextClick => true,
+     :tt_onLoad => "$('nextButton').style.display = 'block';"} %>
 
 
   <%= hidden_field_tag "user_id", (params[:id] || params[:user_id]) %>
