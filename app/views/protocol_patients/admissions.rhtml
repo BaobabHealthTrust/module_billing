@@ -8,19 +8,22 @@
   tt_cancel_destination = '/add_to_cart?patient_id=<%= params[:patient_id] %>&user_id=<%= params[:user_id] %>';
   tt_cancel_show = '/add_to_cart?patient_id=<%= params[:patient_id] %>';
 
-  function getdepartment(){
-
-    department = "<%=params[:department_name]%>";
-    return department;
-
-}
-
-
 </script>
 
 <form action="/add_to_cart" method='post'>
 
-  <%= text_field "service" , 'service_name', :xhelpText => 'Service',:tt_requireNextClick => false, :ajaxURL => '/billing_product/get_service?field=inpatient&value=', :tt_onLoad => "$('nextButton').style.display = 'none';"%>
+  <%= text_field "service" , 'service_name', :helpText => "Select Ward", :xhelpText => 'Service',:tt_requireNextClick => false, :ajaxURL => '/billing_product/get_service?field=inpatient&value=', :tt_onLoad => "$('nextButton').style.display = 'none';"%>
+
+  <%= text_field_tag "admitted_date", nil,
+    {:id => "admitted_date",
+     :field_type => 'date',
+     :helpText => "Admitted Date"} %>
+
+  <%= text_field_tag "discharge_date", nil,
+    {:id => "discharge_date",
+     :field_type => 'date',
+     :helpText => "Discharge Date"} %>
+
 
   <%= hidden_field_tag "user_id", (params[:id] || params[:user_id]) %>
 

@@ -6,16 +6,7 @@
 
 <script language="javascript">
   tt_cancel_destination = '/add_to_cart?patient_id=<%= params[:patient_id] %>&user_id=<%= params[:user_id] %>';
-  tt_cancel_show = '/add_to_cart?patient_id=<%= params[:patient_id] %>';
-
-  function getdepartment(){
-
-    department = "<%=params[:department_name]%>";
-    return department;
-
-}
-
-
+  tt_cancel_show = '/add_to_cart?patient_id=<%= params[:patient_id] %>';  
 </script>
 
 <form action="/add_to_cart" method='post'>
