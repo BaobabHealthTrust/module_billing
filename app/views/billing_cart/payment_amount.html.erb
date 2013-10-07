@@ -24,6 +24,8 @@
 
   <%= hidden_field_tag "patient_id",  params[:patient_id] %>
 
+  <%= hidden_field_tag "payment_method",  @payment_method %>
+
   <% if !params[:src].nil? %>
     <%= hidden_field_tag "src", "#{params[:src]}" %>
   <% end %>
