@@ -8,43 +8,26 @@ class BillingCartController < ApplicationController
     @patient_id = params[:patient_id]
     @patient = Patient.find(params[:id] || params[:patient_id]) rescue nil
    
-   
-    if params[:product]
-      product = BillingProduct.find_by_name(params[:product])
+   if !params[:service][:service_name].blank? && !params[:quantity].blank?
+      product = BillingProduct.find_by_name(params[:service][:service_name])
+      price_type = BillingAccount.find_by_patient_id(@patient_id).price_type rescue "Generals"
+      params[:quantity].to_i.times do
+        @cart.add_product(product,price_type)
+      end
+   elsif !params[:service][:service_name].blank? && !params[:admitted_date].blank? && !params[:discharge_date].blank?
+      product = BillingProduct.find_by_name(params[:service][:service_name])
       price_type = BillingAccount.find_by_patient_id(@patient_id).price_type rescue "General"
-      @cart.add_product(product,price_type)
-    elsif !params[:product_id].blank? && !params[:admitted_date].blank? && !params[:discharge_date].blank?
-      product = BillingProduct.find(params[:product_id])
-      price_type = BillingAccount.find_by_patient_id(@patient_id).price_type
       quantity = params[:discharge_date].to_date.day - params[:admitted_date].to_date.day
       quantity = quantity <= 0 ? 1 : quantity
       quantity.times do
         @cart.add_product(product,price_type)
-      end
-    elsif !params[:product_id].blank?
-      product = BillingProduct.find(params[:product_id])
-      price_type = BillingAccount.find_by_patient_id(@patient_id).price_type
-      params[:quantity].to_i.times do
-        @cart.add_product(product,price_type)
-      end
+      end 
+    elsif params[:service][:service_name]
+      product = BillingProduct.find_by_name(params[:service][:service_name])
+      price_type = BillingAccount.find_by_patient_id(@patient_id).price_type rescue "General"
+      @cart.add_product(product,price_type)
     end
-
-    @department_id = nil
-    @department_name = nil
-
-    if params[:department_id]
-      department = BillingDepartment.find(params[:department_id])
-      @department_id = department.department_id
-      @department_name = department.name
-    end
-
-    @category_id = nil
     
-    if params[:category_id]
-      @category_id = BillingCategory.find(params[:category_id]).category_id
-    end
-
-    #@destination = "/invoice_summary?patient_id=#{@patient_id}&user_id=#{params[:user_id]}"
     @destination = "/payment_method?patient_id=#{@patient_id}&user_id=#{params[:user_id]}"
     render :layout => true
 
