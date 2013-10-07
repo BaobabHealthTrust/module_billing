@@ -124,8 +124,19 @@ class BillingProductController < ApplicationController
   end
 
   def get_service
-    service_conditions = ["name LIKE (?)", "#{params[:value]}%"]
-
+    
+    unless params[:field].blank?
+      department_id = BillingDepartment.find_by_name(params[:field].titlecase).department_id
+      categories = BillingCategory.find_all_by_department_id(department_id).collect{|category| category.category_id}
+      service_conditions = ["category_id IN (?) AND name LIKE (?)", categories ,"#{params[:value]}%"]
+    else
+      pharmacy_dept = BillingDepartment.find_by_name("Pharmacy").department_id
+      inpatient_dept = BillingDepartment.find_by_name("Inpatient").department_id
+      categories = BillingCategory.find_all_by_department_id(pharmacy_dept).collect{|category| category.category_id}
+      categories += BillingCategory.find_all_by_department_id(inpatient_dept).collect{|category| category.category_id}
+      service_conditions = ["category_id NOT IN (?) AND name LIKE (?)",categories, "#{params[:value]}%"]
+    end
+    
     services = BillingProduct.all(:conditions => service_conditions, :order => 'name')
     services = services.map do |r|
       "<li value='#{r.name}'>#{r.name}</li>"
