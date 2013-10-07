@@ -1,7 +1,7 @@
 
 production:
-  clinical.encounters.sequential.list: SERVICES
-  clinical.encounters.display.list: SERVICES
+  clinical.encounters.sequential.list: SERVICES,PHARMACY,PAYMENT METHODS,ADMISSIONS
+  clinical.encounters.display.list: SERVICES,PHARMACY,PAYMENT METHODS,ADMISSIONS
   scope: SERVICES|TODAY
 
 development:
@@ -10,7 +10,7 @@ development:
   scope: SERVICES|TODAY
 
 test: &TEST
-  clinical.encounters.sequential.list: SERVICES
-  clinical.encounters.display.list: SERVICES
+  clinical.encounters.sequential.list: SERVICES,PHARMACY,PAYMENT METHODS,ADMISSIONS
+  clinical.encounters.display.list: SERVICES,PHARMACY,PAYMENT METHODS,ADMISSIONS
   scope: SERVICES|TODAY
 
