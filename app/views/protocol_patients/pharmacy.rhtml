@@ -1,26 +1,37 @@
-<script type='text/javascript' language='javascript'>
-<!--
-	tt_cancel_show = '/patients/show/<%= @patient.id %>?user_id=<%= @user.id %>';
-	tt_cancel_destination = '/patients/show/<%= @patient.id %>?user_id=<%= @user.id %>';
-	</script>
+<style type="text/css">
+  .long .options {
+    height: 22em !important;
+  }
+</style>
 
-<form method='post' action='/encounters/create'>
-	<input type='hidden' name='program' value='BILLING PROGRAM' />
-	<input type='hidden' name='encounter_type' value='Pharmacy ' />
-	<input type='hidden' name='patient_id' value='<%= @patient.id %>' />
-	<input type='hidden' name='user_id' value='<%= @user.id %>' />
-	<table>
-		<tr>
-			<td>
-				Patient has Health Passport? 
-			</td>
-			<td>
-<select id='1.1' name='concept[Patient has Health Passport? ]' helpText='Patient has Health Passport? ' tt_onLoad='__$("nextButton").style.display = "none"'  tt_requirenextclick='false'  pos='0' >
-<option></option>
-<option value='No'>No</option>
- <option value='Yes'>Yes</option>
- </select>
-			</td>
-		</tr>
-	</table>
+<script language="javascript">
+  tt_cancel_destination = '/add_to_cart?patient_id=<%= params[:patient_id] %>&user_id=<%= params[:user_id] %>';
+  tt_cancel_show = '/add_to_cart?patient_id=<%= params[:patient_id] %>';
+
+  function getdepartment(){
+
+    department = "<%=params[:department_name]%>";
+    return department;
+
+}
+
+
+</script>
+
+<form action="/add_to_cart" method='post'>
+
+  <%= text_field "service" , 'service_name', :xhelpText => 'Service',:tt_requireNextClick => false, :ajaxURL => '/billing_product/get_service?field=pharmacy&value=', :tt_onLoad => "$('nextButton').style.display = 'none';"%>
+
+  <%= hidden_field_tag "user_id", (params[:id] || params[:user_id]) %>
+
+  <%= hidden_field_tag "location_id", params[:location_id] %>
+
+  <%= hidden_field_tag "patient_id",  params[:patient_id] %>
+
+  <% if !params[:src].nil? %>
+    <%= hidden_field_tag "src", "#{params[:src]}" %>
+  <% end %>
+
+  <%= submit_tag value ="Submit"%>
+
 </form>
