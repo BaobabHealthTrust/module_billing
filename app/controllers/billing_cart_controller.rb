@@ -267,6 +267,7 @@ class BillingCartController < ApplicationController
     else
       @total_amount =  @invoice_total_amount
     end
+    @payment_method = params[:payment_method]
   end
 
   private
