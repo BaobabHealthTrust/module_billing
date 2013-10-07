@@ -36,11 +36,11 @@ class BillingCartController < ApplicationController
   def checkout
     @cart = find_cart
     @patient = Patient.find(params[:patient_id])
-    @account = @patient.billing_account
+    raise params.to_yaml
     unless @cart.nil?
       @billing_invoice = BillingInvoice.new
-      @billing_invoice.account_id = @account.account_id
-      @billing_invoice.invoice_type = @account.payment_method.upcase == "CASH" ? "C" : "I"
+      @billing_invoice.account_id = @patient.patient_id
+      @billing_invoice.invoice_type = params[:payment_method].upcase == "CASH" ? "C" : "I"
       @billing_invoice.payment_method = @account.payment_method
       @billing_invoice.location_id = 1
       @billing_invoice.creator = params[:user_id]
@@ -242,7 +242,8 @@ class BillingCartController < ApplicationController
   end
 
   def payment_method
-    @payment_methods = ["Cash","Cheque","Invoice"]
+    @payment_methods = YAML.load_file("#{Rails.root}/config/application.yml")["#{Rails.env
+      }"]["payment.methods"]
     @patient_id = params[:patient_id]
     @user_id = params[:user_id]
   end
