@@ -2,10 +2,9 @@
 class ClinicController < ApplicationController
   unloadable
 
- 	before_filter :start_session
+   before_filter :sync_user, :except => [:index, :user_login, :user_logout,
+    :set_datetime, :update_datetime, :reset_datetime]
 
-  before_filter :check_user, :except => [:user_login, :user_logout, :missing_program,
-    :missing_concept, :no_user, :no_patient, :project_users_list, :check_role_activities]
 
   def index
     
@@ -21,11 +20,8 @@ class ClinicController < ApplicationController
 
     session[:location_id] = @location.id if !@location.nil?
     
-    redirect_to "/patients/show/#{params[:ext_patient_id]}?user_id=#{params[:user_id]}&location_id=#{
-
-    params[:location_id]}" if !params[:ext_patient_id].nil?
+    redirect_to "/patients/show/#{params[:ext_patient_id]}?user_id=#{params[:user_id]}&location_id=#{params[:location_id]}" if !params[:ext_patient_id].nil?
     
-
    
     @project = get_global_property_value("project.name") rescue "Unknown"
 
