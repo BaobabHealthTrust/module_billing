@@ -13,7 +13,7 @@
 
   <label for="category_id">Enter Tendered Amount</label>
 
-  <%= text_field_tag "tendered_amount", sprintf('%.2f', @total_amount),
+  <%= text_field_tag "tendered_amount", @total_amount.blank? ? "" :  sprintf('%.2f', @total_amount),
     {:id => "tendered_amount",
      :field_type => 'number',
      :helpText => "Tendered Amount"} %>
