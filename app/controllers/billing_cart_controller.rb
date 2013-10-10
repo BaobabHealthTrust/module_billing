@@ -1,5 +1,5 @@
 class BillingCartController < ApplicationController
-  
+
   def add_to_cart
     @vat = YAML.load_file("#{Rails.root}/config/application.yml")["#{Rails.env
       }"]["VAT"] rescue nil
@@ -36,12 +36,11 @@ class BillingCartController < ApplicationController
   def checkout
     @cart = find_cart
     @patient = Patient.find(params[:patient_id])
-    raise params.to_yaml
     unless @cart.nil?
       @billing_invoice = BillingInvoice.new
       @billing_invoice.account_id = @patient.patient_id
       @billing_invoice.invoice_type = params[:payment_method].upcase == "CASH" ? "C" : "I"
-      @billing_invoice.payment_method = @account.payment_method
+      @billing_invoice.payment_method = params[:payment_method]
       @billing_invoice.location_id = 1
       @billing_invoice.creator = params[:user_id]
       @billing_invoice.save!
@@ -128,7 +127,7 @@ class BillingCartController < ApplicationController
     receipt_number = invoice.invoice_id
     invoice_date = invoice.created_at
     account_id = invoice.account_id
-    patient_id = BillingAccount.find_by_account_id(account_id).patient_id
+    patient_id = account_id
     patient = Patient.find(patient_id)
     patient_name = patient.name
     patient_gender = patient.gender
