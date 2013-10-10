@@ -140,34 +140,35 @@
           <th style="width: 15%;">Payment Method</th>
           <th style="width: 15%;">Price Type</th>
         </tr>
+        <% @account.each do |account| %>
         <tr>
           <td colspan="5">
-            <div style="width=100%;height: 235px; overflow: hidden; border: 1px solid #ccc;">
+            <div style="width: 100%;height: 40px; overflow: hidden; border: 1px solid #ccc;">
               <table width="100%" cellpadding="5">
 		
                 <tr>
                   <td style="width: 10%; text-align: left;
-                      vertical-align: top; font-size: 1.5em; color: #1f3b5e;">
-                    <%=@account.created_at.strftime("%d-%h-%Y") %>
+                      vertical-align: top; font-size: 1em; color: #1f3b5e;">
+                    <%= account.created_at.strftime("%d-%h-%Y") %>
                   </td>
-                  <td style="width: 15%; border-left: 1px dotted #ccc; vertical-align: top;font-size: 1.5em; color: #1f3b5e;">
+                  <td style="width: 15%; border-left: 1px dotted #ccc; vertical-align: top;font-size: 1em; color: #1f3b5e;">
                     
-                      <%=@account.payment_method %>
-                     
+                      <%=  account.payment_method %> 
                   </td>
-                  <td style="width:15%;border-left: 1px dotted #ccc; font-size: 1.5em; color: #1f3b5e;">
-                    <div style="width: 100%; height: 220px; overflow: auto;">
+                  <td style="width:15%;border-left: 1px dotted #ccc; font-size: 1em; color: #1f3b5e;">
+                    <div style="width: 100%; height: 40px; overflow: auto;">
                       <ul id="obs" style="width: 100%;">
-                      <%=@account.price_type %>
+                      <%= account.price_type %>
                       </ul>
                     </div>
-                  </td>
-                  
-                </tr>		 
+                  </td> 
+                </tr>
+               
               </table>
             </div>
           </td>
         </tr>
+         <% end %>
       </table>
     </div>
 
