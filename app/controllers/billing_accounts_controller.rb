@@ -5,7 +5,7 @@ class BillingAccountsController < ApplicationController
 
   def account_setting
       @patient = Patient.find(params[:patient_id])
-  	  @account = BillingAccount.find_by_patient_id(@patient.id) 
+  	  @account = BillingAccount.find_all_by_patient_id(@patient.id)
       render :layout => false
   end
   
@@ -102,9 +102,7 @@ class BillingAccountsController < ApplicationController
      @account_medical_scheme.account_id = @billing_account.account_id
      @account_medical_scheme.save!
    end
-
-   redirect_to "/clinic?user_id=#{params[:user_id]}&location_id=#{params[:location_id]}&ext_patient_id=#{params[:patient_id]}"
-    
+    redirect_to "/patients/show/#{params[:patient_id]}?user_id=#{params[:user_id]}&location_id=#{params[:location_id]}" if !params[:patient_id].nil?
   end
 
 end
