@@ -20,8 +20,7 @@ class ClinicController < ApplicationController
 
     session[:location_id] = @location.id if !@location.nil?
     
-    redirect_to "/patients/show/#{params[:ext_patient_id]}?user_id=#{params[:user_id]}&location_id=#{params[:location_id]}" if !params[:ext_patient_id].nil?
-    
+    redirect_to "/new_billing_account?patient_id=#{params[:ext_patient_id]}&user_id=#{params[:user_id]}&location_id=#{@location.id}" if !params[:ext_patient_id].nil?
    
     @project = get_global_property_value("project.name") rescue "Unknown"
 
