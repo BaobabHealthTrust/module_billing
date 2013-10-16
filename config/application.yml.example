@@ -1,6 +1,9 @@
 production:
   project.name: Billing
-  facility.name: Test Centre
+  facility.name: Daeyang Luke Hospital
+  facility.address: P.O. Box 30330, Lilongwe 3.
+  facility.telephone: 01 711 298
+  facility.url: www.daeyanglukehospital.org
   price.types: General,Private,Invoice
   VAT: 16.5
   scheme.provider.types: Company,Provider,Hospital,Clinic
@@ -10,7 +13,10 @@ production:
 
 development:
   project.name: Billing
-  facility.name: Test Centre
+  facility.name: Daeyang Luke Hospital
+  facility.address: P.O. Box 30330, Lilongwe 3.
+  facility.telephone: 01 711 298
+  facility.url: www.daeyanglukehospital.org
   price.types: General,Private,Invoice
   VAT: 16.5
   scheme.provider.types: Company,Provider,Hospital,Clinic
@@ -20,7 +26,10 @@ development:
 
 test: &TEST
   project.name: Billing
-  facility.name: Test Centre
+  facility.name: Daeyang Luke Hospital
+  facility.address: P.O. Box 30330, Lilongwe 3.
+  facility.telephone: 01 711 298
+  facility.url: www.daeyanglukehospital.org
   price.types: General,Private,Invoice
   VAT: 16.5
   scheme.provider.types: Company,Provider,Hospital,Clinic
