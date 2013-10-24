@@ -52,6 +52,11 @@
               Price
             </div>
 
+            <div style="display: table-cell; border: 1px solid #ccc; padding: 5px;
+                 text-align: center; font-weight: bold;">
+              Add Price
+            </div>
+
           </div>
 
           <% i = 0 %>
@@ -97,18 +102,34 @@
                   </tr>
                 </table>
               </div>
-             
+              
               <div style="display: table-cell; border-bottom: 1px dotted #ccc;
-                   border-right: 1px dotted #ccc;  padding: 5px; vertical-align: top; text-align: right; padding-top: 20px;">
-                
-                 <table width="100%">
-                        <% product.billing_prices.each do |price|  %>
+                   border-right: 1px dotted #ccc;  padding: 2px; vertical-align: middle; text-align: right; padding-top: 20px;">
+                 <table width="100%"> 
+                       <% product.billing_prices.each do |price|  %>
                           <tr>
                             <td>
                               <%= number_to_currency(price.amount.to_f,:locale => :mw) + " - " + price.price_type %>
                             </td>
                           </tr>
                         <% end %>
+                   </table>
+              </div>
+
+              <div style="display: table-cell; border-bottom: 1px dotted #ccc;
+                   border-right: 1px dotted #ccc;  padding: 2px; vertical-align: middle; text-align: right; padding-top: 20px;">
+                 <table width="100%">
+                       <tr>
+                     <td>
+                      <button class="blue" style="margin-left: 8px; width: 180px; margin-right: 8px;"
+                        onclick="window.location='/add_price?product_id=<%= product.product_id %>&user_id=<%= params[:user_id]
+                         %>&location_id=<%= params[:location_id] %><%= (!params[:src].nil? ? "&src=#{params[:src]}" : "") %>'">
+                            <span>
+                             Add Price
+                            </span>
+                      </button>
+                     </td>
+                   </tr>
                    </table>
               </div>
 
