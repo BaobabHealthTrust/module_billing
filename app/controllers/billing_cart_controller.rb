@@ -99,7 +99,7 @@ class BillingCartController < ApplicationController
   def invoice_number
     print_string = receipt(params[:invoice_number])
     send_data(print_string,:type=>"application/label; charset=utf-8",:stream=> false,
-      :filename=>"#{params[:invoice_number]}#{rand(10000)}.lbl",:disposition => "inline")
+      :filename=>"#{params[:invoice_number]}#{rand(10000)}.lbs",:disposition => "inline")
   end
 
   def receipt_print
