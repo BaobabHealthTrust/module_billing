@@ -196,6 +196,8 @@ ActionController::Routing::Routes.draw do |map|
 
   map.void_invoice '/void_invoice', :controller => 'billing_invoice', :action => 'delete'
 
+  map.show_invoice '/show_invoice', :controller => 'billing_invoice', :action => 'show_invoice'
+
   map.invoice_summary '/invoice_summary', :controller => 'billing_cart', :action => 'summary'
 
 

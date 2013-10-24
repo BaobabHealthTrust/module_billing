@@ -12,8 +12,13 @@ class BillingAccountsController < ApplicationController
   def invoice_history
       @patient = Patient.find(params[:patient_id])
   	  @account = BillingAccount.find_by_patient_id(@patient.id) 
-	    @invoices = BillingInvoice.find_all_by_account_id(@account.account_id)
-	    @invoicelines = BillingInvoiceLine.find_all_by_invoice_id(BillingInvoice.find_all_by_account_id(@account.account_id))  
+	    @invoices = BillingInvoice.find_all_by_account_id(@patient.id)
+      @invoices.each do |invoice|
+        invoice.billing_invoice_lines.to_yaml do |inv|
+          raise inv.inspect
+        end
+      end
+	    
       render :layout => false
   end
   

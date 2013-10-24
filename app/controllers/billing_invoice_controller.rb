@@ -20,4 +20,11 @@ class BillingInvoiceController < ApplicationController
       end
   end
 
+  def show_invoice
+    @invoice = BillingInvoice.find(params[:invoice_id])
+    @vat = YAML.load_file("#{Rails.root}/config/application.yml")["#{Rails.env
+      }"]["VAT"] rescue nil
+    #@destination = "/checkout?patient_id=#{params[:patient_id]}&user_id=#{params[:user_id]}&tendered_amount=#{params[:tendered_amount]}&payment_method=#{params[:payment_method]}"
+  end
+
 end
