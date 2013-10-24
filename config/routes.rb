@@ -145,6 +145,8 @@ ActionController::Routing::Routes.draw do |map|
 
   map.new_price '/new_price', :controller => 'billing_price', :action => 'new'
 
+  map.add_price '/add_price', :controller => 'billing_price', :action => 'add_price'
+
   map.edit_price '/edit_price', :controller => 'billing_price', :action => 'edit'
 
   map.update_price '/update_price', :controller => 'billing_price', :action => 'update'
