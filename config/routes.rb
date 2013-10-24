@@ -107,6 +107,8 @@ ActionController::Routing::Routes.draw do |map|
 
   map.new_product '/new_product', :controller => 'billing_product', :action => 'new'
 
+  map.add_product '/add_product', :controller => 'billing_product', :action => 'add_product'
+
   map.edit_product '/edit_product', :controller => 'billing_product', :action => 'edit'
 
   map.update_product '/update_product', :controller => 'billing_product', :action => 'update'

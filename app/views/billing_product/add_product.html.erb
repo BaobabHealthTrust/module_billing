@@ -1,0 +1,37 @@
+<style type="text/css">
+  .long .options {
+    height: 22em !important;
+  }
+</style>
+
+<script language="javascript">
+  tt_cancel_destination = '/show_products?user_id=<%= params[:user_id] %>&location_id=<%=
+params[:location_id] + (!params[:src].nil? ? "&src=#{params[:src]}" : "") %>';
+  tt_cancel_show = '/show_products?user_id=<%= params[:user_id] %>&location_id=<%=
+params[:location_id] + (!params[:src].nil? ? "&src=#{params[:src]}" : "") %>';
+</script>
+
+<form action="/create_product" method='post'>
+
+  <label for="product_type">Service Type</label>
+  <%= select_tag(:product_type, options_for_select(@product_type_map),
+    :helpText => "Select Service Type") %>
+
+  <label for="name">Service Name</label>
+  <%= text_field_tag(:name, params[:name], :helpText => "Service Name") %>
+  
+  <%= hidden_field_tag "user_id", "#{params[:id] || params[:user_id]}" %>
+
+  <%= hidden_field_tag "location_id", "#{params[:location_id]}" %>
+
+  <%= hidden_field_tag "category_id", "#{params[:category_id]}" %>
+
+  <%= hidden_field_tag "from_category", "#{true}" %>
+
+  <% if !params[:src].nil? %>
+    <%= hidden_field_tag "src", "#{params[:src]}" %>
+  <% end %>
+
+  <%= submit_tag value ="Submit"%>
+
+</form>

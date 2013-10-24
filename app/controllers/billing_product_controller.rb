@@ -35,6 +35,23 @@ class BillingProductController < ApplicationController
     	end
 	end
 
+  def add_product
+		@product = BillingProduct.new
+    @product_type_map = BillingProductType.all.map do |product_type|
+      [product_type.name, product_type.product_type_id] rescue []
+    end
+
+		if params[:user_id].nil?
+			redirect_to '/encounters/no_user' and return
+		end
+		@user = User.find(params[:user_id]) rescue nil?
+
+    	respond_to do |format|
+      		format.html # new.html.erb
+      		format.xml  { render :xml => @product }
+    	end
+	end
+
 	def create
     
 		@product = BillingProduct.new
@@ -44,7 +61,10 @@ class BillingProductController < ApplicationController
     @product.creator = params[:user_id]
 	  
      respond_to do |format|
-            if @product.save
+            if @product.save and !params[:from_category].blank?
+              format.html { redirect_to "/show_categories?user_id=#{params[:user_id]}" if !params[:user_id].blank? }
+              format.xml  { render :xml => @products, :status => :created, :location => @product }
+            elsif @product.save
               format.html { redirect_to "/show_products?user_id=#{params[:user_id]}" if !params[:user_id].blank? }
               format.xml  { render :xml => @products, :status => :created, :location => @product }
             else

@@ -47,6 +47,11 @@
                  text-align: center; font-weight: bold;">
               Services
             </div>
+
+            <div style="display: table-cell; border: 1px solid #ccc; padding: 5px;
+                 text-align: center; font-weight: bold;">
+              Add Services
+            </div>
             
           </div>
 
@@ -99,6 +104,24 @@
                         <% end %>
                    </table>
               </div>
+
+
+              <div style="display: table-cell; border-bottom: 1px dotted #ccc;
+                     border-right: 1px dotted #ccc;  padding: 2px; vertical-align: middle; text-align: right; padding-top: 20px;">
+                   <table width="100%">
+                         <tr>
+                       <td>
+                        <button class="blue" style="margin-left: 8px; width: 180px; margin-right: 8px;"
+                          onclick="window.location='/add_product?category_id=<%= category.category_id %>&user_id=<%= params[:user_id]
+                           %>&location_id=<%= params[:location_id] %><%= (!params[:src].nil? ? "&src=#{params[:src]}" : "") %>'">
+                              <span>
+                               Add Service
+                              </span>
+                        </button>
+                       </td>
+                     </tr>
+                     </table>
+                </div>
               
             </div>
 
