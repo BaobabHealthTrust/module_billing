@@ -14,7 +14,7 @@ params[:location_id] + (!params[:src].nil? ? "&src=#{params[:src]}" : "") %>';
 <form action="/create_account" method='post'>
 
   <label for="payment_method">Payment Method</label>
-  <%= select_tag(:payment_method, options_for_select(@payment_methods_map),
+  <%= select_tag(:payment_method, options_for_select(@payment_methods_map,@payment_method),
     :helpText => "Select Payment Method") %>
 
   <%= select_tag(:medical_scheme, options_for_select(@medical_schemes_map),
@@ -37,7 +37,7 @@ params[:location_id] + (!params[:src].nil? ? "&src=#{params[:src]}" : "") %>';
     {:helpText => "Select Hospital",
      :condition => '$("payment_method").value == "Staff"'})%>
   
-  <%= select_tag(:price_type, options_for_select(@price_type_map),
+  <%= select_tag(:price_type, options_for_select(@price_type_map,@price_type),
     {:helpText => "Select Price Type"})%>
 
   <%= hidden_field_tag "user_id", "#{@user_id}" %>
