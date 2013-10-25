@@ -91,10 +91,15 @@ class BillingCartController < ApplicationController
 
   def summary
     @tendered_amount = params[:tendered_amount]
-    @cart = find_cart
-    @vat = YAML.load_file("#{Rails.root}/config/application.yml")["#{Rails.env
+    @invoice_total = params[:invoice_total]
+    if @tendered_amount.to_f < @invoice_total.to_f
+      redirect_to :action => "payment_amount", :payment_method => params[:payment_method], :patient_id => params[:patient_id],:user_id => params[:user_id], :location_id => params[:location_id]
+    else
+      @cart = find_cart
+      @vat = YAML.load_file("#{Rails.root}/config/application.yml")["#{Rails.env
       }"]["VAT"] rescue nil
-    @destination = "/checkout?patient_id=#{params[:patient_id]}&user_id=#{params[:user_id]}&tendered_amount=#{params[:tendered_amount]}&payment_method=#{params[:payment_method]}&location_id=#{params[:location_id]}"
+      @destination = "/checkout?patient_id=#{params[:patient_id]}&user_id=#{params[:user_id]}&tendered_amount=#{params[:tendered_amount]}&payment_method=#{params[:payment_method]}&location_id=#{params[:location_id]}"
+    end
   end
 
   def invoice_number
@@ -261,13 +266,16 @@ class BillingCartController < ApplicationController
       end
      @invoice_total_amount
     end
-
+    
     if params[:payment_method].upcase == "CASH"
       @total_amount =  ""
     else
       @total_amount =  @invoice_total_amount
     end
     @payment_method = params[:payment_method]
+    @user_id = params[:user_id] unless params[:user_id].blank?
+    @patient_id = params[:patient_id] unless params[:patient_id].blank?
+    @location_id = params[:location_id] unless params[:location_id].blank?
   end
 
   private

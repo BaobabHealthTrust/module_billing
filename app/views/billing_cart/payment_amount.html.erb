@@ -5,8 +5,8 @@
 </style>
 
 <script language="javascript">
-  tt_cancel_destination = '/add_to_cart?patient_id=<%= params[:patient_id] %>&user_id=<%= params[:user_id] %>&location_id=<%= params[:location_id] %>';
-  tt_cancel_show = '/add_to_cart?patient_id=<%= params[:patient_id] %>&user_id=<%= params[:user_id] %>&location_id=<%= params[:location_id] %>';
+  tt_cancel_destination = '/add_to_cart?patient_id=<%= params[:patient_id] || @patient_id %>&user_id=<%= params[:user_id] || @user_id %>&location_id=<%= params[:location_id] || @location_id %>';
+  tt_cancel_show = '/add_to_cart?patient_id=<%= params[:patient_id] || @patient_id %>&user_id=<%= params[:user_id] || @user_id %>&location_id=<%= params[:location_id] || @location_id %>';
 </script>
 
 <form action="/invoice_summary" method='post'>
@@ -20,11 +20,13 @@
 
   <%= hidden_field_tag "user_id", (params[:id] || params[:user_id]) %>
 
-  <%= hidden_field_tag "location_id", params[:location_id] %>
+  <%= hidden_field_tag "location_id", (params[:location_id] || @location_id ) %>
 
-  <%= hidden_field_tag "patient_id",  params[:patient_id] %>
+  <%= hidden_field_tag "patient_id",  (params[:patient_id] || @patient_id )  %>
 
   <%= hidden_field_tag "payment_method",  @payment_method %>
+
+  <%= hidden_field_tag "invoice_total",  @invoice_total_amount %>
 
   <% if !params[:src].nil? %>
     <%= hidden_field_tag "src", "#{params[:src]}" %>
