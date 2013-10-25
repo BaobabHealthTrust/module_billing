@@ -52,6 +52,13 @@ class BillingAccountsController < ApplicationController
     @patient_id = params[:patient_id]
     @user_id = params[:user_id]
     @location_id = params[:location_id]
+    billing_account = BillingAccount.find_all_by_patient_id(params[:patient_id]).last
+  
+    unless billing_account.blank?
+      @payment_method = billing_account.payment_method
+      @price_type = billing_account.price_type
+    end
+ 
     @payment_methods_map = YAML.load_file("#{Rails.root}/config/application.yml")["#{Rails.env
         }"]["payment.methods"].split(",") rescue []
 
@@ -93,6 +100,15 @@ class BillingAccountsController < ApplicationController
   end
 
   def create
+    
+    billing_account = BillingAccount.last(:conditions => ["patient_id = ? AND payment_method = ? AND price_type = ?",
+                                                         params[:patient_id],
+                                                         params[:payment_method],
+                                                         params[:price_type]])
+    unless billing_account.blank?
+      redirect_to "/patients/show/#{params[:patient_id]}?user_id=#{params[:user_id]}&location_id=#{params[:location_id]}" if !params[:patient_id].nil?
+    else
+
     @billing_account = BillingAccount.new()
     @billing_account.patient_id = params[:patient_id]
     @billing_account.creator = params[:user_id]
@@ -108,6 +124,7 @@ class BillingAccountsController < ApplicationController
      @account_medical_scheme.save!
    end
     redirect_to "/patients/show/#{params[:patient_id]}?user_id=#{params[:user_id]}&location_id=#{params[:location_id]}" if !params[:patient_id].nil?
+  end
   end
 
 end
