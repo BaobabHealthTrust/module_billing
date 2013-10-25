@@ -4,7 +4,7 @@ class BillingCartController < ApplicationController
     @vat = YAML.load_file("#{Rails.root}/config/application.yml")["#{Rails.env
       }"]["VAT"] rescue nil
     @cart = find_cart
-    @location_id = session[:location_id]
+    @location_id = params[:location_id]
     @patient_id = params[:patient_id]
     @patient = Patient.find(params[:id] || params[:patient_id]) rescue nil
    unless params[:service].blank?
@@ -28,8 +28,8 @@ class BillingCartController < ApplicationController
         @cart.add_product(product,price_type)
       end
     end
-    
-    @destination = "/payment_method?patient_id=#{@patient_id}&user_id=#{params[:user_id]}"
+   
+    @destination = "/payment_method?patient_id=#{@patient_id}&user_id=#{params[:user_id]}&location_id=#{@location_id}"
     render :layout => true
 
   end
@@ -94,7 +94,7 @@ class BillingCartController < ApplicationController
     @cart = find_cart
     @vat = YAML.load_file("#{Rails.root}/config/application.yml")["#{Rails.env
       }"]["VAT"] rescue nil
-    @destination = "/checkout?patient_id=#{params[:patient_id]}&user_id=#{params[:user_id]}&tendered_amount=#{params[:tendered_amount]}&payment_method=#{params[:payment_method]}"
+    @destination = "/checkout?patient_id=#{params[:patient_id]}&user_id=#{params[:user_id]}&tendered_amount=#{params[:tendered_amount]}&payment_method=#{params[:payment_method]}&location_id=#{params[:location_id]}"
   end
 
   def invoice_number

@@ -5,8 +5,8 @@
 </style>
 
 <script language="javascript">
-  tt_cancel_destination = '/add_to_cart?patient_id=<%= @patient_id %>&user_id=<%= @user_id %>';
-  tt_cancel_show = '/add_to_cart?patient_id=<%= params[:patient_id] %>';
+  tt_cancel_destination = '/add_to_cart?patient_id=<%= params[:patient_id] %>&user_id=<%= params[:user_id] %>&location_id=<%= params[:location_id] %>';
+  tt_cancel_show = '/add_to_cart?patient_id=<%= params[:patient_id] %>&user_id=<%= params[:user_id] %>&location_id=<%= params[:location_id] %>';
 
   function getdepartment(){
     department = "<%=params[:department_name]%>";
@@ -17,11 +17,11 @@
 </script>
 
 <form action="/payment_amount" method='post'>
-
+  
   <label for="category_id">Select Payment Method</label>
   <%= select_tag(:payment_method, options_for_select(@payment_methods.split(",").sort),
     :helpText => "Select Payment Method") %>
-
+  
   <%= hidden_field_tag "user_id", (params[:id] || params[:user_id]) %>
 
   <%= hidden_field_tag "location_id", params[:location_id] %>

@@ -81,7 +81,6 @@
             </div>
 
           </div>
-
           <% i = 0 %>
           <%  total_amount= total_tax = 0 %>
           <% for item in @cart.items %>
@@ -214,7 +213,7 @@
     <td style="background-color: #333;">
       <div style="height: 4.8em;">
         <button class="red" style="float: left; margin: 8px; width: 150px; margin-right: 20px;"
-                onclick="window.location='billing_cart/add_to_cart?patient_id= <%= params[:patient_id] %>'">
+                onclick="window.location='billing_cart/add_to_cart?patient_id=<%= params[:patient_id] %>&user_id=<%= params[:user_id] %>&location_id=<%= params[:location_id] %>'">
           <span>
             Back
           </span>

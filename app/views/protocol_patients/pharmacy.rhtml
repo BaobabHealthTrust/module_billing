@@ -5,8 +5,8 @@
 </style>
 
 <script language="javascript">
-  tt_cancel_destination = '/add_to_cart?patient_id=<%= params[:patient_id] %>&user_id=<%= params[:user_id] %>';
-  tt_cancel_show = '/add_to_cart?patient_id=<%= params[:patient_id] %>';
+  tt_cancel_destination = '/add_to_cart?patient_id=<%= params[:patient_id] %>&user_id=<%= params[:user_id] %>&location_id=<%= @location_id %>';
+  tt_cancel_show = '/add_to_cart?patient_id=<%= params[:patient_id] %>&user_id=<%= params[:user_id] %>&location_id=<%= @location_id %>';
 </script>
 
 <form action="/add_to_cart" method='post'>
@@ -23,7 +23,7 @@
 
   <%= hidden_field_tag "user_id", (params[:id] || params[:user_id]) %>
 
-  <%= hidden_field_tag "location_id", params[:location_id] %>
+  <%= hidden_field_tag "location_id", "#{@location_id}" %>
 
   <%= hidden_field_tag "patient_id",  params[:patient_id] %>
 
