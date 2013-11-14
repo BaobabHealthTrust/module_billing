@@ -109,7 +109,7 @@
                        <% product.billing_prices.each do |price|  %>
                           <tr>
                             <td>
-                              <%= number_to_currency(price.amount.to_f,:locale => :mw) + " - " + price.price_type %>
+                              <%= (number_to_currency(price.amount.to_f,:locale => :mw) + " - " + price.price_type ) rescue 0.00 %>
                             </td>
                           </tr>
                         <% end %>
