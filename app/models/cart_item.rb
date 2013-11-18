@@ -5,7 +5,8 @@ class CartItem
   def initialize(product,price_type = nil)
     @product = product
     @quantity = 1
-    @final_price = BillingPrice.find_by_product_id_and_price_type(@product.product_id,price_type) unless price_type.nil?
+    @final_price = BillingPrice.find_by_product_id_and_price_type(@product.product_id,price_type) unless price_type.blank?
+    @final_price = BillingPriceType.find_by_product_id_and_price_type(@product.product_id,"General") if @final_price.blank?
   end
 
   def increment_quantity
