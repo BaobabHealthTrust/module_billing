@@ -14,13 +14,13 @@ class ClinicController < ApplicationController
       user_login and return
     end
 
-    Location.current = Location.find(params[:location_id] || session[:location_id]) rescue nil
+    Location.current = Location.find(params[:location_id] || session[:location_id])
 
-    @location = Location.find(params[:location_id] || session[:location_id]) rescue nil
+    @location = Location.find(params[:location_id] || session[:location_id])
 
-    session[:location_id] = @location.location_id if !@location.nil?
+    session[:location_id] = @location.location_id if !@location.blank?
     
-    redirect_to "/new_billing_account?patient_id=#{params[:ext_patient_id]}&user_id=#{params[:user_id]}&location_id=#{@location.location_id}" if !params[:ext_patient_id].nil?
+    redirect_to "/new_billing_account?patient_id=#{params[:ext_patient_id]}&user_id=#{params[:user_id]}&location_id=#{@location.location_id || session[:location_id]}" if !params[:ext_patient_id].blank?
    
     @project = get_global_property_value("project.name") rescue "Unknown"
 
