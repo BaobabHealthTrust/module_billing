@@ -546,11 +546,11 @@ DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
--- Table `patient_billing`.`patient_billing_account`
+-- Table `patient_billing`.`billing_account`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `patient_billing`.`patient_billing_account` ;
+DROP TABLE IF EXISTS `patient_billing`.`billing_account` ;
 
-CREATE  TABLE IF NOT EXISTS `patient_billing`.`patient_billing_account` (
+CREATE  TABLE IF NOT EXISTS `patient_billing`.`billing_account` (
   `account_id` INT(11) NOT NULL AUTO_INCREMENT ,
   `patient_id` INT(11) NOT NULL ,
   `payment_method` VARCHAR(50) NULL DEFAULT NULL ,
@@ -569,11 +569,11 @@ DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
--- Table `patient_billing`.`patient_billing_medical_scheme_provider`
+-- Table `patient_billing`.`billing_medical_scheme_provider`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `patient_billing`.`patient_billing_medical_scheme_provider` ;
+DROP TABLE IF EXISTS `patient_billing`.`billing_medical_scheme_provider` ;
 
-CREATE  TABLE IF NOT EXISTS `patient_billing`.`patient_billing_medical_scheme_provider` (
+CREATE  TABLE IF NOT EXISTS `patient_billing`.`billing_medical_scheme_provider` (
   `medical_scheme_provider_id` INT(11) NOT NULL AUTO_INCREMENT ,
   `company_name` VARCHAR(50) NOT NULL ,
   `company_address` VARCHAR(50) NOT NULL ,
@@ -595,11 +595,11 @@ DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
--- Table `patient_billing`.`patient_billing_medical_scheme`
+-- Table `patient_billing`.`billing_medical_scheme`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `patient_billing`.`patient_billing_medical_scheme` ;
+DROP TABLE IF EXISTS `patient_billing`.`billing_medical_scheme` ;
 
-CREATE  TABLE IF NOT EXISTS `patient_billing`.`patient_billing_medical_scheme` (
+CREATE  TABLE IF NOT EXISTS `patient_billing`.`billing_medical_scheme` (
   `medical_scheme_id` INT(11) NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(50) NOT NULL ,
   `medical_scheme_provider_id` INT(11) NOT NULL ,
@@ -617,25 +617,25 @@ DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
--- Table `patient_billing`.`patient_billing_accounts_medical_schemes`
+-- Table `patient_billing`.`billing_accounts_medical_schemes`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `patient_billing`.`patient_billing_accounts_medical_schemes` ;
+DROP TABLE IF EXISTS `patient_billing`.`billing_accounts_medical_schemes` ;
 
-CREATE  TABLE IF NOT EXISTS `patient_billing`.`patient_billing_accounts_medical_schemes` (
+CREATE  TABLE IF NOT EXISTS `patient_billing`.`billing_accounts_medical_schemes` (
   `medical_scheme_id` INT(11) NOT NULL ,
   `account_id` INT(11) NOT NULL ,
   PRIMARY KEY (`medical_scheme_id`, `account_id`) ,
-  INDEX `fk_patient_billing_accounts_medical_schemes_1` (`medical_scheme_id` ASC) )
+  INDEX `fk_billing_accounts_medical_schemes_1` (`medical_scheme_id` ASC) )
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
--- Table `patient_billing`.`patient_billing_department`
+-- Table `patient_billing`.`billing_department`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `patient_billing`.`patient_billing_department` ;
+DROP TABLE IF EXISTS `patient_billing`.`billing_department` ;
 
-CREATE  TABLE IF NOT EXISTS `patient_billing`.`patient_billing_department` (
+CREATE  TABLE IF NOT EXISTS `patient_billing`.`billing_department` (
   `department_id` INT(11) NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(50) NOT NULL ,
   `creator` INT(11) NOT NULL ,
@@ -652,11 +652,11 @@ DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
--- Table `patient_billing`.`patient_billing_category`
+-- Table `patient_billing`.`billing_category`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `patient_billing`.`patient_billing_category` ;
+DROP TABLE IF EXISTS `patient_billing`.`billing_category` ;
 
-CREATE  TABLE IF NOT EXISTS `patient_billing`.`patient_billing_category` (
+CREATE  TABLE IF NOT EXISTS `patient_billing`.`billing_category` (
   `category_id` INT(11) NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(50) NOT NULL ,
   `department_id` INT(11) NOT NULL ,
@@ -674,11 +674,11 @@ DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
--- Table `patient_billing`.`patient_billing_invoice`
+-- Table `patient_billing`.`billing_invoice`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `patient_billing`.`patient_billing_invoice` ;
+DROP TABLE IF EXISTS `patient_billing`.`billing_invoice` ;
 
-CREATE  TABLE IF NOT EXISTS `patient_billing`.`patient_billing_invoice` (
+CREATE  TABLE IF NOT EXISTS `patient_billing`.`billing_invoice` (
   `invoice_id` INT(11) NOT NULL AUTO_INCREMENT ,
   `account_id` INT(11) NOT NULL ,
   `invoice_type` CHAR(1) NOT NULL ,
@@ -702,11 +702,11 @@ DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
--- Table `patient_billing`.`patient_billing_product_type`
+-- Table `patient_billing`.`billing_product_type`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `patient_billing`.`patient_billing_product_type` ;
+DROP TABLE IF EXISTS `patient_billing`.`billing_product_type` ;
 
-CREATE  TABLE IF NOT EXISTS `patient_billing`.`patient_billing_product_type` (
+CREATE  TABLE IF NOT EXISTS `patient_billing`.`billing_product_type` (
   `product_type_id` INT(11) NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(50) NOT NULL ,
   `creator` INT(11) NOT NULL ,
@@ -723,11 +723,11 @@ DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
--- Table `patient_billing`.`patient_billing_product`
+-- Table `patient_billing`.`billing_product`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `patient_billing`.`patient_billing_product` ;
+DROP TABLE IF EXISTS `patient_billing`.`billing_product` ;
 
-CREATE  TABLE IF NOT EXISTS `patient_billing`.`patient_billing_product` (
+CREATE  TABLE IF NOT EXISTS `patient_billing`.`billing_product` (
   `product_id` INT(11) NOT NULL AUTO_INCREMENT ,
   `product_type_id` INT(11) NOT NULL ,
   `category_id` INT(11) NOT NULL ,
@@ -746,11 +746,11 @@ DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
--- Table `patient_billing`.`patient_billing_rules`
+-- Table `patient_billing`.`billing_rules`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `patient_billing`.`patient_billing_rules` ;
+DROP TABLE IF EXISTS `patient_billing`.`billing_rules` ;
 
-CREATE  TABLE IF NOT EXISTS `patient_billing`.`patient_billing_rules` (
+CREATE  TABLE IF NOT EXISTS `patient_billing`.`billing_rules` (
   `rule_id` INT(11) NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(50) NOT NULL ,
   `rate` FLOAT NOT NULL ,
@@ -768,11 +768,11 @@ DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
--- Table `patient_billing`.`patient_billing_invoice_line`
+-- Table `patient_billing`.`billing_invoice_line`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `patient_billing`.`patient_billing_invoice_line` ;
+DROP TABLE IF EXISTS `patient_billing`.`billing_invoice_line` ;
 
-CREATE  TABLE IF NOT EXISTS `patient_billing`.`patient_billing_invoice_line` (
+CREATE  TABLE IF NOT EXISTS `patient_billing`.`billing_invoice_line` (
   `invoice_line_id` INT(11) NOT NULL AUTO_INCREMENT ,
   `invoice_id` INT(11) NOT NULL ,
   `product_id` INT(11) NOT NULL ,
@@ -795,11 +795,11 @@ DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
--- Table `patient_billing`.`patient_billing_payment_method`
+-- Table `patient_billing`.`billing_payment_method`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `patient_billing`.`patient_billing_payment_method` ;
+DROP TABLE IF EXISTS `patient_billing`.`billing_payment_method` ;
 
-CREATE  TABLE IF NOT EXISTS `patient_billing`.`patient_billing_payment_method` (
+CREATE  TABLE IF NOT EXISTS `patient_billing`.`billing_payment_method` (
   `payment_method_id` INT(11) NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(50) NOT NULL ,
   `creator` INT(11) NOT NULL ,
@@ -815,11 +815,11 @@ DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
--- Table `patient_billing`.`patient_billing_price`
+-- Table `patient_billing`.`billing_price`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `patient_billing`.`patient_billing_price` ;
+DROP TABLE IF EXISTS `patient_billing`.`billing_price` ;
 
-CREATE  TABLE IF NOT EXISTS `patient_billing`.`patient_billing_price` (
+CREATE  TABLE IF NOT EXISTS `patient_billing`.`billing_price` (
   `price_id` INT(11) NOT NULL AUTO_INCREMENT ,
   `product_id` INT(11) NOT NULL ,
   `price_type` VARCHAR(50) NOT NULL ,
@@ -838,11 +838,11 @@ DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
--- Table `patient_billing`.`patient_billing_price_type`
+-- Table `patient_billing`.`billing_price_type`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `patient_billing`.`patient_billing_price_type` ;
+DROP TABLE IF EXISTS `patient_billing`.`billing_price_type` ;
 
-CREATE  TABLE IF NOT EXISTS `patient_billing`.`patient_billing_price_type` (
+CREATE  TABLE IF NOT EXISTS `patient_billing`.`billing_price_type` (
   `price_type_id` INT(11) NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(50) NOT NULL ,
   `creator` INT(11) NOT NULL ,
@@ -858,11 +858,11 @@ DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
--- Table `patient_billing`.`patient_billing_scheme_provider_type`
+-- Table `patient_billing`.`billing_scheme_provider_type`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `patient_billing`.`patient_billing_scheme_provider_type` ;
+DROP TABLE IF EXISTS `patient_billing`.`billing_scheme_provider_type` ;
 
-CREATE  TABLE IF NOT EXISTS `patient_billing`.`patient_billing_scheme_provider_type` (
+CREATE  TABLE IF NOT EXISTS `patient_billing`.`billing_scheme_provider_type` (
   `scheme_provider_type_id` INT(11) NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(50) NOT NULL ,
   `creator` INT(11) NOT NULL ,
