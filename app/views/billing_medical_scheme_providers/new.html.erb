@@ -29,7 +29,7 @@ params[:location_id] + (!params[:src].nil? ? "&src=#{params[:src]}" : "") %>';
   <%= text_field_tag(:phone_number_2, params[:phone_number_2], :helpText => "Phone Number 2", :field_type => 'number') %>
 
   <label for="email_address">Email Address</label>
-  <%= text_field_tag(:email_address, params[:email_address], :helpText => "Email Address") %>
+  <%= text_field_tag(:email_address, params[:email_address], :helpText => "Email Address",:field_type => "password") %>
 
   <%= hidden_field_tag "user_id", "#{params[:id] || params[:user_id]}" %>
 
