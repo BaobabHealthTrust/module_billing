@@ -33,10 +33,9 @@ DATABASE=`ruby -ryaml -e "puts YAML::load_file('config/database.yml')['${ENV}'][
 echo "DROP DATABASE $DATABASE;" | mysql --user=$USERNAME --password=$PASSWORD
 echo "CREATE DATABASE $DATABASE;" | mysql --user=$USERNAME --password=$PASSWORD
 
-
+mysql --user=$USERNAME --password=$PASSWORD $DATABASE < db/module_billing_script.sql
 mysql --user=$USERNAME --password=$PASSWORD $DATABASE < db/core_dump.sql
 mysql --user=$USERNAME --password=$PASSWORD $DATABASE < db/create_dde_server_connection.sql
-mysql --user=$USERNAME --password=$PASSWORD $DATABASE < db/module_billing_script.sql
 
 #rake openmrs:bootstrap:load:defaults RAILS_ENV=$ENV
 #rake openmrs:bootstrap:load:site SITE=$SITE RAILS_ENV=production#
