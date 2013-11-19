@@ -19,7 +19,7 @@ CREATE  TABLE IF NOT EXISTS `patient_billing`.`users` (
   `secret_question` VARCHAR(255) NULL DEFAULT NULL ,
   `secret_answer` VARCHAR(255) NULL DEFAULT NULL ,
   `creator` INT(11) NOT NULL DEFAULT '0' ,
-  `date_created` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00' ,
+  `date_created` DATETIME NOT NULL DEFAULT '1900-01-01 00:00:00' ,
   `changed_by` INT(11) NULL DEFAULT NULL ,
   `date_changed` DATETIME NULL DEFAULT NULL ,
   `person_id` INT(11) NULL DEFAULT NULL ,
@@ -68,7 +68,7 @@ CREATE  TABLE IF NOT EXISTS `patient_billing`.`concept_class` (
   `name` VARCHAR(255) NOT NULL DEFAULT '' ,
   `description` VARCHAR(255) NOT NULL DEFAULT '' ,
   `creator` INT(11) NOT NULL DEFAULT '0' ,
-  `date_created` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00' ,
+  `date_created` DATETIME NOT NULL DEFAULT '1900-01-01 00:00:00' ,
   `retired` SMALLINT(6) NOT NULL DEFAULT '0' ,
   `retired_by` INT(11) NULL DEFAULT NULL ,
   `date_retired` DATETIME NULL DEFAULT NULL ,
@@ -93,7 +93,7 @@ CREATE  TABLE IF NOT EXISTS `patient_billing`.`concept_datatype` (
   `hl7_abbreviation` VARCHAR(3) NULL DEFAULT NULL ,
   `description` VARCHAR(255) NOT NULL DEFAULT '' ,
   `creator` INT(11) NOT NULL DEFAULT '0' ,
-  `date_created` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00' ,
+  `date_created` DATETIME NOT NULL DEFAULT '1900-01-01 00:00:00' ,
   `retired` SMALLINT(6) NOT NULL DEFAULT '0' ,
   `retired_by` INT(11) NULL DEFAULT NULL ,
   `date_retired` DATETIME NULL DEFAULT NULL ,
@@ -122,7 +122,7 @@ CREATE  TABLE IF NOT EXISTS `patient_billing`.`concept` (
   `class_id` INT(11) NOT NULL DEFAULT '0' ,
   `is_set` SMALLINT(6) NOT NULL DEFAULT '0' ,
   `creator` INT(11) NOT NULL DEFAULT '0' ,
-  `date_created` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00' ,
+  `date_created` DATETIME NOT NULL DEFAULT '1900-01-01 00:00:00' ,
   `default_charge` INT(11) NULL DEFAULT NULL ,
   `version` VARCHAR(50) NULL DEFAULT NULL ,
   `changed_by` INT(11) NULL DEFAULT NULL ,
@@ -152,7 +152,7 @@ CREATE  TABLE IF NOT EXISTS `patient_billing`.`person` (
   `death_date` DATETIME NULL DEFAULT NULL ,
   `cause_of_death` INT(11) NULL DEFAULT NULL ,
   `creator` INT(11) NOT NULL DEFAULT '0' ,
-  `date_created` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00' ,
+  `date_created` DATETIME NOT NULL DEFAULT '1900-01-01 00:00:00' ,
   `changed_by` INT(11) NULL DEFAULT NULL ,
   `date_changed` DATETIME NULL DEFAULT NULL ,
   `voided` SMALLINT(6) NOT NULL DEFAULT '0' ,
@@ -186,7 +186,7 @@ CREATE  TABLE IF NOT EXISTS `patient_billing`.`drug` (
   `route` INT(11) NULL DEFAULT NULL ,
   `units` VARCHAR(50) NULL DEFAULT NULL ,
   `creator` INT(11) NOT NULL DEFAULT '0' ,
-  `date_created` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00' ,
+  `date_created` DATETIME NOT NULL DEFAULT '1900-01-01 00:00:00' ,
   `retired` SMALLINT(6) NOT NULL DEFAULT '0' ,
   `retired_by` INT(11) NULL DEFAULT NULL ,
   `date_retired` DATETIME NULL DEFAULT NULL ,
@@ -209,7 +209,7 @@ CREATE  TABLE IF NOT EXISTS `patient_billing`.`encounter_type` (
   `name` VARCHAR(50) NOT NULL DEFAULT '' ,
   `description` TEXT NULL DEFAULT NULL ,
   `creator` INT(11) NOT NULL DEFAULT '0' ,
-  `date_created` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00' ,
+  `date_created` DATETIME NOT NULL DEFAULT '1900-01-01 00:00:00' ,
   `retired` SMALLINT(6) NOT NULL DEFAULT '0' ,
   `retired_by` INT(11) NULL DEFAULT NULL ,
   `date_retired` DATETIME NULL DEFAULT NULL ,
@@ -239,7 +239,7 @@ CREATE  TABLE IF NOT EXISTS `patient_billing`.`form` (
   `template` MEDIUMTEXT NULL DEFAULT NULL ,
   `xslt` MEDIUMTEXT NULL DEFAULT NULL ,
   `creator` INT(11) NOT NULL DEFAULT '0' ,
-  `date_created` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00' ,
+  `date_created` DATETIME NOT NULL DEFAULT '1900-01-01 00:00:00' ,
   `changed_by` INT(11) NULL DEFAULT NULL ,
   `date_changed` DATETIME NULL DEFAULT NULL ,
   `retired` SMALLINT(6) NOT NULL DEFAULT '0' ,
@@ -271,7 +271,7 @@ CREATE  TABLE IF NOT EXISTS `patient_billing`.`location` (
   `latitude` VARCHAR(50) NULL DEFAULT NULL ,
   `longitude` VARCHAR(50) NULL DEFAULT NULL ,
   `creator` INT(11) NOT NULL DEFAULT '0' ,
-  `date_created` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00' ,
+  `date_created` DATETIME NOT NULL DEFAULT '1900-01-01 00:00:00' ,
   `county_district` VARCHAR(50) NULL DEFAULT NULL ,
   `neighborhood_cell` VARCHAR(50) NULL DEFAULT NULL ,
   `region` VARCHAR(50) NULL DEFAULT NULL ,
@@ -318,7 +318,7 @@ CREATE  TABLE IF NOT EXISTS `patient_billing`.`patient` (
   `patient_id` INT(11) NOT NULL AUTO_INCREMENT ,
   `tribe` INT(11) NULL DEFAULT NULL ,
   `creator` INT(11) NOT NULL DEFAULT '0' ,
-  `date_created` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00' ,
+  `date_created` DATETIME NOT NULL DEFAULT '1900-01-01 00:00:00' ,
   `changed_by` INT(11) NULL DEFAULT NULL ,
   `date_changed` DATETIME NULL DEFAULT NULL ,
   `voided` SMALLINT(6) NOT NULL DEFAULT '0' ,
@@ -343,9 +343,9 @@ CREATE  TABLE IF NOT EXISTS `patient_billing`.`encounter` (
   `provider_id` INT(11) NOT NULL DEFAULT '0' ,
   `location_id` INT(11) NULL DEFAULT NULL ,
   `form_id` INT(11) NULL DEFAULT NULL ,
-  `encounter_datetime` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00' ,
+  `encounter_datetime` DATETIME NOT NULL DEFAULT '1900-01-01 00:00:00' ,
   `creator` INT(11) NOT NULL DEFAULT '0' ,
-  `date_created` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00' ,
+  `date_created` DATETIME NOT NULL DEFAULT '1900-01-01 00:00:00' ,
   `voided` SMALLINT(6) NOT NULL DEFAULT '0' ,
   `voided_by` INT(11) NULL DEFAULT NULL ,
   `date_voided` DATETIME NULL DEFAULT NULL ,
@@ -370,7 +370,7 @@ CREATE  TABLE IF NOT EXISTS `patient_billing`.`concept_name` (
   `name` VARCHAR(255) NOT NULL DEFAULT '' ,
   `locale` VARCHAR(50) NOT NULL DEFAULT '' ,
   `creator` INT(11) NOT NULL DEFAULT '0' ,
-  `date_created` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00' ,
+  `date_created` DATETIME NOT NULL DEFAULT '1900-01-01 00:00:00' ,
   `concept_name_id` INT(11) NOT NULL AUTO_INCREMENT ,
   `voided` SMALLINT(6) NOT NULL DEFAULT '0' ,
   `voided_by` INT(11) NULL DEFAULT NULL ,
@@ -398,7 +398,7 @@ CREATE  TABLE IF NOT EXISTS `patient_billing`.`order_type` (
   `name` VARCHAR(255) NOT NULL DEFAULT '' ,
   `description` VARCHAR(255) NOT NULL DEFAULT '' ,
   `creator` INT(11) NOT NULL DEFAULT '0' ,
-  `date_created` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00' ,
+  `date_created` DATETIME NOT NULL DEFAULT '1900-01-01 00:00:00' ,
   `retired` SMALLINT(6) NOT NULL DEFAULT '0' ,
   `retired_by` INT(11) NULL DEFAULT NULL ,
   `date_retired` DATETIME NULL DEFAULT NULL ,
@@ -431,7 +431,7 @@ CREATE  TABLE IF NOT EXISTS `patient_billing`.`orders` (
   `discontinued_by` INT(11) NULL DEFAULT NULL ,
   `discontinued_reason` INT(11) NULL DEFAULT NULL ,
   `creator` INT(11) NOT NULL DEFAULT '0' ,
-  `date_created` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00' ,
+  `date_created` DATETIME NOT NULL DEFAULT '1900-01-01 00:00:00' ,
   `voided` SMALLINT(6) NOT NULL DEFAULT '0' ,
   `voided_by` INT(11) NULL DEFAULT NULL ,
   `date_voided` DATETIME NULL DEFAULT NULL ,
@@ -458,7 +458,7 @@ CREATE  TABLE IF NOT EXISTS `patient_billing`.`obs` (
   `concept_id` INT(11) NOT NULL DEFAULT '0' ,
   `encounter_id` INT(11) NULL DEFAULT NULL ,
   `order_id` INT(11) NULL DEFAULT NULL ,
-  `obs_datetime` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00' ,
+  `obs_datetime` DATETIME NOT NULL DEFAULT '1900-01-01 00:00:00' ,
   `location_id` INT(11) NULL DEFAULT NULL ,
   `obs_group_id` INT(11) NULL DEFAULT NULL ,
   `accession_number` VARCHAR(255) NULL DEFAULT NULL ,
@@ -475,7 +475,7 @@ CREATE  TABLE IF NOT EXISTS `patient_billing`.`obs` (
   `date_stopped` DATETIME NULL DEFAULT NULL ,
   `comments` VARCHAR(255) NULL DEFAULT NULL ,
   `creator` INT(11) NOT NULL DEFAULT '0' ,
-  `date_created` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00' ,
+  `date_created` DATETIME NOT NULL DEFAULT '1900-01-01 00:00:00' ,
   `voided` SMALLINT(6) NOT NULL DEFAULT '0' ,
   `voided_by` INT(11) NULL DEFAULT NULL ,
   `date_voided` DATETIME NULL DEFAULT NULL ,
@@ -546,11 +546,11 @@ DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
--- Table `patient_billing`.`billing_account`
+-- Table `patient_billing`.`patient_billing_account`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `patient_billing`.`billing_account` ;
+DROP TABLE IF EXISTS `patient_billing`.`patient_billing_account` ;
 
-CREATE  TABLE IF NOT EXISTS `patient_billing`.`billing_account` (
+CREATE  TABLE IF NOT EXISTS `patient_billing`.`patient_billing_account` (
   `account_id` INT(11) NOT NULL AUTO_INCREMENT ,
   `patient_id` INT(11) NOT NULL ,
   `payment_method` VARCHAR(50) NULL DEFAULT NULL ,
@@ -569,11 +569,11 @@ DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
--- Table `patient_billing`.`billing_medical_scheme_provider`
+-- Table `patient_billing`.`patient_billing_medical_scheme_provider`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `patient_billing`.`billing_medical_scheme_provider` ;
+DROP TABLE IF EXISTS `patient_billing`.`patient_billing_medical_scheme_provider` ;
 
-CREATE  TABLE IF NOT EXISTS `patient_billing`.`billing_medical_scheme_provider` (
+CREATE  TABLE IF NOT EXISTS `patient_billing`.`patient_billing_medical_scheme_provider` (
   `medical_scheme_provider_id` INT(11) NOT NULL AUTO_INCREMENT ,
   `company_name` VARCHAR(50) NOT NULL ,
   `company_address` VARCHAR(50) NOT NULL ,
@@ -595,11 +595,11 @@ DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
--- Table `patient_billing`.`billing_medical_scheme`
+-- Table `patient_billing`.`patient_billing_medical_scheme`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `patient_billing`.`billing_medical_scheme` ;
+DROP TABLE IF EXISTS `patient_billing`.`patient_billing_medical_scheme` ;
 
-CREATE  TABLE IF NOT EXISTS `patient_billing`.`billing_medical_scheme` (
+CREATE  TABLE IF NOT EXISTS `patient_billing`.`patient_billing_medical_scheme` (
   `medical_scheme_id` INT(11) NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(50) NOT NULL ,
   `medical_scheme_provider_id` INT(11) NOT NULL ,
@@ -617,25 +617,25 @@ DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
--- Table `patient_billing`.`billing_accounts_medical_schemes`
+-- Table `patient_billing`.`patient_billing_accounts_medical_schemes`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `patient_billing`.`billing_accounts_medical_schemes` ;
+DROP TABLE IF EXISTS `patient_billing`.`patient_billing_accounts_medical_schemes` ;
 
-CREATE  TABLE IF NOT EXISTS `patient_billing`.`billing_accounts_medical_schemes` (
+CREATE  TABLE IF NOT EXISTS `patient_billing`.`patient_billing_accounts_medical_schemes` (
   `medical_scheme_id` INT(11) NOT NULL ,
   `account_id` INT(11) NOT NULL ,
   PRIMARY KEY (`medical_scheme_id`, `account_id`) ,
-  INDEX `fk_billing_accounts_medical_schemes_1` (`medical_scheme_id` ASC) )
+  INDEX `fk_patient_billing_accounts_medical_schemes_1` (`medical_scheme_id` ASC) )
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
--- Table `patient_billing`.`billing_department`
+-- Table `patient_billing`.`patient_billing_department`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `patient_billing`.`billing_department` ;
+DROP TABLE IF EXISTS `patient_billing`.`patient_billing_department` ;
 
-CREATE  TABLE IF NOT EXISTS `patient_billing`.`billing_department` (
+CREATE  TABLE IF NOT EXISTS `patient_billing`.`patient_billing_department` (
   `department_id` INT(11) NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(50) NOT NULL ,
   `creator` INT(11) NOT NULL ,
@@ -652,11 +652,11 @@ DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
--- Table `patient_billing`.`billing_category`
+-- Table `patient_billing`.`patient_billing_category`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `patient_billing`.`billing_category` ;
+DROP TABLE IF EXISTS `patient_billing`.`patient_billing_category` ;
 
-CREATE  TABLE IF NOT EXISTS `patient_billing`.`billing_category` (
+CREATE  TABLE IF NOT EXISTS `patient_billing`.`patient_billing_category` (
   `category_id` INT(11) NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(50) NOT NULL ,
   `department_id` INT(11) NOT NULL ,
@@ -674,11 +674,11 @@ DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
--- Table `patient_billing`.`billing_invoice`
+-- Table `patient_billing`.`patient_billing_invoice`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `patient_billing`.`billing_invoice` ;
+DROP TABLE IF EXISTS `patient_billing`.`patient_billing_invoice` ;
 
-CREATE  TABLE IF NOT EXISTS `patient_billing`.`billing_invoice` (
+CREATE  TABLE IF NOT EXISTS `patient_billing`.`patient_billing_invoice` (
   `invoice_id` INT(11) NOT NULL AUTO_INCREMENT ,
   `account_id` INT(11) NOT NULL ,
   `invoice_type` CHAR(1) NOT NULL ,
@@ -702,11 +702,11 @@ DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
--- Table `patient_billing`.`billing_product_type`
+-- Table `patient_billing`.`patient_billing_product_type`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `patient_billing`.`billing_product_type` ;
+DROP TABLE IF EXISTS `patient_billing`.`patient_billing_product_type` ;
 
-CREATE  TABLE IF NOT EXISTS `patient_billing`.`billing_product_type` (
+CREATE  TABLE IF NOT EXISTS `patient_billing`.`patient_billing_product_type` (
   `product_type_id` INT(11) NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(50) NOT NULL ,
   `creator` INT(11) NOT NULL ,
@@ -723,11 +723,11 @@ DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
--- Table `patient_billing`.`billing_product`
+-- Table `patient_billing`.`patient_billing_product`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `patient_billing`.`billing_product` ;
+DROP TABLE IF EXISTS `patient_billing`.`patient_billing_product` ;
 
-CREATE  TABLE IF NOT EXISTS `patient_billing`.`billing_product` (
+CREATE  TABLE IF NOT EXISTS `patient_billing`.`patient_billing_product` (
   `product_id` INT(11) NOT NULL AUTO_INCREMENT ,
   `product_type_id` INT(11) NOT NULL ,
   `category_id` INT(11) NOT NULL ,
@@ -746,11 +746,11 @@ DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
--- Table `patient_billing`.`billing_rules`
+-- Table `patient_billing`.`patient_billing_rules`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `patient_billing`.`billing_rules` ;
+DROP TABLE IF EXISTS `patient_billing`.`patient_billing_rules` ;
 
-CREATE  TABLE IF NOT EXISTS `patient_billing`.`billing_rules` (
+CREATE  TABLE IF NOT EXISTS `patient_billing`.`patient_billing_rules` (
   `rule_id` INT(11) NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(50) NOT NULL ,
   `rate` FLOAT NOT NULL ,
@@ -768,11 +768,11 @@ DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
--- Table `patient_billing`.`billing_invoice_line`
+-- Table `patient_billing`.`patient_billing_invoice_line`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `patient_billing`.`billing_invoice_line` ;
+DROP TABLE IF EXISTS `patient_billing`.`patient_billing_invoice_line` ;
 
-CREATE  TABLE IF NOT EXISTS `patient_billing`.`billing_invoice_line` (
+CREATE  TABLE IF NOT EXISTS `patient_billing`.`patient_billing_invoice_line` (
   `invoice_line_id` INT(11) NOT NULL AUTO_INCREMENT ,
   `invoice_id` INT(11) NOT NULL ,
   `product_id` INT(11) NOT NULL ,
@@ -795,11 +795,11 @@ DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
--- Table `patient_billing`.`billing_payment_method`
+-- Table `patient_billing`.`patient_billing_payment_method`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `patient_billing`.`billing_payment_method` ;
+DROP TABLE IF EXISTS `patient_billing`.`patient_billing_payment_method` ;
 
-CREATE  TABLE IF NOT EXISTS `patient_billing`.`billing_payment_method` (
+CREATE  TABLE IF NOT EXISTS `patient_billing`.`patient_billing_payment_method` (
   `payment_method_id` INT(11) NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(50) NOT NULL ,
   `creator` INT(11) NOT NULL ,
@@ -815,11 +815,11 @@ DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
--- Table `patient_billing`.`billing_price`
+-- Table `patient_billing`.`patient_billing_price`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `patient_billing`.`billing_price` ;
+DROP TABLE IF EXISTS `patient_billing`.`patient_billing_price` ;
 
-CREATE  TABLE IF NOT EXISTS `patient_billing`.`billing_price` (
+CREATE  TABLE IF NOT EXISTS `patient_billing`.`patient_billing_price` (
   `price_id` INT(11) NOT NULL AUTO_INCREMENT ,
   `product_id` INT(11) NOT NULL ,
   `price_type` VARCHAR(50) NOT NULL ,
@@ -838,11 +838,11 @@ DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
--- Table `patient_billing`.`billing_price_type`
+-- Table `patient_billing`.`patient_billing_price_type`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `patient_billing`.`billing_price_type` ;
+DROP TABLE IF EXISTS `patient_billing`.`patient_billing_price_type` ;
 
-CREATE  TABLE IF NOT EXISTS `patient_billing`.`billing_price_type` (
+CREATE  TABLE IF NOT EXISTS `patient_billing`.`patient_billing_price_type` (
   `price_type_id` INT(11) NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(50) NOT NULL ,
   `creator` INT(11) NOT NULL ,
@@ -858,11 +858,11 @@ DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
--- Table `patient_billing`.`billing_scheme_provider_type`
+-- Table `patient_billing`.`patient_billing_scheme_provider_type`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `patient_billing`.`billing_scheme_provider_type` ;
+DROP TABLE IF EXISTS `patient_billing`.`patient_billing_scheme_provider_type` ;
 
-CREATE  TABLE IF NOT EXISTS `patient_billing`.`billing_scheme_provider_type` (
+CREATE  TABLE IF NOT EXISTS `patient_billing`.`patient_billing_scheme_provider_type` (
   `scheme_provider_type_id` INT(11) NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(50) NOT NULL ,
   `creator` INT(11) NOT NULL ,
@@ -973,7 +973,7 @@ CREATE  TABLE IF NOT EXISTS `patient_billing`.`concept_answer` (
   `answer_concept` INT(11) NULL DEFAULT NULL ,
   `answer_drug` INT(11) NULL DEFAULT NULL ,
   `creator` INT(11) NOT NULL DEFAULT '0' ,
-  `date_created` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00' ,
+  `date_created` DATETIME NOT NULL DEFAULT '1900-01-01 00:00:00' ,
   `uuid` CHAR(38) NOT NULL ,
   `sort_weight` DOUBLE NULL DEFAULT NULL ,
   PRIMARY KEY (`concept_answer_id`) ,
@@ -1023,7 +1023,7 @@ CREATE  TABLE IF NOT EXISTS `patient_billing`.`concept_description` (
   `description` TEXT NOT NULL ,
   `locale` VARCHAR(50) NOT NULL DEFAULT '' ,
   `creator` INT(11) NOT NULL DEFAULT '0' ,
-  `date_created` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00' ,
+  `date_created` DATETIME NOT NULL DEFAULT '1900-01-01 00:00:00' ,
   `changed_by` INT(11) NULL DEFAULT NULL ,
   `date_changed` DATETIME NULL DEFAULT NULL ,
   `uuid` CHAR(38) NOT NULL ,
@@ -1045,7 +1045,7 @@ CREATE  TABLE IF NOT EXISTS `patient_billing`.`concept_source` (
   `description` TEXT NOT NULL ,
   `hl7_code` VARCHAR(50) NULL DEFAULT NULL ,
   `creator` INT(11) NOT NULL DEFAULT '0' ,
-  `date_created` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00' ,
+  `date_created` DATETIME NOT NULL DEFAULT '1900-01-01 00:00:00' ,
   `retired` TINYINT(1) NOT NULL ,
   `retired_by` INT(11) NULL DEFAULT NULL ,
   `date_retired` DATETIME NULL DEFAULT NULL ,
@@ -1070,7 +1070,7 @@ CREATE  TABLE IF NOT EXISTS `patient_billing`.`concept_map` (
   `source_code` VARCHAR(255) NULL DEFAULT NULL ,
   `comment` VARCHAR(255) NULL DEFAULT NULL ,
   `creator` INT(11) NOT NULL DEFAULT '0' ,
-  `date_created` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00' ,
+  `date_created` DATETIME NOT NULL DEFAULT '1900-01-01 00:00:00' ,
   `concept_id` INT(11) NOT NULL DEFAULT '0' ,
   `uuid` CHAR(38) NOT NULL ,
   PRIMARY KEY (`concept_map_id`) ,
@@ -1090,7 +1090,7 @@ CREATE  TABLE IF NOT EXISTS `patient_billing`.`concept_name_tag` (
   `tag` VARCHAR(50) NOT NULL ,
   `description` TEXT NOT NULL ,
   `creator` INT(11) NOT NULL DEFAULT '0' ,
-  `date_created` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00' ,
+  `date_created` DATETIME NOT NULL DEFAULT '1900-01-01 00:00:00' ,
   `voided` SMALLINT(6) NOT NULL DEFAULT '0' ,
   `voided_by` INT(11) NULL DEFAULT NULL ,
   `date_voided` DATETIME NULL DEFAULT NULL ,
@@ -1156,7 +1156,7 @@ CREATE  TABLE IF NOT EXISTS `patient_billing`.`concept_proposal` (
   `state` VARCHAR(32) NOT NULL DEFAULT 'UNMAPPED' COMMENT 'Valid values are: UNMAPPED, SYNONYM, CONCEPT, REJECT' ,
   `comments` VARCHAR(255) NULL DEFAULT NULL COMMENT 'Comment from concept admin/mapper' ,
   `creator` INT(11) NOT NULL DEFAULT '0' ,
-  `date_created` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00' ,
+  `date_created` DATETIME NOT NULL DEFAULT '1900-01-01 00:00:00' ,
   `changed_by` INT(11) NULL DEFAULT NULL ,
   `date_changed` DATETIME NULL DEFAULT NULL ,
   `locale` VARCHAR(50) NOT NULL DEFAULT '' ,
@@ -1191,7 +1191,7 @@ CREATE  TABLE IF NOT EXISTS `patient_billing`.`concept_set` (
   `concept_set` INT(11) NOT NULL DEFAULT '0' ,
   `sort_weight` DOUBLE NULL DEFAULT NULL ,
   `creator` INT(11) NOT NULL DEFAULT '0' ,
-  `date_created` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00' ,
+  `date_created` DATETIME NOT NULL DEFAULT '1900-01-01 00:00:00' ,
   `uuid` CHAR(38) NOT NULL ,
   PRIMARY KEY (`concept_set_id`) ,
   UNIQUE INDEX `concept_set_uuid_index` (`uuid` ASC) )
@@ -1223,7 +1223,7 @@ CREATE  TABLE IF NOT EXISTS `patient_billing`.`program` (
   `program_id` INT(11) NOT NULL AUTO_INCREMENT ,
   `concept_id` INT(11) NOT NULL DEFAULT '0' ,
   `creator` INT(11) NOT NULL DEFAULT '0' ,
-  `date_created` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00' ,
+  `date_created` DATETIME NOT NULL DEFAULT '1900-01-01 00:00:00' ,
   `changed_by` INT(11) NULL DEFAULT NULL ,
   `date_changed` DATETIME NULL DEFAULT NULL ,
   `retired` SMALLINT(6) NOT NULL DEFAULT '0' ,
@@ -1247,7 +1247,7 @@ CREATE  TABLE IF NOT EXISTS `patient_billing`.`program_workflow` (
   `program_id` INT(11) NOT NULL DEFAULT '0' ,
   `concept_id` INT(11) NOT NULL DEFAULT '0' ,
   `creator` INT(11) NOT NULL DEFAULT '0' ,
-  `date_created` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00' ,
+  `date_created` DATETIME NOT NULL DEFAULT '1900-01-01 00:00:00' ,
   `retired` SMALLINT(6) NOT NULL DEFAULT '0' ,
   `changed_by` INT(11) NULL DEFAULT NULL ,
   `date_changed` DATETIME NULL DEFAULT NULL ,
@@ -1271,7 +1271,7 @@ CREATE  TABLE IF NOT EXISTS `patient_billing`.`program_workflow_state` (
   `initial` SMALLINT(6) NOT NULL DEFAULT '0' ,
   `terminal` SMALLINT(6) NOT NULL DEFAULT '0' ,
   `creator` INT(11) NOT NULL DEFAULT '0' ,
-  `date_created` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00' ,
+  `date_created` DATETIME NOT NULL DEFAULT '1900-01-01 00:00:00' ,
   `retired` SMALLINT(6) NOT NULL DEFAULT '0' ,
   `changed_by` INT(11) NULL DEFAULT NULL ,
   `date_changed` DATETIME NULL DEFAULT NULL ,
@@ -1311,7 +1311,7 @@ CREATE  TABLE IF NOT EXISTS `patient_billing`.`concept_synonym` (
   `synonym` VARCHAR(255) NOT NULL DEFAULT '' ,
   `locale` VARCHAR(255) NULL DEFAULT NULL ,
   `creator` INT(11) NOT NULL DEFAULT '0' ,
-  `date_created` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00' ,
+  `date_created` DATETIME NOT NULL DEFAULT '1900-01-01 00:00:00' ,
   PRIMARY KEY (`synonym`, `concept_id`) )
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
@@ -1344,7 +1344,7 @@ CREATE  TABLE IF NOT EXISTS `patient_billing`.`region` (
   `region_id` INT(11) NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(255) NOT NULL DEFAULT '' ,
   `creator` INT(11) NOT NULL DEFAULT '0' ,
-  `date_created` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00' ,
+  `date_created` DATETIME NOT NULL DEFAULT '1900-01-01 00:00:00' ,
   `retired` TINYINT(1) NOT NULL DEFAULT '0' ,
   `retired_by` INT(11) NULL DEFAULT NULL ,
   `date_retired` DATETIME NULL DEFAULT NULL ,
@@ -1366,7 +1366,7 @@ CREATE  TABLE IF NOT EXISTS `patient_billing`.`district` (
   `name` VARCHAR(255) NOT NULL DEFAULT '' ,
   `region_id` INT(11) NOT NULL DEFAULT '0' ,
   `creator` INT(11) NOT NULL DEFAULT '0' ,
-  `date_created` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00' ,
+  `date_created` DATETIME NOT NULL DEFAULT '1900-01-01 00:00:00' ,
   `retired` TINYINT(1) NOT NULL DEFAULT '0' ,
   `retired_by` INT(11) NULL DEFAULT NULL ,
   `date_retired` DATETIME NULL DEFAULT NULL ,
@@ -1393,7 +1393,7 @@ CREATE  TABLE IF NOT EXISTS `patient_billing`.`drug_substance` (
   `route` INT(11) NULL DEFAULT NULL ,
   `units` VARCHAR(50) NULL DEFAULT NULL ,
   `creator` INT(11) NOT NULL DEFAULT '0' ,
-  `date_created` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00' ,
+  `date_created` DATETIME NOT NULL DEFAULT '1900-01-01 00:00:00' ,
   `retired` TINYINT(1) NOT NULL DEFAULT '0' ,
   `retired_by` INT(11) NULL DEFAULT NULL ,
   `date_retired` DATETIME NULL DEFAULT NULL ,
@@ -1452,7 +1452,7 @@ CREATE  TABLE IF NOT EXISTS `patient_billing`.`external_source` (
   `source_code` VARCHAR(255) NOT NULL ,
   `name` VARCHAR(255) NULL DEFAULT NULL ,
   `creator` INT(11) NOT NULL DEFAULT '0' ,
-  `date_created` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00' ,
+  `date_created` DATETIME NOT NULL DEFAULT '1900-01-01 00:00:00' ,
   PRIMARY KEY (`external_source_id`) )
 ENGINE = InnoDB
 AUTO_INCREMENT = 1022
@@ -1470,7 +1470,7 @@ CREATE  TABLE IF NOT EXISTS `patient_billing`.`field_type` (
   `description` LONGTEXT NULL DEFAULT NULL ,
   `is_set` SMALLINT(6) NOT NULL DEFAULT '0' ,
   `creator` INT(11) NOT NULL DEFAULT '0' ,
-  `date_created` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00' ,
+  `date_created` DATETIME NOT NULL DEFAULT '1900-01-01 00:00:00' ,
   `uuid` CHAR(38) NOT NULL ,
   PRIMARY KEY (`field_type_id`) ,
   UNIQUE INDEX `field_type_uuid_index` (`uuid` ASC) )
@@ -1495,7 +1495,7 @@ CREATE  TABLE IF NOT EXISTS `patient_billing`.`field` (
   `default_value` TEXT NULL DEFAULT NULL ,
   `select_multiple` SMALLINT(6) NOT NULL DEFAULT '0' ,
   `creator` INT(11) NOT NULL DEFAULT '0' ,
-  `date_created` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00' ,
+  `date_created` DATETIME NOT NULL DEFAULT '1900-01-01 00:00:00' ,
   `changed_by` INT(11) NULL DEFAULT NULL ,
   `date_changed` DATETIME NULL DEFAULT NULL ,
   `retired` SMALLINT(6) NOT NULL DEFAULT '0' ,
@@ -1520,7 +1520,7 @@ CREATE  TABLE IF NOT EXISTS `patient_billing`.`field_answer` (
   `field_id` INT(11) NOT NULL DEFAULT '0' ,
   `answer_id` INT(11) NOT NULL DEFAULT '0' ,
   `creator` INT(11) NOT NULL DEFAULT '0' ,
-  `date_created` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00' ,
+  `date_created` DATETIME NOT NULL DEFAULT '1900-01-01 00:00:00' ,
   `uuid` CHAR(38) NOT NULL ,
   PRIMARY KEY (`field_id`, `answer_id`) ,
   UNIQUE INDEX `field_answer_uuid_index` (`uuid` ASC) ,
@@ -1566,7 +1566,7 @@ CREATE  TABLE IF NOT EXISTS `patient_billing`.`form_field` (
   `changed_by` INT(11) NULL DEFAULT NULL ,
   `date_changed` DATETIME NULL DEFAULT NULL ,
   `creator` INT(11) NOT NULL DEFAULT '0' ,
-  `date_created` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00' ,
+  `date_created` DATETIME NOT NULL DEFAULT '1900-01-01 00:00:00' ,
   `sort_weight` FLOAT(11,5) NULL DEFAULT NULL ,
   `uuid` CHAR(38) NOT NULL ,
   PRIMARY KEY (`form_field_id`) ,
@@ -1583,7 +1583,7 @@ DROP TABLE IF EXISTS `patient_billing`.`formentry_archive` ;
 CREATE  TABLE IF NOT EXISTS `patient_billing`.`formentry_archive` (
   `formentry_archive_id` INT(11) NOT NULL AUTO_INCREMENT ,
   `form_data` MEDIUMTEXT NOT NULL ,
-  `date_created` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00' ,
+  `date_created` DATETIME NOT NULL DEFAULT '1900-01-01 00:00:00' ,
   `creator` INT(11) NOT NULL DEFAULT '0' ,
   PRIMARY KEY (`formentry_archive_id`) )
 ENGINE = InnoDB
@@ -1601,7 +1601,7 @@ CREATE  TABLE IF NOT EXISTS `patient_billing`.`formentry_error` (
   `error` VARCHAR(255) NOT NULL DEFAULT '' ,
   `error_details` TEXT NULL DEFAULT NULL ,
   `creator` INT(11) NOT NULL DEFAULT '0' ,
-  `date_created` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00' ,
+  `date_created` DATETIME NOT NULL DEFAULT '1900-01-01 00:00:00' ,
   PRIMARY KEY (`formentry_error_id`) )
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
@@ -1616,7 +1616,7 @@ CREATE  TABLE IF NOT EXISTS `patient_billing`.`formentry_queue` (
   `formentry_queue_id` INT(11) NOT NULL AUTO_INCREMENT ,
   `form_data` MEDIUMTEXT NOT NULL ,
   `creator` INT(11) NOT NULL DEFAULT '0' ,
-  `date_created` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00' ,
+  `date_created` DATETIME NOT NULL DEFAULT '1900-01-01 00:00:00' ,
   PRIMARY KEY (`formentry_queue_id`) )
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
@@ -1632,7 +1632,7 @@ CREATE  TABLE IF NOT EXISTS `patient_billing`.`formentry_xsn` (
   `form_id` INT(11) NOT NULL ,
   `xsn_data` LONGBLOB NOT NULL ,
   `creator` INT(11) NOT NULL DEFAULT '0' ,
-  `date_created` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00' ,
+  `date_created` DATETIME NOT NULL DEFAULT '1900-01-01 00:00:00' ,
   `archived` INT(1) NOT NULL DEFAULT '0' ,
   `archived_by` INT(11) NULL DEFAULT NULL ,
   `date_archived` DATETIME NULL DEFAULT NULL ,
@@ -1667,7 +1667,7 @@ CREATE  TABLE IF NOT EXISTS `patient_billing`.`hl7_in_archive` (
   `hl7_source` INT(11) NOT NULL DEFAULT '0' ,
   `hl7_source_key` VARCHAR(255) NULL DEFAULT NULL ,
   `hl7_data` MEDIUMTEXT NOT NULL ,
-  `date_created` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00' ,
+  `date_created` DATETIME NOT NULL DEFAULT '1900-01-01 00:00:00' ,
   `message_state` INT(1) NULL DEFAULT '2' ,
   `uuid` CHAR(38) NOT NULL ,
   PRIMARY KEY (`hl7_in_archive_id`) ,
@@ -1689,7 +1689,7 @@ CREATE  TABLE IF NOT EXISTS `patient_billing`.`hl7_in_error` (
   `hl7_data` MEDIUMTEXT NOT NULL ,
   `error` VARCHAR(255) NOT NULL DEFAULT '' ,
   `error_details` TEXT NULL DEFAULT NULL ,
-  `date_created` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00' ,
+  `date_created` DATETIME NOT NULL DEFAULT '1900-01-01 00:00:00' ,
   `uuid` CHAR(38) NOT NULL ,
   PRIMARY KEY (`hl7_in_error_id`) ,
   UNIQUE INDEX `hl7_in_error_uuid_index` (`uuid` ASC) )
@@ -1707,7 +1707,7 @@ CREATE  TABLE IF NOT EXISTS `patient_billing`.`hl7_source` (
   `name` VARCHAR(255) NOT NULL DEFAULT '' ,
   `description` TINYTEXT NULL DEFAULT NULL ,
   `creator` INT(11) NOT NULL DEFAULT '0' ,
-  `date_created` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00' ,
+  `date_created` DATETIME NOT NULL DEFAULT '1900-01-01 00:00:00' ,
   `uuid` CHAR(38) NOT NULL ,
   PRIMARY KEY (`hl7_source_id`) ,
   UNIQUE INDEX `hl7_source_uuid_index` (`uuid` ASC) )
@@ -1748,7 +1748,7 @@ CREATE  TABLE IF NOT EXISTS `patient_billing`.`htmlformentry_html_form` (
   `name` VARCHAR(100) NOT NULL ,
   `xml_data` MEDIUMTEXT NOT NULL ,
   `creator` INT(11) NOT NULL DEFAULT '0' ,
-  `date_created` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00' ,
+  `date_created` DATETIME NOT NULL DEFAULT '1900-01-01 00:00:00' ,
   `changed_by` INT(11) NULL DEFAULT NULL ,
   `date_changed` DATETIME NULL DEFAULT NULL ,
   `retired` TINYINT(1) NOT NULL DEFAULT '0' ,
@@ -1840,7 +1840,7 @@ CREATE  TABLE IF NOT EXISTS `patient_billing`.`logic_rule_definition` (
   `rule_content` VARCHAR(2048) NOT NULL ,
   `language` VARCHAR(255) NOT NULL ,
   `creator` INT(11) NOT NULL DEFAULT '0' ,
-  `date_created` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00' ,
+  `date_created` DATETIME NOT NULL DEFAULT '1900-01-01 00:00:00' ,
   `changed_by` INT(11) NULL DEFAULT NULL ,
   `date_changed` DATETIME NULL DEFAULT NULL ,
   `retired` TINYINT(1) NOT NULL DEFAULT '0' ,
@@ -1948,7 +1948,7 @@ CREATE  TABLE IF NOT EXISTS `patient_billing`.`note` (
   `priority` INT(11) NULL DEFAULT NULL ,
   `parent` INT(11) NULL DEFAULT NULL ,
   `creator` INT(11) NOT NULL DEFAULT '0' ,
-  `date_created` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00' ,
+  `date_created` DATETIME NOT NULL DEFAULT '1900-01-01 00:00:00' ,
   `changed_by` INT(11) NULL DEFAULT NULL ,
   `date_changed` DATETIME NULL DEFAULT NULL ,
   `uuid` CHAR(38) NOT NULL ,
@@ -1970,7 +1970,7 @@ CREATE  TABLE IF NOT EXISTS `patient_billing`.`notification_alert` (
   `alert_read` INT(1) NOT NULL DEFAULT '0' ,
   `date_to_expire` DATETIME NULL DEFAULT NULL ,
   `creator` INT(11) NOT NULL ,
-  `date_created` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00' ,
+  `date_created` DATETIME NOT NULL DEFAULT '1900-01-01 00:00:00' ,
   `changed_by` INT(11) NULL DEFAULT NULL ,
   `date_changed` DATETIME NULL DEFAULT NULL ,
   `uuid` CHAR(38) NOT NULL ,
@@ -2027,7 +2027,7 @@ CREATE  TABLE IF NOT EXISTS `patient_billing`.`order_extension` (
   `order_id` INT(11) NOT NULL ,
   `value` VARCHAR(50) NOT NULL DEFAULT '' ,
   `creator` INT(11) NOT NULL DEFAULT '0' ,
-  `date_created` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00' ,
+  `date_created` DATETIME NOT NULL DEFAULT '1900-01-01 00:00:00' ,
   `voided` TINYINT(1) NOT NULL DEFAULT '0' ,
   `voided_by` INT(11) NULL DEFAULT NULL ,
   `date_voided` DATETIME NULL DEFAULT NULL ,
@@ -2050,7 +2050,7 @@ CREATE  TABLE IF NOT EXISTS `patient_billing`.`patient_identifier_type` (
   `format` VARCHAR(50) NULL DEFAULT NULL ,
   `check_digit` SMALLINT(6) NOT NULL DEFAULT '0' ,
   `creator` INT(11) NOT NULL DEFAULT '0' ,
-  `date_created` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00' ,
+  `date_created` DATETIME NOT NULL DEFAULT '1900-01-01 00:00:00' ,
   `required` SMALLINT(6) NOT NULL DEFAULT '0' ,
   `format_description` VARCHAR(255) NULL DEFAULT NULL ,
   `validator` VARCHAR(200) NULL DEFAULT NULL ,
@@ -2080,7 +2080,7 @@ CREATE  TABLE IF NOT EXISTS `patient_billing`.`patient_identifier` (
   `preferred` SMALLINT(6) NOT NULL DEFAULT '0' ,
   `location_id` INT(11) NOT NULL DEFAULT '0' ,
   `creator` INT(11) NOT NULL DEFAULT '0' ,
-  `date_created` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00' ,
+  `date_created` DATETIME NOT NULL DEFAULT '1900-01-01 00:00:00' ,
   `voided` SMALLINT(6) NOT NULL DEFAULT '0' ,
   `voided_by` INT(11) NULL DEFAULT NULL ,
   `date_voided` DATETIME NULL DEFAULT NULL ,
@@ -2106,7 +2106,7 @@ CREATE  TABLE IF NOT EXISTS `patient_billing`.`patient_program` (
   `date_enrolled` DATETIME NULL DEFAULT NULL ,
   `date_completed` DATETIME NULL DEFAULT NULL ,
   `creator` INT(11) NOT NULL DEFAULT '0' ,
-  `date_created` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00' ,
+  `date_created` DATETIME NOT NULL DEFAULT '1900-01-01 00:00:00' ,
   `changed_by` INT(11) NULL DEFAULT NULL ,
   `date_changed` DATETIME NULL DEFAULT NULL ,
   `voided` SMALLINT(6) NOT NULL DEFAULT '0' ,
@@ -2175,7 +2175,7 @@ CREATE  TABLE IF NOT EXISTS `patient_billing`.`patient_state` (
   `start_date` DATE NULL DEFAULT NULL ,
   `end_date` DATE NULL DEFAULT NULL ,
   `creator` INT(11) NOT NULL DEFAULT '0' ,
-  `date_created` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00' ,
+  `date_created` DATETIME NOT NULL DEFAULT '1900-01-01 00:00:00' ,
   `changed_by` INT(11) NULL DEFAULT NULL ,
   `date_changed` DATETIME NULL DEFAULT NULL ,
   `voided` SMALLINT(6) NOT NULL DEFAULT '0' ,
@@ -2204,7 +2204,7 @@ CREATE  TABLE IF NOT EXISTS `patient_billing`.`patientflags_flag` (
   `evaluator` VARCHAR(255) NOT NULL ,
   `description` VARCHAR(1000) NULL DEFAULT NULL ,
   `creator` INT(11) NOT NULL DEFAULT '0' ,
-  `date_created` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00' ,
+  `date_created` DATETIME NOT NULL DEFAULT '1900-01-01 00:00:00' ,
   `changed_by` INT(11) NULL DEFAULT NULL ,
   `date_changed` DATETIME NULL DEFAULT NULL ,
   `retired` TINYINT(1) NOT NULL DEFAULT '0' ,
@@ -2227,7 +2227,7 @@ CREATE  TABLE IF NOT EXISTS `patient_billing`.`patientflags_tag` (
   `tag` VARCHAR(255) NOT NULL ,
   `description` VARCHAR(1000) NULL DEFAULT NULL ,
   `creator` INT(11) NOT NULL DEFAULT '0' ,
-  `date_created` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00' ,
+  `date_created` DATETIME NOT NULL DEFAULT '1900-01-01 00:00:00' ,
   `changed_by` INT(11) NULL DEFAULT NULL ,
   `date_changed` DATETIME NULL DEFAULT NULL ,
   `retired` TINYINT(1) NOT NULL DEFAULT '0' ,
@@ -2294,7 +2294,7 @@ CREATE  TABLE IF NOT EXISTS `patient_billing`.`person_address` (
   `latitude` VARCHAR(50) NULL DEFAULT NULL ,
   `longitude` VARCHAR(50) NULL DEFAULT NULL ,
   `creator` INT(11) NOT NULL DEFAULT '0' ,
-  `date_created` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00' ,
+  `date_created` DATETIME NOT NULL DEFAULT '1900-01-01 00:00:00' ,
   `voided` SMALLINT(6) NOT NULL DEFAULT '0' ,
   `voided_by` INT(11) NULL DEFAULT NULL ,
   `date_voided` DATETIME NULL DEFAULT NULL ,
@@ -2340,7 +2340,7 @@ CREATE  TABLE IF NOT EXISTS `patient_billing`.`person_attribute_type` (
   `foreign_key` INT(11) NULL DEFAULT NULL ,
   `searchable` SMALLINT(6) NOT NULL DEFAULT '0' ,
   `creator` INT(11) NOT NULL DEFAULT '0' ,
-  `date_created` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00' ,
+  `date_created` DATETIME NOT NULL DEFAULT '1900-01-01 00:00:00' ,
   `changed_by` INT(11) NULL DEFAULT NULL ,
   `date_changed` DATETIME NULL DEFAULT NULL ,
   `retired` SMALLINT(6) NOT NULL DEFAULT '0' ,
@@ -2371,7 +2371,7 @@ CREATE  TABLE IF NOT EXISTS `patient_billing`.`person_attribute` (
   `value` VARCHAR(50) NOT NULL DEFAULT '' ,
   `person_attribute_type_id` INT(11) NOT NULL DEFAULT '0' ,
   `creator` INT(11) NOT NULL DEFAULT '0' ,
-  `date_created` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00' ,
+  `date_created` DATETIME NOT NULL DEFAULT '1900-01-01 00:00:00' ,
   `changed_by` INT(11) NULL DEFAULT NULL ,
   `date_changed` DATETIME NULL DEFAULT NULL ,
   `voided` SMALLINT(6) NOT NULL DEFAULT '0' ,
@@ -2404,7 +2404,7 @@ CREATE  TABLE IF NOT EXISTS `patient_billing`.`person_name` (
   `family_name_suffix` VARCHAR(50) NULL DEFAULT NULL ,
   `degree` VARCHAR(50) NULL DEFAULT NULL ,
   `creator` INT(11) NOT NULL DEFAULT '0' ,
-  `date_created` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00' ,
+  `date_created` DATETIME NOT NULL DEFAULT '1900-01-01 00:00:00' ,
   `voided` SMALLINT(6) NOT NULL DEFAULT '0' ,
   `voided_by` INT(11) NULL DEFAULT NULL ,
   `date_voided` DATETIME NULL DEFAULT NULL ,
@@ -2549,7 +2549,7 @@ CREATE  TABLE IF NOT EXISTS `patient_billing`.`relationship_type` (
   `weight` INT(11) NOT NULL DEFAULT '0' ,
   `description` VARCHAR(255) NOT NULL DEFAULT '' ,
   `creator` INT(11) NOT NULL DEFAULT '0' ,
-  `date_created` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00' ,
+  `date_created` DATETIME NOT NULL DEFAULT '1900-01-01 00:00:00' ,
   `uuid` CHAR(38) NOT NULL ,
   `retired` TINYINT(1) NOT NULL DEFAULT '0' ,
   `retired_by` INT(11) NULL DEFAULT NULL ,
@@ -2587,7 +2587,7 @@ CREATE  TABLE IF NOT EXISTS `patient_billing`.`regimen` (
   `min_weight` INT(3) NOT NULL DEFAULT '0' ,
   `max_weight` INT(3) NOT NULL DEFAULT '200' ,
   `creator` INT(11) NOT NULL DEFAULT '0' ,
-  `date_created` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00' ,
+  `date_created` DATETIME NOT NULL DEFAULT '1900-01-01 00:00:00' ,
   `retired` SMALLINT(6) NOT NULL DEFAULT '0' ,
   `retired_by` INT(11) NULL DEFAULT NULL ,
   `date_retired` DATETIME NULL DEFAULT NULL ,
@@ -2615,7 +2615,7 @@ CREATE  TABLE IF NOT EXISTS `patient_billing`.`regimen_drug_order` (
   `quantity` INT(11) NULL DEFAULT NULL ,
   `instructions` TEXT NULL DEFAULT NULL ,
   `creator` INT(11) NOT NULL DEFAULT '0' ,
-  `date_created` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00' ,
+  `date_created` DATETIME NOT NULL DEFAULT '1900-01-01 00:00:00' ,
   `voided` SMALLINT(6) NOT NULL DEFAULT '0' ,
   `voided_by` INT(11) NULL DEFAULT NULL ,
   `date_voided` DATETIME NULL DEFAULT NULL ,
@@ -2638,7 +2638,7 @@ CREATE  TABLE IF NOT EXISTS `patient_billing`.`relationship` (
   `relationship` INT(11) NOT NULL DEFAULT '0' ,
   `person_b` INT(11) NOT NULL ,
   `creator` INT(11) NOT NULL DEFAULT '0' ,
-  `date_created` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00' ,
+  `date_created` DATETIME NOT NULL DEFAULT '1900-01-01 00:00:00' ,
   `voided` SMALLINT(6) NOT NULL DEFAULT '0' ,
   `voided_by` INT(11) NULL DEFAULT NULL ,
   `date_voided` DATETIME NULL DEFAULT NULL ,
@@ -2659,7 +2659,7 @@ DROP TABLE IF EXISTS `patient_billing`.`report_def` ;
 CREATE  TABLE IF NOT EXISTS `patient_billing`.`report_def` (
   `report_def_id` INT(11) NOT NULL AUTO_INCREMENT ,
   `name` MEDIUMTEXT NOT NULL ,
-  `date_created` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00' ,
+  `date_created` DATETIME NOT NULL DEFAULT '1900-01-01 00:00:00' ,
   `creator` INT(11) NOT NULL DEFAULT '0' ,
   PRIMARY KEY (`report_def_id`) )
 ENGINE = InnoDB
@@ -2753,7 +2753,7 @@ CREATE  TABLE IF NOT EXISTS `patient_billing`.`reporting_report_design` (
   `renderer_type` VARCHAR(255) NOT NULL ,
   `properties` TEXT NULL DEFAULT NULL ,
   `creator` INT(11) NOT NULL DEFAULT '0' ,
-  `date_created` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00' ,
+  `date_created` DATETIME NOT NULL DEFAULT '1900-01-01 00:00:00' ,
   `changed_by` INT(11) NULL DEFAULT NULL ,
   `date_changed` DATETIME NULL DEFAULT NULL ,
   `retired` TINYINT(1) NOT NULL DEFAULT '0' ,
@@ -2780,7 +2780,7 @@ CREATE  TABLE IF NOT EXISTS `patient_billing`.`reporting_report_design_resource`
   `extension` VARCHAR(20) NULL DEFAULT NULL ,
   `contents` LONGBLOB NULL DEFAULT NULL ,
   `creator` INT(11) NOT NULL DEFAULT '0' ,
-  `date_created` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00' ,
+  `date_created` DATETIME NOT NULL DEFAULT '1900-01-01 00:00:00' ,
   `changed_by` INT(11) NULL DEFAULT NULL ,
   `date_changed` DATETIME NULL DEFAULT NULL ,
   `retired` TINYINT(1) NOT NULL DEFAULT '0' ,
@@ -2985,7 +2985,7 @@ CREATE  TABLE IF NOT EXISTS `patient_billing`.`traditional_authority` (
   `name` VARCHAR(255) NOT NULL DEFAULT '' ,
   `district_id` INT(11) NOT NULL DEFAULT '0' ,
   `creator` INT(11) NOT NULL DEFAULT '0' ,
-  `date_created` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00' ,
+  `date_created` DATETIME NOT NULL DEFAULT '1900-01-01 00:00:00' ,
   `retired` TINYINT(1) NOT NULL DEFAULT '0' ,
   `retired_by` INT(11) NULL DEFAULT NULL ,
   `date_retired` DATETIME NULL DEFAULT NULL ,
@@ -3034,7 +3034,7 @@ CREATE  TABLE IF NOT EXISTS `patient_billing`.`village` (
   `name` VARCHAR(255) NOT NULL DEFAULT '' ,
   `traditional_authority_id` INT(11) NOT NULL DEFAULT '0' ,
   `creator` INT(11) NOT NULL DEFAULT '0' ,
-  `date_created` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00' ,
+  `date_created` DATETIME NOT NULL DEFAULT '1900-01-01 00:00:00' ,
   `retired` TINYINT(1) NOT NULL DEFAULT '0' ,
   `retired_by` INT(11) NULL DEFAULT NULL ,
   `date_retired` DATETIME NULL DEFAULT NULL ,
