@@ -24,6 +24,7 @@ class PatientsController < ApplicationController
 
     @links = {}
 		
+=begin
     @task.tasks.each{|task|
 
       next if task.downcase == "update baby outcome" and (@patient.current_babies.length == 0 rescue false)
@@ -33,7 +34,7 @@ class PatientsController < ApplicationController
           "&baby=1&baby_total=#{(@patient.current_babies.length rescue 0)}" : "")
       
     }
-
+=end
     @project = get_global_property_value("project.name") rescue "Unknown"
 
     @demographics_url = get_global_property_value("patient.registration.url") rescue nil
