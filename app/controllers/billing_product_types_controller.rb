@@ -1,7 +1,7 @@
 class BillingProductTypesController < ApplicationController
 
   def index
-    @destination = "/clinic?user_id=#{params[:user_id]}"
+    @destination = "/clinic?user_id=#{params[:user_id]}&location_id=#{params[:location_id]}"
 		@product_types = BillingProductType.all
     if params[:user_id].nil?
 			redirect_to '/encounters/no_user' and return
@@ -35,7 +35,7 @@ class BillingProductTypesController < ApplicationController
 
      respond_to do |format|
             if @product_type.save
-              format.html { redirect_to "/show_product_types?user_id=#{params[:user_id]}" if !params[:user_id].blank? }
+              format.html { redirect_to "/show_product_types?user_id=#{params[:user_id]}&location_id=#{params[:location_id]}" if !params[:user_id].blank? }
               format.xml  { render :xml => @product_type, :status => :created, :location => @product_type }
             else
               format.html { render :action => "new" }
@@ -64,7 +64,7 @@ class BillingProductTypesController < ApplicationController
       
       respond_to do |format|
         if @product_type.save
-          format.html { redirect_to "/show_product_types?user_id=#{params[:user_id]}" if !params[:user_id].blank? }
+          format.html { redirect_to "/show_product_types?user_id=#{params[:user_id]}&location_id=#{params[:location_id]}" if !params[:user_id].blank? }
           format.xml  { render :xml => @product_type, :status => :created, :location => @product_type }
         else
           format.html { render :action => "new" }
@@ -82,7 +82,7 @@ class BillingProductTypesController < ApplicationController
 
       product_type.void(void_message,void_time,user_id)
       respond_to do |format|
-        	format.html { redirect_to "/show_product_types?user_id=#{params[:user_id]}" if !params[:user_id].blank? }
+        	format.html { redirect_to "/show_product_types?user_id=#{params[:user_id]}&location_id=#{params[:location_id]}" if !params[:user_id].blank? }
       end
   end
 

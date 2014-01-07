@@ -1,6 +1,6 @@
 class BillingMedicalSchemeProvidersController < ApplicationController
   def index
-    @destination = "/clinic?user_id=#{params[:user_id]}"
+    @destination = "/clinic?user_id=#{params[:user_id]}&location_id=#{params[:location_id]}"
 		@medical_scheme_providers = BillingMedicalSchemeProvider.all
     
     if params[:user_id].nil?
@@ -44,7 +44,7 @@ class BillingMedicalSchemeProvidersController < ApplicationController
       
       respond_to do |format|
       		if @medical_scheme_provider.save
-        		format.html { redirect_to "/show_medical_scheme_providers?user_id=#{params[:user_id]}" if !params[:user_id].blank? }
+        		format.html { redirect_to "/show_medical_scheme_providers?user_id=#{params[:user_id]}&location_id=#{params[:location_id]}" if !params[:user_id].blank? }
         		format.xml  { render :xml => @medical_scheme_provider, :status => :created, :location => @medical_scheme_provider }
       		else
         		format.html { render :action => "new" }
@@ -82,7 +82,7 @@ class BillingMedicalSchemeProvidersController < ApplicationController
   
      respond_to do |format|
       		if @medical_scheme_provider.save
-        		format.html { redirect_to "/show_medical_scheme_providers?user_id=#{params[:user_id]}" if !params[:user_id].blank? }
+        		format.html { redirect_to "/show_medical_scheme_providers?user_id=#{params[:user_id]}&location_id=#{params[:location_id]}" if !params[:user_id].blank? }
         		format.xml  { render :xml => @medical_scheme_provider, :status => :created, :location => @medical_scheme_provider }
       		else
         		format.html { render :action => "edit" }
@@ -107,7 +107,7 @@ class BillingMedicalSchemeProvidersController < ApplicationController
       
       medical_scheme_provider.void(void_message,void_time,user_id)
       respond_to do |format|
-        	format.html { redirect_to "/show_medical_scheme_providers?user_id=#{params[:user_id]}" if !params[:user_id].blank? }
+        	format.html { redirect_to "/show_medical_scheme_providers?user_id=#{params[:user_id]}&location_id=#{params[:location_id]}" if !params[:user_id].blank? }
       end
   end
 

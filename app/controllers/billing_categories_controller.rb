@@ -1,7 +1,7 @@
 class BillingCategoriesController < ApplicationController
 
 	def index
-    @destination = "/clinic?user_id=#{params[:user_id]}"
+    @destination = "/clinic?user_id=#{params[:user_id]}&location_id=#{params[:location_id]}"
 		@categories = BillingCategory.all
     if params[:user_id].nil?
 			redirect_to '/encounters/no_user' and return
@@ -39,7 +39,7 @@ class BillingCategoriesController < ApplicationController
     
 	 respond_to do |format|
       		if @category.save
-        		format.html { redirect_to "/show_categories?user_id=#{params[:user_id]}" if !params[:user_id].blank? }
+        		format.html { redirect_to "/show_categories?user_id=#{params[:user_id]}&location_id=#{params[:location_id]}" if !params[:user_id].blank? }
         		format.xml  { render :xml => @category, :status => :created, :location => @category }
       		else
         		format.html { render :action => "new" }
@@ -86,7 +86,7 @@ class BillingCategoriesController < ApplicationController
       @category.department_id = params[:department_id]
       respond_to do |format|
         if @category.save
-          format.html { redirect_to "/show_categories?user_id=#{params[:user_id]}" if !params[:user_id].blank? }
+          format.html { redirect_to "/show_categories?user_id=#{params[:user_id]}&location_id=#{params[:location_id]}" if !params[:user_id].blank? }
           format.xml  { render :xml => @category, :status => :created, :location => @category }
         else
           format.html { render :action => "new" }
@@ -112,7 +112,7 @@ class BillingCategoriesController < ApplicationController
       category.void(void_message,void_time,user_id)
       
       respond_to do |format|
-        	format.html { redirect_to "/show_categories?user_id=#{params[:user_id]}" if !params[:user_id].blank? }
+        	format.html { redirect_to "/show_categories?user_id=#{params[:user_id]}&location_id=#{params[:location_id]}" if !params[:user_id].blank? }
       end
   end
 

@@ -62,10 +62,10 @@ class BillingProductController < ApplicationController
 	  
      respond_to do |format|
             if @product.save and !params[:from_category].blank?
-              format.html { redirect_to "/show_categories?user_id=#{params[:user_id]}" if !params[:user_id].blank? }
+              format.html { redirect_to "/show_categories?user_id=#{params[:user_id]}&location_id=#{params[:location_id]}" if !params[:user_id].blank? }
               format.xml  { render :xml => @products, :status => :created, :location => @product }
             elsif @product.save
-              format.html { redirect_to "/show_products?user_id=#{params[:user_id]}" if !params[:user_id].blank? }
+              format.html { redirect_to "/show_products?user_id=#{params[:user_id]}&location_id=#{params[:location_id]}" if !params[:user_id].blank? }
               format.xml  { render :xml => @products, :status => :created, :location => @product }
             else
               format.html { render :action => "new" }
@@ -102,7 +102,7 @@ class BillingProductController < ApplicationController
       @product.product_type_id = [:product_type]
       respond_to do |format|
         if @product.save
-          format.html { redirect_to "/show_products?user_id=#{params[:user_id]}" if !params[:user_id].blank? }
+          format.html { redirect_to "/show_products?user_id=#{params[:user_id]}&location_id=#{params[:location_id]}" if !params[:user_id].blank? }
           format.xml  { render :xml => @product, :status => :created, :location => @product }
         else
           format.html { render :action => "new" }
@@ -124,7 +124,7 @@ class BillingProductController < ApplicationController
       end
       product.void(void_message,void_time,user_id)
       respond_to do |format|
-        	format.html { redirect_to "/show_products?user_id=#{params[:user_id]}" if !params[:user_id].blank? }
+        	format.html { redirect_to "/show_products?user_id=#{params[:user_id]}&location_id=#{params[:location_id]}" if !params[:user_id].blank? }
       end
   end
 

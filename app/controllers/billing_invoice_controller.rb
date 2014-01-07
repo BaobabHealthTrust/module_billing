@@ -16,7 +16,7 @@ class BillingInvoiceController < ApplicationController
       invoice.void(void_message,void_time,user_id)
 
       respond_to do |format|
-        	format.html { redirect_to "/billing_accounts/invoice_history?patient_id=#{patient_id}&user_id=#{user_id}" }
+        	format.html { redirect_to "/billing_accounts/invoice_history?patient_id=#{patient_id}&user_id=#{user_id}&location_id=#{params[:location_id]}" }
       end
   end
 

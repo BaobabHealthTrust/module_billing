@@ -1,7 +1,7 @@
   class BillingMedicalSchemesController < ApplicationController
 
   def index
-    	@destination = "/clinic?user_id=#{params[:user_id]}"
+    	@destination = "/clinic?user_id=#{params[:user_id]}&location_id=#{params[:location_id]}"
 		@medical_schemes = BillingMedicalScheme.all
     	if params[:user_id].nil?
 			redirect_to '/encounters/no_user' and return
@@ -42,7 +42,7 @@
   		respond_to do |format|
       		if @medical_scheme.save
         		#flash[:notice] = 'Rule was successfully created.'
-        		format.html { redirect_to "/show_medical_schemes?user_id=#{params[:user_id]}" if !params[:user_id].blank? }
+        		format.html { redirect_to "/show_medical_schemes?user_id=#{params[:user_id]}&location_id=#{params[:location_id]}" if !params[:user_id].blank? }
         		format.xml  { render :xml => @medical_scheme, :status => :created, :location => @medical_scheme }
       		else
         		format.html { render :action => "new" }
@@ -78,7 +78,7 @@
     respond_to do |format|
        if @medical_scheme.save
         #flash[:notice] = 'Successfully Edited.'
-        format.html { redirect_to "/show_medical_schemes?user_id=#{params[:user_id]}" if !params[:user_id].blank? }
+        format.html { redirect_to "/show_medical_schemes?user_id=#{params[:user_id]}&location_id=#{params[:location_id]}" if !params[:user_id].blank? }
         format.xml  { render :xml => @medical_scheme, :status => :created, :location => @medical_scheme }
        else
         format.html { render :action => "new" }
@@ -96,7 +96,7 @@
     user_id = params[:user_id]
 
     #rules = @medical_scheme.billing_rules
-    accounts = @medical_scheme.billing_accounts
+    #accounts = @medical_scheme.billing_accounts
 
     rules.each do |rule|
       rule.billing_invoice_lines.each do |invoice|
@@ -109,7 +109,7 @@
 =end
      @medical_scheme.void(void_message, void_time, user_id)
      respond_to do |format|
-       format.html { redirect_to "/show_medical_schemes?user_id=#{params[:user_id]}" if !params[:user_id].blank? }
+       format.html { redirect_to "/show_medical_schemes?user_id=#{params[:user_id]}&location_id=#{params[:location_id]}" if !params[:user_id].blank? }
      end
   end
 
