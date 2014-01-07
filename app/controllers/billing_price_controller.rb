@@ -1,7 +1,7 @@
 class BillingPriceController < ApplicationController
 
   def index
-    @destination = "/clinic?user_id=#{params[:user_id]}"
+    @destination = "/clinic?user_id=#{params[:user_id]}&location_id=#{params[:location_id]}"
 		@prices = BillingPrice.all
     if params[:user_id].nil?
 			redirect_to '/encounters/no_user' and return
@@ -58,10 +58,10 @@ class BillingPriceController < ApplicationController
 
      respond_to do |format|
             if @price.save and !params[:from_service].blank?
-              format.html { redirect_to "/show_products?user_id=#{params[:user_id]}" if !params[:user_id].blank? }
+              format.html { redirect_to "/show_products?user_id=#{params[:user_id]}&location_id=#{params[:location_id]}" if !params[:user_id].blank? }
               format.xml  { render :xml => @price, :status => :created, :location => @price }
             elsif @price.save
-              format.html { redirect_to "/show_prices?user_id=#{params[:user_id]}" if !params[:user_id].blank? }
+              format.html { redirect_to "/show_prices?user_id=#{params[:user_id]}&location_id=#{params[:location_id]}" if !params[:user_id].blank? }
               format.xml  { render :xml => @price, :status => :created, :location => @price }
             else
               format.html { render :action => "new" }
