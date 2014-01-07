@@ -1,6 +1,6 @@
 
 class CartItem
-  attr_reader :product, :quantity, :price_type
+  attr_reader :product, :quantity, :price_type, :price
 
   def initialize(product,price_type = nil)
     @product = product
