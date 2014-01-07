@@ -1,7 +1,7 @@
 class BillingProductController < ApplicationController
 
   def index
-    @destination = "/clinic?user_id=#{params[:user_id]}"
+    @destination = "/clinic?user_id=#{params[:user_id]}&location_id=#{params[:location_id]}"
 		@products = BillingProduct.all
     if params[:user_id].nil?
 			redirect_to '/encounters/no_user' and return
