@@ -136,7 +136,7 @@
               <div style="display: table-cell; border-left: 1px dotted #ccc; border-bottom: 1px dotted #ccc;
                    border-right: 1px dotted #ccc; padding: 5px; text-align: right; vertical-align: top; padding-top: 20px;">
                    <%= (number_to_currency(item.price/item.quantity, :locale => :mw)) rescue 0.00 %>
-                   <% total_tax += (item.price * @vat)/100  %>
+                   <% total_tax += (item.price * @vat)/100 rescue 0.00 %>
               </div>
 
               <div style="display: table-cell; border-left: 1px dotted #ccc; border-bottom: 1px dotted #ccc;
