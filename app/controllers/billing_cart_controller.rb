@@ -18,7 +18,7 @@ class BillingCartController < ApplicationController
         product = BillingProduct.find_by_name(params[:service][:service_name])
         price_type = BillingAccount.find_by_patient_id(@patient_id).price_type rescue "General"
         quantity = params[:discharge_date].to_date.day - params[:admitted_date].to_date.day
-        quantity = quantity <= 0 ? 1 : quantity
+        quantity = quantity <= 0 ? 1 : quantity + 1
         quantity.times do
           @cart.add_product(product,price_type)
         end
