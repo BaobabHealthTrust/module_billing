@@ -76,19 +76,19 @@
     <% @services.each do |service|%>
       <tr>
         <td style="text-align:left;">
-          <%= service.billing_product.billing_category.billing_department.name %>
+ 					 <%= service.name rescue nil %>
         </td>
         <td>
-          <%= service.howmany %>
-        </td>
-        <td>
-          &nbsp;
+          <%= service.howmany rescue nil %>
         </td>
         <td>
           &nbsp;
         </td>
         <td>
-          <%= service.howmany %>
+          &nbsp;
+        </td>
+        <td>
+          <%= service.howmany rescue nil %>
         </td>
       </tr>
     <% end %>

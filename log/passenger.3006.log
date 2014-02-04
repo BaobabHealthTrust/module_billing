@@ -11,3 +11,24 @@
 [ 2013-05-24 12:09:36.8317 12032/7f37c039f700 Pool2/Implementation.cpp:1156 ]: [App 12060 stderr] /var/www/module_under_5/app/views/clinic/index.rhtml:28: warning: Object#id will be deprecated; use Object#object_id
 [ 2013-05-24 12:14:37.1274 12032/7f37c039f700 Pool2/Implementation.cpp:1156 ]: [App 12060 stderr] /var/www/module_under_5/app/views/clinic/index.rhtml:28: warning: Object#id will be deprecated; use Object#object_id
 [ 2013-05-24 12:22:23.4734 12032/7f37c039f700 Pool2/Implementation.cpp:1156 ]: [App 12060 stderr] /var/www/module_under_5/app/views/clinic/index.rhtml:28: warning: Object#id will be deprecated; use Object#object_id
+[ 2014-02-04 08:58:03.8882 18786/7f7c3b142740 agents/Watchdog/Main.cpp:538 ]: Options: { 'analytics_log_user' => 'blessings', 'cleanup_pidfiles' => 'L3RtcC9wYXNzZW5nZXItc3RhbmRhbG9uZS4xbWtuY3AxL3RlbXBfZGlyX3RvdWNoZXIucGlk', 'default_group' => 'blessings', 'default_python' => 'python', 'default_ruby' => '/usr/bin/ruby1.8', 'default_user' => 'blessings', 'log_level' => '0', 'max_pool_size' => '6', 'passenger_root' => '/tmp/passenger-standalone.1mkncp1/locations.ini', 'passenger_version' => '4.0.37', 'pool_idle_time' => '300', 'prestart_urls' => 'aHR0cDovLzAuMC4wLjA6MzAwNgA=', 'temp_dir' => '/tmp', 'union_station_gateway_address' => 'gateway.unionstationapp.com', 'union_station_gateway_port' => '443', 'user_switching' => 'false', 'web_server_passenger_version' => '4.0.37', 'web_server_pid' => '18785', 'web_server_type' => 'nginx', 'web_server_worker_gid' => '-1', 'web_server_worker_uid' => '-1' }
+[ 2014-02-04 08:58:03.9131 18789/7f5ac2ff7740 agents/HelperAgent/Main.cpp:643 ]: PassengerHelperAgent online, listening at unix:/tmp/passenger.1.0.18785/generation-0/request
+[ 2014-02-04 08:58:03.9273 18795/7f4afaa57740 agents/LoggingAgent/Main.cpp:321 ]: PassengerLoggingAgent online, listening at unix:/tmp/passenger.1.0.18785/generation-0/logging
+[ 2014-02-04 08:58:03.9278 18786/7f7c3b142740 agents/Watchdog/Main.cpp:728 ]: All Phusion Passenger agents started!
+App 18825 stdout: 
+[ 2014-02-04 08:58:07.1153 18789/7f5ac2f11700 Pool2/SmartSpawner.h:301 ]: Preloader for /var/www/billing started on PID 18825, listening on unix:/tmp/passenger.1.0.18785/generation-0/backends/preloader.18825
+App 18844 stdout: 
+App 18825 stderr: /var/www/billing/app/views/clinic/index.rhtml:28: warning: Object#id will be deprecated; use Object#object_id
+App 18825 stderr: /var/www/billing/app/views/clinic/index.rhtml:28: warning: Object#id will be deprecated; use Object#object_id
+App 18825 stderr: /var/www/billing/app/views/clinic/index.rhtml:28: warning: Object#id will be deprecated; use Object#object_id
+App 18825 stderr: /var/www/billing/app/views/clinic/index.rhtml:28: warning: Object#id will be deprecated; use Object#object_id
+App 18825 stderr: /var/www/billing/app/views/clinic/index.rhtml:28: warning: Object#id will be deprecated; use Object#object_id
+App 18825 stderr: /var/www/billing/app/views/clinic/index.rhtml:28: warning: Object#id will be deprecated; use Object#object_id
+App 18825 stderr: /var/www/billing/app/views/clinic/index.rhtml:28: warning: Object#id will be deprecated; use Object#object_id
+App 18825 stderr: /var/www/billing/app/views/clinic/index.rhtml:28: warning: Object#id will be deprecated; use Object#object_id
+App 18825 stderr: /var/www/billing/app/views/clinic/index.rhtml:28: warning: Object#id will be deprecated; use Object#object_id
+App 18825 stderr: /var/www/billing/app/views/clinic/index.rhtml:28: warning: Object#id will be deprecated; use Object#object_id
+App 18825 stderr: /var/www/billing/app/views/clinic/index.rhtml:28: warning: Object#id will be deprecated; use Object#object_id
+App 18825 stderr: /var/www/billing/app/views/clinic/index.rhtml:28: warning: Object#id will be deprecated; use Object#object_id
+App 18825 stderr: /var/www/billing/app/views/clinic/index.rhtml:28: warning: Object#id will be deprecated; use Object#object_id
+App 18825 stderr: /var/www/billing/app/views/clinic/index.rhtml:28: warning: Object#id will be deprecated; use Object#object_id
