@@ -39,9 +39,10 @@ module ZebraPrinter #:nodoc:
       @y = @top_margin
       @column = 0
       @output << "\nN\n"
-      @output << "R#{0}#{','}#{0}\n"
-      @output << "Q#{10}#{','}#{0}\n"
-      @output << "Z#{@orientation}\n"
+      @output << "R#{0}#{','}#{0}\n" # Set Reference point
+      @output << "Q#{0}#{','}#{0}\n" # Set Continous paper
+      @output << "q#{812}\n"         # Set width of paper
+      @output << "Z#{@orientation}\n" # Print Direction
     end
 
     def set_image(filename)
