@@ -6,7 +6,23 @@ class ApplicationController < ActionController::Base
 
   before_filter :check_user, :except => [:user_login, :user_logout, :missing_program,
     :missing_concept, :no_user, :no_patient, :project_users_list, :check_role_activities]
+    
+    
+  def rescue_action_in_public(exception)
+	@message = exception.message
+	@backtrace = exception.backtrace.join("\n") unless exception.nil?
+	logger.info @message
+	logger.info @backtrace
+	render :file => "#{RAILS_ROOT}/app/views/errors/error.rhtml", :layout=> false, :status => 404
+  end if RAILS_ENV == 'development' || RAILS_ENV == 'test'
 
+  def rescue_action(exception)
+    @message = exception.message
+    @backtrace = exception.backtrace.join("\n") unless exception.nil?
+    logger.info @message
+    logger.info @backtrace
+    render :file => "#{RAILS_ROOT}/app/views/errors/error.rhtml", :layout=> false, :status => 404
+  end if RAILS_ENV == 'production'
 
   def get_global_property_value(global_property)
 		property_value = Settings[global_property]
