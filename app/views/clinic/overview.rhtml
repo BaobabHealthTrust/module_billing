@@ -9,21 +9,17 @@
     font-family: Arial, Verdana, Geneva, sans-serif
   }
 
-  #stats {
+ #stats {
     width:98%;
     border:1px solid #eee;
     margin:10px;
-    margin-top: 0px;
     background:white;
   }
   #stats td, #stats th {
     text-align:center;
   }
   .odd {
-    background-color: #eeeef7;
-  }
-  .even {
-    background-color: #fff;
+    background-color: #eee;
   }
 
   #table_div {
@@ -68,47 +64,25 @@
   <h2 style="">Current Service Statistics</h2>
   <div id="table_div">
   <table id="stats" style="margin-bottom: 8px;" cellpadding="5">
-    <tr style="color: #fff; background-color: #6281a7;height: 2px;vertical-align: top;">
+    <tr style="color: #fff; background-color: #4A708B;height: 2px;vertical-align: top;">
       <th style="text-align:left;">Department</th>
       <th>Me</th>
       <th>Today</th>
-      <th>This Year</th>
-      <th>Total to Date</th>
     </tr>
 
     <% @services.each do |service|%>
-      <tr>
+        <tr class="<%= cycle('even', 'odd') %>">
         <td style="text-align:left;">
- 					 <%= service.name rescue nil %>
+ 			<%= service.name.titlecase rescue nil %>
         </td>
         <td>
           <%= service.howmany rescue nil %>
-        </td>
-        <td>
-          &nbsp;
-        </td>
-        <td>
-          &nbsp;
         </td>
         <td>
           <%= service.howmany rescue nil %>
         </td>
       </tr>
     <% end %>
-
-<%# @types.each do |type| %>
-      <!-- tr class="<%#= cycle('even', 'odd') %>">
-        <td style="text-align:left;"><%#= (type == "HIV STATUS" ? "HIV Status" :
-(type == "PMTCT MANAGEMENT" ? "PMTCT Management" : (type == "OBSERVATIONS" ?
-"ANC Management" : (type == "TREATMENT" ? "Drug Administration" :
-(type == "APPOINTMENT" ? "Appointments" : (type == "UPDATE OUTCOME" ? "Outcome Updates" :
-type.titleize)))))) %></td>
-        <td><%#= @me[type] %></td>
-        <td><%#= @today[type] %></td>
-        <td><%#= @year[type] %></td>
-        <td><%#= @ever[type] %></td>
-      </tr-->
-<%# end %>
-  </table>
+ </table>
   </div>
 </div>
