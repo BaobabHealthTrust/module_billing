@@ -7,6 +7,7 @@ public/clean
 script/analyze_protocol
 script/clean	
 Gemfile.lock
+nbproject/
 *~
 log/*
 config/*~
